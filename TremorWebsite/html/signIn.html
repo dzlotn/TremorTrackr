@@ -1,12 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign-In</title>
+    <title>Sign In</title>
+
+    <!-- Bootstrap 5 CSS, Icons and custom CSS file links -->
+
+    <link rel="stylesheet" href="../css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+    <!-- Bootstrap 5, crypto-js and custom JS script tags-->
+    <!-- Include 'defer' keyword for each to improve loading-->
+    <script type="module" src="/js/signIn.js" defer></script>
 </head>
+
 <body>
-    
+    <section class="signInPage" style="height:713px;">
+
+        <nav class="navbar navbar-expand-lg nb-bg-color " style="z-index:50;">
+            <div class="container">
+                <a href="../index.html" class="navbar-brand">
+                    <img src="../img/biking-logo.png" alt="bike" class="d-inline-block w-75 h-75">
+                </a>
+
+                <!-- Hamburger Menu Button -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Collapsible navbar menu with custom hover underline CSS animation-->
+                <div class="collapse navbar-collapse " id="navmenu">
+                    <!-- Links to hamburger menu button-->
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item ">
+                            <a href="../html/diagram.html" class="nav-link hover-underline-animation menu1 "
+                                id="nbMenuItem">Diagram</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="../html/history.html" class="nav-link hover-underline-animation menu2"
+                                id="nbMenuItem">History</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="../html/trails.html" class="nav-link hover-underline-animation menu3"
+                                id="nbMenuItem">Trails</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!--Sign in Functions in a Card-->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-11 m-auto ">
+                    <div class="card d-flex flex-row bg-transparent rounded " style="margin-top: 7%">
+
+                        <img class="signinimage" src="/img/mountainsignin.jpg" style="height:500px; width:700px">
+
+                        <div class="d-flex justify-content-center align-items-center nb-bg-color flex-column flex-grow-1">
+
+
+                            <div class="signin-card-body ">
+                                <div class="card-title text-black align-self-baseline ">
+                                    <h3 class="text-center text-light py-2 font-weight-bold mb-3 mt-5">Sign-In</h3>
+                                </div>
+                                <form>
+                                    <input type="email" placeholder="Email" id="loginEmail"
+                                        class="form-control mb-4 w-100">
+                                    <input type="password" placeholder="Password" id="loginPassword"
+                                        class="form-control mb-4 w-100">
+                                    <div class="form-check form-switch mb-4">
+                                        <input class="form-check-input " type="checkbox" role="switch"
+                                            id="keepLoggedInSwitch">
+                                        <label class="form-check-label text-light" for="flexSwitchCheckDefault">Keep me
+                                            signed in</label>
+                                    </div>
+                                    <button type="button" id="signIn" name="signIn"
+                                        class="btn text-light btn-light btn-outline-light  mb-3 w-100" style="background-color:var(--timelinepath);">Sign In</button>
+                                    <a href="register.html" class="badge text-light mb-3 py-1 w-100">Don't have an
+                                        account?</a>
+                                    <div id="error" style="color:var(--timelinepath);">The username or password is incorrect</div>
+
+                                    
+
+                                </form>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
 </body>
+
 </html>
