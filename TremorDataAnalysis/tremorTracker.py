@@ -2,7 +2,7 @@ import pandas as pd
 import os
 
 def main():
-    print(import_data('TestData\\mmc1.csv'))
+    data = import_data('TestData\\mmc1.csv')
 
 def import_data(filepath):
     directory = os.path.dirname(os.path.abspath(__file__))
