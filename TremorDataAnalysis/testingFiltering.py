@@ -16,7 +16,7 @@ plt.plot(t, signalc, label='c')
 
 fc = 30  # Cut-off frequency of the filter
 w = fc / (fs / 2) # Normalize the frequency
-b, a = signal.butter(5, w, 'low')
+b, a = signal.butter(1, w, 'low')
 output = signal.filtfilt(b, a, signalc)
 plt.plot(t, output, label='filtered')
 plt.legend()
