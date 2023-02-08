@@ -28,11 +28,16 @@ def main():
     axs[1].plot(time[:2000], emg_output[:2000], label='filtered')
     axs[1].set_title('EMG')
     plt.show()
+    print(emg_output)
 
 
 ''' Do a bandpass filter on data with low and high being the min and max frequencies'''
 def butter_filter(data, low, high):
     band_filter = signal.butter(10, [low, high], btype='bandpass', output='sos', fs=1000)
+    return signal.sosfilt(band_filter, data)
+
+def ellip_filter(data, low):
+    band_filter = signal.ellip(2, 0.5, 40,low, btype='lowpass',  output='sos', fs=1000 )
     return signal.sosfilt(band_filter, data)
 
 def low_pass(data, frequency):
@@ -44,6 +49,7 @@ def high_pass(data, frequency):
     return signal.sosfilt(high_filter, data)
 
 ''' Import a space-separated csv file into a pandas dataFrame'''
+    
 def import_data(filepath):
     directory = os.path.dirname(os.path.abspath(__file__))
     datafile = os.path.join(directory, filepath)
