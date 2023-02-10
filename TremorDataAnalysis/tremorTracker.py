@@ -3,28 +3,35 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import signal
+from scipy.fft import rfft, rfftfreq
 
 
 def main():
     data = import_data('TestData\\mmc1.csv')
-    data = data[:1000]
+    data = data[:10000]
     time = data['Time']
     acc = data['RightACC']
     emg = data['RightEMGflex']
 
     # Filter data
-    acc_output = butter_filter(acc, 2, 30)
-    emg_output = np.absolute(butter_filter(emg, 5,250))
+    acc_output = rfft(butter_filter(acc, 2, 30))
+    emg_output = (np.absolute(butter_filter(emg, 5,250)))
+
+    
    
+    
+    xf = rfftfreq(10000, 1 / 1000)
+    import matplotlib.pyplot as plt
+    # plt.plot(xf, np.abs(emg_output))
+
+
 
     # Display data
     fig, axs = plt.subplots(2)
-    axs[0].plot(time, acc, label='actual')
-    axs[0].plot(time, acc_output, label='filtered')
-    axs[0].set_title('ACC')
-    axs[1].plot(time, emg, label='actual')
-    axs[1].plot(time, emg_output, label='filtered')
-    axs[1].set_title('EMG')
+    axs[0].plot(time, emg_output, label='emg')
+    axs[0].set_title('EMG')
+    axs[1].plot(xf, np.abs(acc_output), label='acc')
+    axs[1].set_title('ACC')
     plt.show()
     print(emg_output)
 
