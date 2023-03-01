@@ -8,6 +8,7 @@ from scipy.fft import rfft, rfftfreq
 
 def main():
     data = import_data('TestData\\mmc1.csv')
+    data = data[:1000] 
     time = data['Time']
     acc = data['RightACC']
     emg = data['RightEMGext'].abs()
