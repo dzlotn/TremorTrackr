@@ -8,14 +8,14 @@ from scipy.fft import rfft, rfftfreq
 
 def main():
     data = import_data('TestData\\mmc1.csv')
-    data = data[:1000]
     time = data['Time']
     acc = data['RightACC']
     emg = data['RightEMGext'].abs()
 
     # Filter data
     acc_output = butter_filter(acc, 2, 30)
-    emg_output = np.absolute(butter_filter(emg, 5,250))
+    emg_output = low_pass(emg, 45)
+    emg_output = high_pass(emg_output, 0.25)
    
 
     # Display data
@@ -48,7 +48,6 @@ def high_pass(data, frequency):
     return signal.sosfilt(high_filter, data)
 
 ''' Import a space-separated csv file into a pandas dataFrame'''
-    
 def import_data(filepath):
     directory = os.path.dirname(os.path.abspath(__file__))
     datafile = os.path.join(directory, filepath)
