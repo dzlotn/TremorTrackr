@@ -25,7 +25,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark nb-bg-color">
             <div class="container">
                 <a href="#" class="navbar-brand">
-                    <img src="img/eEsfu70EOMx1TlBf5tYAiA_Go0bFvBvzClwSivuaiELg_head_01-removebg-preview.png" alt="Skull"
+                    <img src="{{url_for('static', filename='img/hand-tremor.jpeg')}}" alt="Skull"
                         class="d-inline-block align-text-top w-25">
                 </a>
                 <!-- Hamburger Menu Button -->
@@ -39,20 +39,20 @@
                     <ul class="navbar-nav ms-auto">
                         
                         <li class="nav-item">
-                            <a href="html/author.html" class="nav-link hover-underline-animation " id="nbMenuItem">Author</a>
+                            <a href="{{url_for('about')}}" class="nav-link hover-underline-animation " id="nbMenuItem">About</a>
                         </li>
                         <li class="nav-item">
-                            <a href="html/procedure.html" class="nav-link hover-underline-animation "
+                            <a href="{{url_for('procedure')}}" class="nav-link hover-underline-animation "
                                 id="nbMenuItem">Procedure</a>
                         </li>
                         <li class="nav-item nbMenuItem">
-                            <a href="html/results.html" class="nav-link hover-underline-animation " id="nbMenuItem">Results</a>
+                            <a href="{{url_for('interpretation')}}" class="nav-link hover-underline-animation " id="nbMenuItem">Interpretation</a>
                         </li>
                         <li class="nav-item nbMenuItem">
-                            <a href="html/register.html" class="nav-link hover-underline-animation " id="nbMenuItem">Register</a>
+                            <a href="{{url_for('register')}}" class="nav-link hover-underline-animation " id="nbMenuItem">Register</a>
                         </li>
                         <li class="nav-item nbMenuItem">
-                            <a href="html/signin.html" class="nav-link hover-underline-animation " id="nbMenuItem">Sign-In</a>
+                            <a href="{{url_for('signIn')}}" class="nav-link hover-underline-animation " id="nbMenuItem">Sign-In</a>
                         </li>
                     </ul>
                 </div>
