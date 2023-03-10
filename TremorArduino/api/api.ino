@@ -27,13 +27,17 @@ Instructions:
 #include <WiFiNINA.h>         // Used to connect Nano IoT to network
 #include <ArduinoJson.h>      // Used for HTTP Request
 #include "arduino_secrets.h"  // Used to store private network info
+#include <Wire.h>             // Used for I2C
+#include <LSM6DSOXSensor.h>   // Used for IMU sensor
+#include <lsm6dsox_reg.h>     // Used for IMU sensor
 
 // Define global variables and constants for the circuit & sensor
-const int trigPin = 2; // attach pin D2 Arduino to pin Trig of HC-SR04
-const int echoPin = 3; // attach pin D3 Arduino to pin Echo of HC-SR04
-long distance;         // long variable for distance value
-long duration;         // long variable for duration value
-
+const int IMU_SDA = A4;
+const int IMU_SCL = A5;
+int32_t accelerometer[3];
+double resultant;
+const int EMG_SIG = A6;
+int muscle;
 
 ///////please enter your sensitive data in the Secret tab/arduino_secrets.h
 char ssid[] = SECRET_SSID;    // your network SSID (name)
@@ -52,15 +56,24 @@ unsigned long lastConnectionTime = 0;
 const unsigned long postingInterval = 10L * 50L; // delay between updates, in milliseconds (10L * 50L is around 1 second between requests)
 
 void setup(){
-  
   Serial.begin(9600); // Start serial monitor
-
-  pinMode(trigPin, OUTPUT); // Sets the trigPin as an OUTPUT
-  pinMode(echoPin, INPUT); // Sets the echoPin as an INPUT
 
   while (!Serial) {
     ; // wait for serial port to connect. Needed for native USB port only
   }
+
+  // Pin INPUTS/OUTPUT
+  pinMode(EMG_SIG, INPUT);
+
+  // Create TwoWire interface
+  TwoWire dev_i2c(IMU_SDA, IMU_SCL);  
+  dev_i2c.begin();
+
+  // Create IMU sensor instance
+  LSM6DSOXSensor AccGyr(&dev_i2c);
+  AccGyr.begin();
+  AccGyr.Enable_X();  
+  AccGyr.Enable_G();
 
   // check for the WiFi module:
   if (WiFi.status() == WL_NO_MODULE) {
@@ -115,6 +128,9 @@ void httpRequest() {
 
   // call emg() function to get emg voltages
   emg();  
+
+  // call imu() function to get emg voltages
+  imu(); 
   
   // if there's a successful connection:
   if (client.connect(server, 5000)) {
@@ -124,7 +140,9 @@ void httpRequest() {
     // The Flask route to call should be inbetween the "/" and "?" (ex:  GET /test?...
     // where "test" is the Flask route that will GET the data, "distance" is the key
     // and the value is provided by:  String(distance))
-    String request = "GET /test?distance=" + String(distance) + " HTTP/1.1";
+    String request = "GET /test?acceleration=" + String(resultant) + " HTTP/1.1";
+    client.println(request);
+    request = "GET /test?emg=" + String(nerve) + " HTTP/1.1";
     client.println(request);
 
     // set the host as server IP address
@@ -155,7 +173,17 @@ void printWifiStatus(){
   Serial.println(" dBm");
 }
 
-// collect distance values
+// collect emg values
 void emg(){
+  // Read pin
+  muscle = analogRead(EMG_SIG);
+}
+
+// collect imu values
+void imu(){
+  // Get accelerometry values
+  AccGyr.Get_X_Axes(accelerometer); 
   
+  // Calculate resultant acceleration
+  resultant = sqrt(sq(accelerometer[0]) + sq(accelerometer[1]) + sq(accelerometer[2]))
 }
