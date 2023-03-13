@@ -17,12 +17,16 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous" defer></script>
+    {% if js %} 
+        <script type="module" src="{{url_for('static', filename=js)}}" defer></script>
+    {% endif %}
+
 </head>
 
 <html>
     <body>
         {% block nav %}
-        <nav class="navbar navbar-expand-lg navbar-dark nb-bg-color">
+        <nav class="navbar navbar-expand-lg navbar-light nb-bg-color">
             <div class="container">
                 <a href="#" class="navbar-brand">
                     <img src="{{url_for('static', filename='img/hand-tremor.jpeg')}}" alt="Skull"
@@ -64,7 +68,7 @@
 
         {% block footer %}
         <!--Footer (Requires BootStrap Icon CSS)-->
-        <footer class="p-5 footer text-light text-center position-relative ">
+        <footer class="p-5 footer text-light text-center position-relative  nb-bg-color">
             <div class="container">
                 <p class="lead">Copyright &copy; SE 2022 BootStrap Demo</p>
                 <a href="#" class="position-absolute bottom-0 end-0 p-5 ">

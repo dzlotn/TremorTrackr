@@ -11,6 +11,7 @@
 .noborder th {
     border:0px;
 }
+
 th h1{
     font-family:serif;
     font: 90px;
@@ -31,10 +32,10 @@ th h1{
 }
 
 .nb-bg-color {
-    background-color: #f0f2f3;
+    background-color: #718ca0ff;
 }
 .signInPage{
-    background-color:#99b8de
+    background-color:#ddddddff
 }
 .hover-underline-animation {
     display: inline-block;
@@ -63,5 +64,5 @@ a#nbMenuItem{
     font-size: 25px;
     padding-right: 20px;
     padding-left: 20px;
-    color: #d0b4a8;
+    color: #FFFFFF;
 } 

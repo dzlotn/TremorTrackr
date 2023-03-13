@@ -1,6 +1,10 @@
 from flask import Flask, render_template, url_for, request, jsonify
 from datetime import datetime
 import pyrebase
+import csv
+import threading
+from processor import start_processing
+import os
 
 app = Flask(__name__)
 
@@ -29,11 +33,11 @@ def procedure():
 
 @app.route("/register")
 def register():
-    return render_template("register.html")
+    return render_template("register.html",js="js/register.js")
 
 @app.route("/signIn")
 def signIn():
-    return render_template("signIn.html")
+    return render_template("signIn.html",js="js/signIn.js")
 
 @app.route("/test", methods=["GET", "POST"])
 def test():
@@ -67,25 +71,38 @@ def test():
             print("FB config is empty")
 
         else:
-            # Take parameters from Arduino request & assign value to variable "value"
-
-            value = request.args.get('distance')
-
-            print("Distance: " + value, flush = True)
-
-            db.child('users/' + userID + '/data/' + timeStamp).update({key:value})
-
-            key += 1
+            # Get data from Arduino and parse
+            IMU, EMG = request.args.get('data').split(",")
+            
+            # Update csv from values
+            field_names = ['EMG','IMU']
+            dict= {'EMG': int(EMG), 'IMU': float(IMU)}
+            with open('TremorWebsite\data\data.csv', 'w') as csvfile:
+                    writer = csv.DictWriter(csvfile, fieldnames = field_names)
+                    writer.writerows(dict)
 
         return 'Success'
     
     # GET Request
 
-# Driver Function
-if __name__ == "__main__":
-
+# Flask Driver Function
+def run_flask():
     #Run app through port 5000 on 
-    app.run(debug=True, host='172.20.10.4', port=5000)
+    app.run(debug=True, host='127.0.0.1', port=5000)
 
 if __name__ == '__main__':
+    # Create temp csv files
+    filename = 'TremorWebsite\data\data.csv'
+    if os.path.exists(filename):
+        os.remove(filename)
+    f = open(filename, "w")
+    f.write("EMG, IMU")
+    f.close()
+
+    try:
+        print("Initializing thread 1")
+        t1 = threading.Thread(target=start_processing).start()
+        run_flask()
+    except Exception as e:
+        print("Unexpected error:" + str(e))
     app.run(debug=True)

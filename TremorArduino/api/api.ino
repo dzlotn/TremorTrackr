@@ -136,13 +136,14 @@ void httpRequest() {
   if (client.connect(server, 5000)) {
     Serial.println("connecting...");
 
+    // Parse data
+    String data = String(resultant) + "," + String(nerve)
+
     // send the HTTP GET request with the distance as a parameter.
     // The Flask route to call should be inbetween the "/" and "?" (ex:  GET /test?...
     // where "test" is the Flask route that will GET the data, "distance" is the key
     // and the value is provided by:  String(distance))
-    String request = "GET /test?acceleration=" + String(resultant) + " HTTP/1.1";
-    client.println(request);
-    request = "GET /test?emg=" + String(nerve) + " HTTP/1.1";
+    String request = "GET /test?data=" + data + " HTTP/1.1";
     client.println(request);
 
     // set the host as server IP address
