@@ -5,6 +5,11 @@ import csv
 import threading
 from processor import start_processing
 import os
+from concurrent.futures import ThreadPoolExecutor,as_completed
+import time
+import pandas as pd
+import numpy as np
+
 
 app = Flask(__name__)
 
@@ -90,19 +95,35 @@ def run_flask():
     #Run app through port 5000 on 
     app.run(debug=True, host='127.0.0.1', port=5000)
 
+
 if __name__ == '__main__':
     # Create temp csv files
     filename = 'TremorWebsite\data\data.csv'
-    if os.path.exists(filename):
-        os.remove(filename)
-    f = open(filename, "w")
-    f.write("EMG, IMU")
-    f.close()
 
+    # if os.path.exists(filename):
+    #     os.remove(filename)
+
+    f = open(filename, "r")
+    # f.write("EMG, IMU")
+    df = pd.read_csv('TremorWebsite\data\data.csv')
+    column = df.iloc[:, 0]
+    chunks = np.split(column, 7)
+    arrays = [chunk.to_numpy() for chunk in chunks]
     try:
-        print("Initializing thread 1")
-        t1 = threading.Thread(target=start_processing).start()
-        run_flask()
+        #splits the data into threads  and then calls start_processing simultanesouly 
+        num_threads = 6
+        with ThreadPoolExecutor(max_workers=num_threads) as executor:
+        # submit the tasks to the thread pool using the submit method
+            futures = [executor.submit(start_processing, iteration) for iteration in arrays]
+
+            # wait for the first task to complete and print its result
+            for future in as_completed(futures):
+                result = future.result()
+                break
+
+            # run_flask()
     except Exception as e:
         print("Unexpected error:" + str(e))
-    app.run(debug=True)
+    f.close()
+
+    # app.run(debug=True)
