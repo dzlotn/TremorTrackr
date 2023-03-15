@@ -80,11 +80,17 @@ def test():
             IMU, EMG = request.args.get('data').split(",")
             
             # Update csv from values
-            field_names = ['EMG','IMU']
-            dict= {'EMG': int(EMG), 'IMU': float(IMU)}
+            field_names = ['KEY','EMG','IMU']
+            dict= {'KEY': key, 'EMG': int(EMG), 'IMU': float(IMU)}
             with open('TremorWebsite\data\data.csv', 'w') as csvfile:
                     writer = csv.DictWriter(csvfile, fieldnames = field_names)
                     writer.writerows(dict)
+
+            # Every 3000ms, call processor to process chunk
+            if key % 3000 == 0 and key != 0:
+                t1 = threading.Thread(target=start_processing).start()
+
+            key += 1 # Update key
 
         return 'Success'
     
@@ -103,27 +109,11 @@ if __name__ == '__main__':
     # if os.path.exists(filename):
     #     os.remove(filename)
 
-    f = open(filename, "r")
+    # f = open(filename, "r")
     # f.write("EMG, IMU")
-    df = pd.read_csv('TremorWebsite\data\data.csv')
-    column = df.iloc[:, 0]
-    chunks = np.split(column, 7)
-    arrays = [chunk.to_numpy() for chunk in chunks]
-    try:
-        #splits the data into threads  and then calls start_processing simultanesouly 
-        num_threads = 6
-        with ThreadPoolExecutor(max_workers=num_threads) as executor:
-        # submit the tasks to the thread pool using the submit method
-            futures = [executor.submit(start_processing, iteration) for iteration in arrays]
+    # df = pd.read_csv('TremorWebsite\data\data.csv')
+    # column = df.iloc[:, 0]
+    # chunks = np.split(column, 7)
+    # arrays = [chunk.to_numpy() for chunk in chunks]
 
-            # wait for the first task to complete and print its result
-            for future in as_completed(futures):
-                result = future.result()
-                break
-
-            # run_flask()
-    except Exception as e:
-        print("Unexpected error:" + str(e))
-    f.close()
-
-    # app.run(debug=True)
+    run_flask()
