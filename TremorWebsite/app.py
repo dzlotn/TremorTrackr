@@ -2,13 +2,9 @@ from flask import Flask, render_template, url_for, request, jsonify
 from datetime import datetime
 import pyrebase
 import csv
-import threading
+import threading 
 from processor import start_processing
-import os
-from concurrent.futures import ThreadPoolExecutor,as_completed
-import time
-import pandas as pd
-import numpy as np
+
 
 
 app = Flask(__name__)
@@ -116,4 +112,4 @@ if __name__ == '__main__':
     # chunks = np.split(column, 7)
     # arrays = [chunk.to_numpy() for chunk in chunks]
 
-    run_flask()
+    # run_flask()

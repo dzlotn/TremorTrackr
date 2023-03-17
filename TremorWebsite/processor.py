@@ -6,7 +6,7 @@ import numpy as np
 
 def start_processing():
     # Chunk data
-    cores = 4
+    cores = 9
     df = pd.read_csv('TremorWebsite\data\data.csv')
     column = df.loc[:, ['EMG','IMU']]
     chunks = np.array_split(column, cores)
@@ -15,12 +15,16 @@ def start_processing():
     # Process with multiprocessing
     with Pool() as pool:
       result = pool.map(process_chunk, arrays)
+    
+
 
     print(result)
     return sum(result)
 
 def process_chunk(arr):
-    return np.average(arr)
+    for i in range(100000000):
+       avg= np.average(arr)
+    return avg
 
 if __name__ == "__main__":
     start_processing()
