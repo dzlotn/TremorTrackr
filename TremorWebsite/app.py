@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, jsonify
+from flask import Flask, render_template, url_for, request, jsonify, send_file
 from datetime import datetime
 import pyrebase
 import csv
@@ -18,7 +18,7 @@ def index():
 
 @app.route("/home")
 def home():
-    return render_template("home.html")
+    return render_template("home.html",js="js/home.js")
 
 @app.route("/about")
 def about():
@@ -31,6 +31,10 @@ def interpretation():
 @app.route("/procedure")
 def procedure():
     return render_template("procedure.html")
+
+@app.route('/rawdata')
+def data():
+    return send_file('TremorWebsite\data\data.csv', mimetype='text/csv')
 
 @app.route("/register")
 def register():
@@ -78,7 +82,7 @@ def test():
             # Update csv from values
             field_names = ['KEY','EMG','IMU']
             dict= {'KEY': key, 'EMG': int(EMG), 'IMU': float(IMU)}
-            with open('TremorWebsite\data\data.csv', 'w') as csvfile:
+            with open('..\TremorWebsite\data\data.csv', 'w') as csvfile:
                     writer = csv.DictWriter(csvfile, fieldnames = field_names)
                     writer.writerows(dict)
 

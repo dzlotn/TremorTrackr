@@ -2,70 +2,11 @@
 
 {% block content %}
 <!--Update data (adding a ride)-->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-11 m-auto ">
-            <div class="card d-flex flex-row  mt-5 bg-secondary ">
-
-                
-
-                <div class="d-flex justify-content-center align-items-center nb-bg-color flex-column flex-grow-1">
-
-
-                    <div class="signin-card-body ">
-                        <div class="card-title text-black align-self-baseline">
-                            <h3 class="text-center text-light py-2 font-weight-bold mb-0 mt-5">Add Your Ride</h3>
-                        </div>
-                        <form>
-                            <input class="form-control mb-4 w-100" type="date" id="date">
-                            <input class="form-control mb-4 w-100" type="text" placeholder="Trail" id="trail">
-                            <input class="form-control mb-4 w-100" type="text" placeholder="Route Distance (mi)" id="distance">
-                            <button type = "button" id="set" name="set" class="btn text-light btn-light btn-outline-light  mb-3 w-100" style="background-color:var(--timelinepath);">Update</button>
-                        </form>    
-                    </div>
-                </div>
-                <img class="signinimage" src="/img/mountainsignin.jpg" style="height:400px; width:600px">
-            </div>
-        </div>
+<body>
+    <div class="container" width="400" height="400"> 
+        <canvas id="myChart"></canvas>
     </div>
-</div>
-<!--Get and Remove Rides-->
-<div class="container mb-5">
-    <div class="row">
-        <div class="col-lg-11 m-auto ">
-            <div class="card d-flex flex-row  mt-5 bg-secondary ">
-
-                
-
-                <div class="d-flex justify-content-center align-items-center nb-bg-color flex-column flex-grow-1">
-
-
-                    <div class="signin-card-body ">
-                        <div class="card-title text-black align-self-baseline">
-                            <h3 class="text-center text-light py-2 font-weight-bold mb-0 mt-5">Get or Remove Your Ride</h3>
-                        </div>
-                        <form>
-                            <input class="form-control mb-4 w-100" type="date" id="date-get">
-                            <input class="form-control mb-4 w-100" type="text" placeholder="Trail" id="trail-get">
-                            <button type = "button" id="get" name="get" class="btn text-light btn-light btn-outline-light  mb-3 w-100" style="background-color:var(--timelinepath);">Get Ride</button>
-                            <button type = "button" id="remove" name="remove" class="btn text-light btn-light btn-outline-light  mb-3 w-100" style="background-color:var(--timelinepath);">Remove Ride</button>
-                        </form>     
-                        <p id="distance-get">Miles Ridden:</p>  
-                    </div>
-                </div>
-                <img class="signinimage" src="/img/mountainsignin.jpg" style="height:400px; width:600px">
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="container" width="200" height="200" style="background-color:blue">
-    <canvas id="milesChart">
-        
-    </canvas>
-</div>
-
-
+    
+</body>
 {% endblock %}
+
