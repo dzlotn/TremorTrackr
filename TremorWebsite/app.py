@@ -60,12 +60,12 @@ def test():
         db = firebase.database() # root node
 
         # Timestamp
-        timeStamp = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+        timeStamp= datetime.now().strftime("%d-%m-%Y %H:%M:%S")
 
         # db.child('users/' + userID + '/data/' + timeStamp).update({'testKey2':'testValue'})
-
+        t1 = threading.Thread(target=start_processing(db, userID)).start()
         return 'Success', 200
-    
+        
     else:
         # Code to GET data from Arduino will go here
         if(bool(config) == False):
@@ -84,12 +84,12 @@ def test():
 
             # Every 3000ms, call processor to process chunk
             if key % 3000 == 0 and key != 0:
-                t1 = threading.Thread(target=start_processing).start()
-
+                t1 = threading.Thread(target=start_processing(db, userID)).start()
+                
             key += 1 # Update key
 
         return 'Success'
-    
+
     # GET Request
 
 # Flask Driver Function
@@ -112,4 +112,4 @@ if __name__ == '__main__':
     # chunks = np.split(column, 7)
     # arrays = [chunk.to_numpy() for chunk in chunks]
 
-    # run_flask()
+    run_flask()

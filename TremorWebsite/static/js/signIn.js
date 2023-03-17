@@ -48,7 +48,7 @@ document.getElementById('signIn').onclick = function() {
         // update will only add the last_login and won't overwrite anything
         let logDate = new Date();
         update(ref(db, 'users/' + user.uid + '/accountInfo'), {
-            last_login: logDate
+            last_login: logDate,
         })
         .then(() => {
             // User signed in!
