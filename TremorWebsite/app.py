@@ -4,6 +4,7 @@ import pyrebase
 import csv
 import threading 
 from processor import start_processing
+import js2py
 
 
 
@@ -32,9 +33,15 @@ def interpretation():
 def procedure():
     return render_template("procedure.html")
 
-@app.route('/rawdata')
+@app.route('/data')
 def data():
-    return send_file('TremorWebsite\data\data.csv', mimetype='text/csv')
+    with open('TremorWebsite\data\data.csv') as csvfile:
+        reader = csv.reader(csvfile,delimiter=",")
+        headers = next(reader)
+        data = []
+        for row in reader:
+            data.append(dict(zip(headers, row)))
+    return jsonify(data)
 
 @app.route("/register")
 def register():
@@ -86,9 +93,11 @@ def test():
                     writer = csv.DictWriter(csvfile, fieldnames = field_names)
                     writer.writerows(dict)
 
-            # Every 3000ms, call processor to process chunk
+            # Every 3000ms, call processor to process chunk and reset the raw data graphs
             if key % 3000 == 0 and key != 0:
                 t1 = threading.Thread(target=start_processing(db, userID)).start()
+                js2py.run_file("TremorWebsite\static\js\home.js") 
+
                 
             key += 1 # Update key
 

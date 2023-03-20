@@ -6,6 +6,9 @@
 .footer {
     background-color: #540b0da2;
 }
+body{
+    background-color:#ddddddff;
+}
 
 .noborder td,
 .noborder th {
@@ -35,14 +38,16 @@ th h1{
     background-color: #718ca0ff;
 }
 .signInPage{
-    background-color:#ddddddff
-}
-.hover-underline-animation {
-    display: inline-block;
-    position: relative;
-    /*color: #0087ca;*/
+    background-color:#ddddddff;
 }
 
+
+/* Navbar CSS */
+.hover-underline-animation {
+    display: inline-block;
+    position:relative
+    /*color: #0087ca;*/
+}
 .hover-underline-animation:after {
     content: '';
     position: absolute;
@@ -50,7 +55,7 @@ th h1{
     transform: scaleX(0);
     height: 2px;
     bottom: 0;
-    left: 0;
+    left: -8%;
     background-color: #eae6e6;
     /*transform-origin: bottom right;*/
     transition: transform 0.35s ease-out;
@@ -62,7 +67,37 @@ th h1{
 }
 a#nbMenuItem{
     font-size: 25px;
-    padding-right: 20px;
-    padding-left: 20px;
+    margin:auto;
     color: #FFFFFF;
+    font-weight:bold;
+    padding-right:30px;
 } 
+
+
+
+.navbar{
+    border-radius: 30px;
+    height:10%;
+    padding-top:-5%;
+}
+.navbar-brand {
+    width:130px;
+    height:100%;
+}
+/* Chart JS CSS */
+.accelChart{
+    margin: 50px auto;
+    background-color: white;
+    border: 5px solid #718ca0ff;
+    border-radius:5px;
+    width: 80%;
+    padding: 10px;
+}
+.EMGChart{
+    margin: 50px auto;
+    background-color: white;
+    border: 5px solid #718ca0ff;
+    border-radius:5px;
+    width: 80%;
+    padding: 10px;
+}

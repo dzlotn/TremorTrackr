@@ -30,11 +30,11 @@
 <html>
     <body>
         {% block nav %}
-        <nav class="navbar navbar-expand-lg navbar-light nb-bg-color">
+        <div class="emptySpace m-3"></div>
+        <nav class="navbar navbar-expand-lg navbar-light nb-bg-color m-3" style = "height:10%;">
             <div class="container">
-                <a href="#" class="navbar-brand">
-                    <img src="{{url_for('static', filename='img/hand-tremor.jpeg')}}" alt="Skull"
-                        class="d-inline-block align-text-top w-25">
+                <a href="{{url_for('index')}}" class="navbar-brand ">
+                    <img src="{{url_for('static', filename='img/parkinson-removebg-preview.png')}}" alt="Tremor" style="width:40%; text-align:left;">
                 </a>
                 <!-- Hamburger Menu Button -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
@@ -45,7 +45,7 @@
                     
                     <!-- links to hamburger menu button-->
                     <ul class="navbar-nav ms-auto">
-                        
+
                         <li class="nav-item">
                             <a href="{{url_for('about')}}" class="nav-link hover-underline-animation " id="nbMenuItem">About</a>
                         </li>

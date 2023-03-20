@@ -117,7 +117,3 @@ function encryptPass(password) {
   let encrypted = CryptoJS.AES.encrypt(password, password)
   return encrypted.toString();
 }
-function decryptPass(password) {
-  let decrypted = CryptoJS.AES.decrypt(password, password)
-  return decrypted.toString();
-}
