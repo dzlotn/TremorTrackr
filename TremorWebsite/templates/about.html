@@ -5,22 +5,58 @@
     <section class="author">
         <div class="container">
             <br>
-            <h1 class="text-center about-author">About The Author</h1>
-            <hr><br>
-            <!--Horizontal line and line break-->
-            <!--Cards Organized in a 2x2 table format-->
-
-            <div class="card-container pb-5">
-                <div class="card " id="about">
-                    <img src="TremorWebsite\img\IMG_1500.JPG" class="card-img-top " alt="Daniel Zlotnick">
-                    <div class="card-body">
-                        <h4 class="card-title"> Daniel Zlotnick</h4>
-                        <h5>Class: CSE</h5>
-                        <p class="card-text">Daniel Zlotnick came up with an then performed the experiment. He also
-                            wrote the research paper and created the entire website.</p>
-                    </div>
+            <h1 class="text-center about-author">Meet the Team!</h1>
+            <hr>
+            <!--Cards Organized in a 2x2 table format and when hovering over card, the name of the person and information of their role shows up-->
+            <div class="grid d-flex justify-content-center g-2">
+            <div class="gridSystem g-2">
+            <div class="peopleCard m-5 overflow-hidden ">
+                <img
+                  class="cardImage h-100 mw-100 object-fit-cover"
+                  src="{{url_for('static', filename='/img/IMG_1500.JPG')}}" alt="Picture of Daniel"/>
+                <div class="cardText d-flex align-self-end flex-column">
+                    <h2 class="text-white">Daniel Zlotnick</h2>
+                    <p class="cardDescr text-white p-3">
+                      Add role in team
+                    </p>
+                </div>
+            </div>
+            <div class="peopleCard m-5 overflow-hidden ">
+                <img
+                  class="cardImage h-100 mw-100 object-fit-cover"
+                  src="{{url_for('static', filename='/img/IMG_1500.JPG')}}" alt="Picture of Lauren"/>
+                <div class="cardText d-flex align-self-end flex-column">
+                    <h2 class="text-white">Lauren Fleming</h2>
+                    <p class="cardDescr text-white p-3">
+                      Add role in team
+                    </p>
+                </div>
+            </div>
+            <div class="peopleCard m-5 overflow-hidden ">
+                <img
+                  class="cardImage h-100 mw-100 object-fit-cover"
+                  src="{{url_for('static', filename='/img/IMG_1500.JPG')}}" alt="Picture of Angelina"/>
+                <div class="cardText d-flex align-self-end flex-column">
+                    <h2 class="text-white">Angelina Otero</h2>
+                    <p class="cardDescr text-white p-3">
+                      Add role in team
+                    </p>
+                </div>
+            </div>
+            <div class="peopleCard m-5 overflow-hidden ">
+                <img
+                  class="cardImage h-100 mw-100 object-fit-cover"
+                  src="{{url_for('static', filename='/img/IMG_1500.JPG')}}" alt="Picture of Owen"/>
+                <div class="cardText d-flex align-self-end flex-column">
+                    <h2 class="text-white">Owen Powell</h2>
+                    <p class="cardDescr text-white p-3">
+                      Add role in team
+                    </p>
                 </div>
             </div>
         </div>
+    </div>
+        </div>
+        
     </section>
 {% endblock %}

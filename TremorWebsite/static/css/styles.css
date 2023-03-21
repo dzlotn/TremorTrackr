@@ -101,3 +101,62 @@ a#nbMenuItem{
     width: 80%;
     padding: 10px;
 }
+
+
+
+
+
+
+
+/* About Us Components */
+.gridSystem{
+    display:grid;
+    grid-template-columns: repeat(2, 45%);
+    grid-auto-rows: 45%;
+
+}
+.peopleCard {
+  display: grid;
+  width: 80%;
+  max-width: 350px;
+  height: 450px;
+  border-radius: 10px;
+  
+}
+
+.peopleCard > * {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+
+.cardText {
+  height: 55%;
+  padding: 5% 20px 30px;
+  background: rgba(0, 0, 0, 0.25);
+  
+}
+
+@media (any-hover: hover)  {
+  /*Changes card properties and moves text before and after hovering*/
+    .cardText {
+    transform: translateY(60%);
+    transition: transform 400ms ease-out;
+  }
+  .peopleCard {
+    transform: scale(1);
+    transition: transform 400ms linear;
+  }
+
+  .peopleCard:hover { 
+    transform: scale(1.05);
+    transition: transform 400ms linear;
+  }
+ 
+  .peopleCard:hover .cardText,
+  .peopleCard:focus-within .cardText {
+    transform: translateY(0);
+    transition: transform 400ms ease-in;
+  }
+}
+

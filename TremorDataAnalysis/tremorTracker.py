@@ -1,52 +1,61 @@
 import pandas as pd
+
 import os
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import signal
 from scipy.fft import rfft, rfftfreq
 
-
 def main():
-    data = import_data('TestData\\mmc1.csv')
-    data = data[:1000] 
+    # Import and slice the data
+    data = import_data('TestData\mmc1.csv')[:3000]
     time = data['Time']
-    acc = data['RightACC']
-    emg = data['RightEMGext'].abs()
-
+    acc = data['RightACC'].abs()
+    emg = data['RightEMGext']
     # Filter data
-    acc_output = butter_filter(acc, 2, 30)
-    emg_output = low_pass(emg, 45)
-    emg_output = high_pass(emg_output, 0.25)
-   
+    emg_Filtered = butter_filter(emg, 4, 20, 400)
+    acc_Filtered = butter_filter(acc, 2, 0.5, 20)
 
-    # Display data
-    fig, axs = plt.subplots(2)
-    axs[0].plot(time, acc, label='actual')
-    axs[0].plot(time, acc_output, label='filtered')
-    axs[0].set_title('ACC')
-    axs[1].plot(time, emg, label='actual')
-    axs[1].plot(time, emg_output, label='filtered')
-    axs[1].set_title('EMG')
+    # Compute the hilbert transform and emg envelope
+    emg_envelope = np.abs(signal.hilbert(emg_Filtered))
+    emg_detrend = signal.detrend(emg_envelope, type='constant')
+
+    # Compute the power spectral density (PSD) using welch's blackman method.
+    # The number of segments is defined as 256, which is the closest power of 2 to 1/3 of the sample frequency
+    f1, Pxx_emg = signal.welch(emg_detrend, fs=1000, nperseg=256, window='blackman')
+    f2, Pxx_acc = signal.welch(acc_Filtered, fs=1000, nperseg=256, window='blackman')
+
+    # Calculate the frequency with the highest power in the EMG PSD
+    f_max_emg = f1[np.argmax(Pxx_emg)]
+    
+    # Calculate the frequency with the highest power in the Accelerometer PSD
+    f_max_acc = f2[np.argmax(Pxx_acc)]
+
+    # Plot the PSDs using different methods
+    plt.semilogy(f1, Pxx_emg, label='EMG')
+    plt.semilogy(f2, Pxx_acc, label='Accelerometer')
+
+    # Add a vertical line to indicate the frequency with the highest power for EMG
+    plt.axvline(x=f_max_emg, color='r', linestyle='--', label=f'Max EMG frequency: {f_max_emg:.2f} Hz')
+    
+    # Add a vertical line to indicate the frequency with the highest power for Accelerometer
+    plt.axvline(x=f_max_acc, color='b', linestyle='--', label=f'Max Accelerometer frequency: {f_max_acc:.2f} Hz')
+
+    # Set the plot title and labels
+    plt.title('Power Spectral Density')
+    plt.xlabel('Frequency (Hz)')
+    plt.ylabel('Power/Frequency (dB/Hz)')
+
+    # Add a legend to differentiate between the signals and the max frequency lines
+    plt.legend()
     plt.show()
-    print(emg_output)
 
 
 ''' Do a bandpass filter on data with low and high being the min and max frequencies'''
-def butter_filter(data, low, high):
-    band_filter = signal.butter(10, [low, high], btype='bandpass', output='sos', fs=1000)
-    return signal.sosfilt(band_filter, data)
+def butter_filter(data, order, low, high):
+    b,a = signal.butter(order, [low, high], btype='band', output='ba', fs=1000, analog=False)
+    return signal.filtfilt(b,a, data, method="gust")
 
-def ellip_filter(data, low):
-    band_filter = signal.ellip(2, 0.5, 40,low, btype='lowpass',  output='sos', fs=1000 )
-    return signal.sosfilt(band_filter, data)
-
-def low_pass(data, frequency):
-    low_filter = signal.butter(2, frequency, btype="lowpass", output='sos', fs=1000)
-    return signal.sosfilt(low_filter, data)
-
-def high_pass(data, frequency):
-    high_filter = signal.butter(4, frequency, btype="highpass", output='sos', fs=1000)
-    return signal.sosfilt(high_filter, data)
 
 ''' Import a space-separated csv file into a pandas dataFrame'''
 def import_data(filepath):
@@ -55,7 +64,6 @@ def import_data(filepath):
     data = pd.read_csv(datafile, delim_whitespace=True)
     return data
 
+
 if __name__ == '__main__':
     main()
-
-

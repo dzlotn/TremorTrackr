@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, jsonify, send_file
+from flask import Flask, render_template, request, jsonify
 from datetime import datetime
 import pyrebase
 import csv
@@ -114,15 +114,5 @@ def run_flask():
 if __name__ == '__main__':
     # Create temp csv files
     filename = 'TremorWebsite\data\data.csv'
-
-    # if os.path.exists(filename):
-    #     os.remove(filename)
-
-    # f = open(filename, "r")
-    # f.write("EMG, IMU")
-    # df = pd.read_csv('TremorWebsite\data\data.csv')
-    # column = df.iloc[:, 0]
-    # chunks = np.split(column, 7)
-    # arrays = [chunk.to_numpy() for chunk in chunks]
 
     run_flask()
