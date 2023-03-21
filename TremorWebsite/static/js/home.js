@@ -48,7 +48,12 @@ fetch('/data')
           }]
         },
         options: {
+          animation: {
+            duration: 1000,
+            easing: 'linear',
+          },
           responsive: true,
+
           plugins:{
             legend: {
             display:false,   
@@ -58,6 +63,7 @@ fetch('/data')
                 text: 'Resultant Acceleration over Time'
             }
         },
+        
           scales: {
             y: {
               beginAtZero: true,

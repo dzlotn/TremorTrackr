@@ -24,6 +24,7 @@ def dataProcessing():
     f1, Pxx_emg = signal.welch(emg_detrend, fs=1000, nperseg=256, window='blackman')
     f2, Pxx_acc = signal.welch(acc_Filtered, fs=1000, nperseg=256, window='blackman')
 
+
     # Calculate the frequency with the highest power in the EMG PSD
     f_max_emg = f1[np.argmax(Pxx_emg)]
     
@@ -47,6 +48,7 @@ def dataProcessing():
 
     # Add a legend to differentiate between the signals and the max frequency lines
     plt.legend()
+    plt.show()
     return [f_max_emg,f_max_acc]
 
 

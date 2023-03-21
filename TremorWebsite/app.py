@@ -3,7 +3,7 @@ from datetime import datetime
 import pyrebase
 import csv
 import threading 
-from processor import start_processing
+from processor import startProcessing
 import js2py
 
 
@@ -93,9 +93,9 @@ def test():
                     writer = csv.DictWriter(csvfile, fieldnames = field_names)
                     writer.writerows(dict)
 
-            # Every 3000ms, call processor to process chunk and reset the raw data graphs
-            if key % 3000 == 0 and key != 0:
-                t1 = threading.Thread(target=start_processing(db, userID)).start()
+            # Every 3000ms after 1500ms, call processor to process chunk and reset the raw data graphs
+            if  key % 3000 == 0 and key != 0:
+                t1 = threading.Thread(target=startProcessing(db, userID,key)).start()
                 js2py.run_file("TremorWebsite\static\js\home.js") 
 
                 

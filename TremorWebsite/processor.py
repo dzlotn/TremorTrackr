@@ -1,29 +1,58 @@
-import multiprocessing
-from multiprocessing import Pool
 from datetime import datetime
-import pandas as pd
+import os
 import numpy as np
+from scipy import signal
+import pandas as pd
 
-def start_processing(db, userID):
-    # Chunk data
-    cores = 1
-    df = pd.read_csv('TremorWebsite\data\data.csv')
-    column = df.loc[:, ['EMG','IMU']]
-    chunks = np.array_split(column, cores)
-    arrays = [chunk.to_numpy() for chunk in chunks]
+def startProcessing(db, userID,key):
+    #Separates the current data csv into separate arrays for the raw data
+    filepath = 'TremorWebsite\data\data.csv'
+    directory = os.path.dirname(os.path.abspath(filepath))
+    datafile = os.path.join(directory, filepath)
+    data = pd.read_csv(datafile, delimiter=',')
+    acc = data['RightACC'][key-3000,key]
+    emg = data['RightEMGext']
 
-    # Process with multiprocessing
-    with Pool() as pool:
-        result = pool.map(process_chunk, arrays)
+    #Records the time stamp when processing starts, and calls the processing chunk function
     timeStamp = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
-    db.child('users').child(userID).child('data').update({timeStamp:np.average(result)})
+    result = processingFunc(acc,emg)
+    print(result)
+    #appends the resulting data and timestamp into the firebase
+    db.child('users').child(userID).child('data').update({timeStamp:result})
     
     
     
+def processingFunc(emg, acc):
 
-def process_chunk(arr):
-    avg= np.average(arr)
-    return avg
+    emg_Filtered = butter_filter(emg, 4, 20, 400)
+    acc_Filtered = butter_filter(acc, 2, 0.5, 20)
+
+    # Compute the hilbert transform and emg envelope
+    emgHilbert = signal.hilbert(emg_Filtered)
+    emg_envelope = np.abs(emgHilbert)
+    emg_detrend = signal.detrend(emg_envelope, type='constant')
+
+    # Compute the power spectral density (PSD) using welch's blackman method.
+    # The number of segments is defined as 256, which is the closest power of 2 to 1/3 of the sample frequency
+    f1, Pxx_emg = signal.welch(emg_detrend, fs=1000, nperseg=256, window='blackman')
+    f2, Pxx_acc = signal.welch(acc_Filtered, fs=1000, nperseg=256, window='blackman')
+
+    # Calculate the frequency with the highest power in the EMG PSD
+    f_max_emg = f1[np.argmax(Pxx_emg)]
+    
+    # Calculate the frequency with the highest power in the Accelerometer PSD
+    f_max_acc = f2[np.argmax(Pxx_acc)]
+    
+    tremorDominantFrequency = float(f_max_emg + f_max_acc)/2.0
+
+
+    return tremorDominantFrequency
+
+
+''' Do a bandpass filter on data with low and high being the min and max frequencies'''
+def butter_filter(data, order, low, high):
+    b,a = signal.butter(order, [low, high], btype='band', output='ba', fs=1000, analog=False)
+    return signal.filtfilt(b,a, data, method="gust")
 
 if __name__ == "__main__":
-    start_processing()
+    startProcessing()
