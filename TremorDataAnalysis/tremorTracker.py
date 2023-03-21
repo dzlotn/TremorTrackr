@@ -4,14 +4,13 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import signal
-from scipy.fft import rfft, rfftfreq
 
 def main():
     # Import and slice the data
     data = import_data('TestData\mmc1.csv')[:3000]
     time = data['Time']
     acc = data['RightACC'].abs()
-    emg = data['RightEMGext']
+    emg = data['RightEMGflex']
     # Filter data
     emg_Filtered = butter_filter(emg, 4, 20, 400)
     acc_Filtered = butter_filter(acc, 2, 0.5, 20)
@@ -61,7 +60,7 @@ def butter_filter(data, order, low, high):
 def import_data(filepath):
     directory = os.path.dirname(os.path.abspath(__file__))
     datafile = os.path.join(directory, filepath)
-    data = pd.read_csv(datafile, delim_whitespace=True)
+    data = pd.read_csv(datafile, delimiter=',')
     return data
 
 
