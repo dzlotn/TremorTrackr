@@ -5,12 +5,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import signal
 
-def main():
+def dataProcessing():
     # Import and slice the data
-    data = import_data('TestData\mmc1.csv')[:3000]
+    data = import_data('TestData\mmc1.csv')
     time = data['Time']
     acc = data['RightACC'].abs()
-    emg = data['RightEMGflex']
+    emg = data['RightEMGext']
     # Filter data
     emg_Filtered = butter_filter(emg, 4, 20, 400)
     acc_Filtered = butter_filter(acc, 2, 0.5, 20)
@@ -47,7 +47,7 @@ def main():
 
     # Add a legend to differentiate between the signals and the max frequency lines
     plt.legend()
-    plt.show()
+    return [f_max_emg,f_max_acc]
 
 
 ''' Do a bandpass filter on data with low and high being the min and max frequencies'''
@@ -65,4 +65,4 @@ def import_data(filepath):
 
 
 if __name__ == '__main__':
-    main()
+    dataProcessing()
