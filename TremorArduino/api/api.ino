@@ -34,10 +34,15 @@ Instructions:
 // Define global variables and constants for the circuit & sensor
 const int IMU_SDA = A4;
 const int IMU_SCL = A5;
+arduino::TwoWire dev_i2c(&sercom0, IMU_SDA, IMU_SCL); 
+
 int32_t accelerometer[3];
 double resultant;
 const int EMG_SIG = A6;
 int muscle;
+LSM6DSOXSensor AccGyr(&dev_i2c); 
+
+
 
 ///////please enter your sensitive data in the Secret tab/arduino_secrets.h
 char ssid[] = SECRET_SSID;    // your network SSID (name)
@@ -50,12 +55,13 @@ WiFiClient client;
 
 // server address:
 //char server[] = "jsonplaceholder.typicode.com"; // for public domain server
-IPAddress server(172,20,10,4); // for localhost server (server IP address can be found with ipconfig or ifconfig)
+IPAddress server(172,20,10,3); // for localhost server (server IP address can be found with ipconfig or ifconfig)
 
 unsigned long lastConnectionTime = 0;
 const unsigned long postingInterval = 10L * 50L; // delay between updates, in milliseconds (10L * 50L is around 1 second between requests)
 
 void setup(){
+  Wire.begin();
   Serial.begin(9600); // Start serial monitor
 
   while (!Serial) {
@@ -66,14 +72,11 @@ void setup(){
   pinMode(EMG_SIG, INPUT);
 
   // Create TwoWire interface
-  TwoWire dev_i2c(IMU_SDA, IMU_SCL);  
   dev_i2c.begin();
-
+  
   // Create IMU sensor instance
-  LSM6DSOXSensor AccGyr(&dev_i2c);
   AccGyr.begin();
   AccGyr.Enable_X();  
-  AccGyr.Enable_G();
 
   // check for the WiFi module:
   if (WiFi.status() == WL_NO_MODULE) {
@@ -96,10 +99,11 @@ void setup(){
   }
 
   printWifiStatus(); // you're connected now, so print out the status
+  Serial.println("a");
 }
 
 void loop(){
-
+  Serial.print("a");
   StaticJsonDocument<200> doc;
 
   // if there's incoming data from the net connection, append each character to a variable
@@ -137,7 +141,7 @@ void httpRequest() {
     Serial.println("connecting...");
 
     // Parse data
-    String data = String(resultant) + "," + String(nerve)
+    String data = String(resultant) + "," + String(muscle);
 
     // send the HTTP GET request with the distance as a parameter.
     // The Flask route to call should be inbetween the "/" and "?" (ex:  GET /test?...
@@ -147,7 +151,7 @@ void httpRequest() {
     client.println(request);
 
     // set the host as server IP address
-    client.println("Host: 172.20.10.4");
+    client.println("Host: 172.20.10.3");
 
     // other request properties
     client.println("User-Agent: ArduinoWiFi/1.1");
@@ -184,7 +188,7 @@ void emg(){
 void imu(){
   // Get accelerometry values
   AccGyr.Get_X_Axes(accelerometer); 
-  
+
   // Calculate resultant acceleration
-  resultant = sqrt(sq(accelerometer[0]) + sq(accelerometer[1]) + sq(accelerometer[2]))
+  resultant = sqrt(sq(accelerometer[0]) + sq(accelerometer[1]) + sq(accelerometer[2]));
 }
