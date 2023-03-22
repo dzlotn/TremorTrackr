@@ -4,14 +4,14 @@ import numpy as np
 from scipy import signal
 import pandas as pd
 
-def startProcessing(db, userID,key):
+def start_processing(db, userID, key):
     #Separates the current data csv into separate arrays for the raw data
-    filepath = 'TremorWebsite\data\data.csv'
-    directory = os.path.dirname(os.path.abspath(filepath))
+    filepath = 'data\data.csv'
+    directory = os.path.dirname(__file__)
     datafile = os.path.join(directory, filepath)
     data = pd.read_csv(datafile, delimiter=',')
-    acc = data['RightACC'][key-3000,key]
-    emg = data['RightEMGext']
+    acc = data['Accel']#[key-3000:key]
+    emg = data['EMG']#[key-3000:key]
 
     #Records the time stamp when processing starts, and calls the processing chunk function
     timeStamp = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
@@ -19,6 +19,7 @@ def startProcessing(db, userID,key):
     print(result)
     #appends the resulting data and timestamp into the firebase
     db.child('users').child(userID).child('data').update({timeStamp:result})
+    return # return nothing, terminates the thread
     
     
     
@@ -45,7 +46,6 @@ def processingFunc(emg, acc):
     
     tremorDominantFrequency = float(f_max_emg + f_max_acc)/2.0
 
-
     return tremorDominantFrequency
 
 
@@ -55,4 +55,4 @@ def butter_filter(data, order, low, high):
     return signal.filtfilt(b,a, data, method="gust")
 
 if __name__ == "__main__":
-    startProcessing()
+    start_processing()

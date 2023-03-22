@@ -3,7 +3,7 @@ from datetime import datetime
 import pyrebase
 import csv
 import threading 
-from processor import startProcessing
+from processor import start_processing
 import js2py
 
 
@@ -74,7 +74,7 @@ def test():
         timeStamp= datetime.now().strftime("%d-%m-%Y %H:%M:%S")
 
         # db.child('users/' + userID + '/data/' + timeStamp).update({'testKey2':'testValue'})
-        t1 = threading.Thread(target=start_processing(db, userID)).start()
+        t1 = threading.Thread(target=start_processing(db, userID, 3000)).start()
         return 'Success', 200
         
     else:
@@ -95,9 +95,8 @@ def test():
 
             # Every 3000ms after 1500ms, call processor to process chunk and reset the raw data graphs
             if  key % 3000 == 0 and key != 0:
-                t1 = threading.Thread(target=startProcessing(db, userID,key)).start()
+                t1 = threading.Thread(target=start_processing(db, userID,key)).start()
                 js2py.run_file("TremorWebsite\static\js\home.js") 
-
                 
             key += 1 # Update key
 
