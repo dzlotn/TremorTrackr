@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <!-- HTML goes here -->
+    <section class="signInPage" style="height:713px;">
+    <!--Registration -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-11 m-auto ">
+                <div class="card d-flex flex-row align-items-center justify-content-center bg-transparent rounded " style="margin-top: 8%">
+
+                    <img class="registerimage" src="{{url_for('static', filename='/img/registertremor.jpg')}}" alt="register tremor image" style="height:450px; width:700px">
+
+                    <div class="d-flex  justify-content-center align-items-center nb-bg-color flex-column flex-grow-1">
+
+
+                        <div class="signin-card-body align-content-center" style="height:450px;">
+                            <div class="card-title text-black align-self-baseline d-flex justify-content-center">
+                                <h3 class="text-center text-light py-2 font-weight-bold mb-0 mt-5">Register</h3>
+                            </div>
+                            <form class="d-flex flex-column justify-content-center">
+                                <input type="text" placeholder="First Name" id="firstName" class="form-control mb-3 w-100">
+                                <input type="text" placeholder="Last Name" id="lastName" class="form-control mb-3 w-100">
+                                <input type="email" placeholder="Email" id="userEmail" class="form-control mb-3 w-100">
+                                <input type="password" placeholder="Password" id="userPass" class="form-control mb-3 w-100">
+                                <button type="button" id="submitData" name="submitData"
+                                class="btn text-light btn-light btn-outline-light  mb-3 w-100" style="background-color:var(--timelinepath);">Register</button>
+                                    <a href="{{url_for('signIn')}}" class="badge text-light mb-3 py-1 w-100">Already have an
+                                        account?</a>
+                                
+                            </form> 
+                            <div id="error" class = "font-weight-bold" style="color:var(--timelinepath);"></div>                      
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+
+
+{% endblock %}
