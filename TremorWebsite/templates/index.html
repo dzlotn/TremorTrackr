@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="showcase">
+    <h1 class="showcase-text">TremorTracker</h1>
+    <h2 class="showcase-subheader">Tracking Tremors since 1982</h2>
+</div>
+
+<div class="about-blurb d-flex flex-column w-50 mx-auto text-center">
+    <h3 class="subheader">What Is TremorTracker?</h3>
+    <p class="blurb-text">TremorTracker is a state-of-the-art wearable sensor device for Parkinson's patients.
+    The device is worn on the arm, and by using precise accelerometry and electromyography sensors, your tremor is
+    quantified and classified throughout the day. Helps to track the effectiveness of your medication and treatments.
+    </p>
+</div>
+
+<div class="home-diagram row">
+    <div class="col-4">
+        <img src="{{url_for('static', filename='img/device-icon.svg')}}" alt="Diagram">
+    </div>
+</div>
+{% endblock %}

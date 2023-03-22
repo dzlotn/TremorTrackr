@@ -1,0 +1,199 @@
+/* -------------------Navbar CSS--------------------- */
+.hover-underline-animation {
+    display: inline-block;
+    position:relative
+    /*color: #0087ca;*/
+}
+.hover-underline-animation:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: -8%;
+    background-color: #eae6e6;
+    /*transform-origin: bottom right;*/
+    transition: transform 0.35s ease-out;
+}
+
+.hover-underline-animation:hover:after {
+    transform: scaleX(1);
+    /*transform-origin: bottom left;*/
+}
+a#nbMenuItem{
+    font-size: 25px;
+    margin:auto;
+    color: #FFFFFF;
+    font-weight:bold;
+    padding-right:30px;
+} 
+
+.nb-bg-color {
+    background-color: #718ca0ff;
+}
+
+.navbar{
+    border-radius: 30px;
+    height:10%;
+    padding-top:-5%;
+}
+.navbar-brand {
+    width:130px;
+    height:100%;
+}
+
+/* ------------------Showcase CSS--------------- */
+.showcase {
+    position: relative;
+    top:-150px;
+    text-align:center;
+    width:100%;
+    min-height:853px;
+    background-image:linear-gradient(rgba(62, 62, 62, 0.60), rgba(62, 62, 62, 0.6)),url("../img/temp-showcase.jpg");
+    background-size: cover;
+    background-position: center;
+    z-index: -10;
+}
+
+.showcase-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 9rem;
+    color: white;
+}
+
+.showcase-subheader {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    color: white;
+}
+
+/* ----------------------Home Page CSS------------------ */
+.subheader{
+    color:black;
+    font-size:2rem;
+}
+
+.about-blurb {
+    margin-top: -6rem;
+    margin-bottom: 1rem;
+}
+
+
+/* ------------Chart JS CSS-------------- */
+.accelChart{
+    margin: 50px auto;
+    background-color: white;
+    border: 5px solid #718ca0ff;
+    border-radius:5px;
+    width: 80%;
+    padding: 10px;
+}
+.EMGChart{
+    margin: 50px auto;
+    background-color: white;
+    border: 5px solid #718ca0ff;
+    border-radius:5px;
+    width: 80%;
+    padding: 10px;
+}
+
+
+/* --------------About Us Components---------------- */
+.gridSystem{
+    display:grid;
+    grid-template-columns: repeat(2, 45%);
+    grid-auto-rows: 45%;
+
+}
+.peopleCard {
+  display: grid;
+  width: 80%;
+  max-width: 350px;
+  height: 450px;
+  border-radius: 10px;
+  
+}
+
+.peopleCard > * {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+
+.cardText {
+  height: 55%;
+  padding: 5% 20px 30px;
+  background: rgba(0, 0, 0, 0.25);
+  
+}
+
+@media (any-hover: hover)  {
+  /*Changes card properties and moves text before and after hovering*/
+    .cardText {
+    transform: translateY(60%);
+    transition: transform 400ms ease-out;
+  }
+  .peopleCard {
+    transform: scale(1);
+    transition: transform 400ms linear;
+  }
+
+  .peopleCard:hover { 
+    transform: scale(1.05);
+    transition: transform 400ms linear;
+  }
+ 
+  .peopleCard:hover .cardText,
+  .peopleCard:focus-within .cardText {
+    transform: translateY(0);
+    transition: transform 400ms ease-in;
+  }
+}
+
+/*----------------Misc--------------*/
+.overview {
+    background-color: #EFEAE7;
+}
+
+.footer {
+    background-color: #540b0da2;
+}
+body{
+    background-color:#ddddddff;
+}
+
+.noborder td,
+.noborder th {
+    border:0px;
+}
+
+th h1{
+    font-family:serif;
+    font: 90px;
+}
+
+
+.icon-white {
+    color: #FFFFFF;
+}
+
+
+.table td{
+    font-size:20px;
+}
+
+.showcase {
+    background-color: #D6A99A;
+}
+
+
+.signInPage{
+    background-color:#ddddddff;
+}
