@@ -28,20 +28,14 @@ Instructions:
 #include <ArduinoJson.h>      // Used for HTTP Request
 #include "arduino_secrets.h"  // Used to store private network info
 #include <Wire.h>             // Used for I2C
-#include <LSM6DSOXSensor.h>   // Used for IMU sensor
-#include <lsm6dsox_reg.h>     // Used for IMU sensor
+#include <Adafruit_LSM6DSOX.h>
 
 // Define global variables and constants for the circuit & sensor
-const int IMU_SDA = A4;
-const int IMU_SCL = A5;
-arduino::TwoWire dev_i2c(&sercom0, IMU_SDA, IMU_SCL); 
-
 int32_t accelerometer[3];
 double resultant;
 const int EMG_SIG = A6;
 int muscle;
-LSM6DSOXSensor AccGyr(&dev_i2c); 
-
+Adafruit_LSM6DSOX sox;
 
 
 ///////please enter your sensitive data in the Secret tab/arduino_secrets.h
@@ -55,14 +49,13 @@ WiFiClient client;
 
 // server address:
 //char server[] = "jsonplaceholder.typicode.com"; // for public domain server
-IPAddress server(172,20,10,3); // for localhost server (server IP address can be found with ipconfig or ifconfig)
+IPAddress server(192,168,86,20); // for localhost server (server IP address can be found with ipconfig or ifconfig)
 
 unsigned long lastConnectionTime = 0;
-const unsigned long postingInterval = 10L * 50L; // delay between updates, in milliseconds (10L * 50L is around 1 second between requests)
+const unsigned long postingInterval = 1; // delay between updates, in milliseconds (10L * 50L is around 1 second between requests)
 
 void setup(){
-  Wire.begin();
-  Serial.begin(9600); // Start serial monitor
+  Serial.begin(115200); // Start serial monitor
 
   while (!Serial) {
     ; // wait for serial port to connect. Needed for native USB port only
@@ -71,12 +64,9 @@ void setup(){
   // Pin INPUTS/OUTPUT
   pinMode(EMG_SIG, INPUT);
 
-  // Create TwoWire interface
-  dev_i2c.begin();
-  
-  // Create IMU sensor instance
-  AccGyr.begin();
-  AccGyr.Enable_X();  
+  if (!sox.begin_I2C(0x6B)) {
+    Serial.println("Failed to connect to IMU (bad solder?)");
+  }
 
   // check for the WiFi module:
   if (WiFi.status() == WL_NO_MODULE) {
@@ -99,11 +89,9 @@ void setup(){
   }
 
   printWifiStatus(); // you're connected now, so print out the status
-  Serial.println("a");
 }
 
 void loop(){
-  Serial.print("a");
   StaticJsonDocument<200> doc;
 
   // if there's incoming data from the net connection, append each character to a variable
@@ -131,10 +119,12 @@ void httpRequest() {
   client.stop();
 
   // call emg() function to get emg voltages
-  emg();  
+  emg();
+  Serial.println(muscle);  
 
   // call imu() function to get emg voltages
   imu(); 
+  Serial.println(resultant);
   
   // if there's a successful connection:
   if (client.connect(server, 5000)) {
@@ -151,7 +141,7 @@ void httpRequest() {
     client.println(request);
 
     // set the host as server IP address
-    client.println("Host: 172.20.10.3");
+    client.println("Host: 192.168.86.20");
 
     // other request properties
     client.println("User-Agent: ArduinoWiFi/1.1");
@@ -186,9 +176,11 @@ void emg(){
 
 // collect imu values
 void imu(){
-  // Get accelerometry values
-  AccGyr.Get_X_Axes(accelerometer); 
+  sensors_event_t accel;
+  sensors_event_t gyro;
+  sensors_event_t temp;
+  sox.getEvent(&accel, &gyro, &temp);
 
   // Calculate resultant acceleration
-  resultant = sqrt(sq(accelerometer[0]) + sq(accelerometer[1]) + sq(accelerometer[2]));
+  resultant = sqrt(sq(accel.acceleration.x)+sq(accel.acceleration.y)+sq(accel.acceleration.z));
 }

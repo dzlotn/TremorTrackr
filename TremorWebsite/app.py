@@ -5,6 +5,7 @@ import csv
 import threading 
 from processor import start_processing
 import js2py
+import os
 
 
 
@@ -88,15 +89,19 @@ def test():
             
             # Update csv from values
             field_names = ['KEY','EMG','IMU']
-            dict= {'KEY': key, 'EMG': int(EMG), 'IMU': float(IMU)}
-            with open('..\TremorWebsite\data\data.csv', 'w') as csvfile:
-                    writer = csv.DictWriter(csvfile, fieldnames = field_names)
-                    writer.writerows(dict)
+            row = [key, int(EMG), float(IMU)]
+            filepath = 'data\data.csv'
+            directory = os.path.dirname(__file__)
+            datafile = os.path.join(directory, filepath)
+            with open(datafile, 'a', newline='') as csvfile:
+                writer = csv.writer(csvfile)
+                writer.writerow(row)
+                csvfile.close()
 
             # Every 3000ms after 1500ms, call processor to process chunk and reset the raw data graphs
             if  key % 3000 == 0 and key != 0:
                 t1 = threading.Thread(target=start_processing(db, userID,key)).start()
-                js2py.run_file("TremorWebsite\static\js\home.js") 
+                #js2py.run_file("TremorWebsite\static\js\home.js") 
                 
             key += 1 # Update key
 
@@ -107,7 +112,7 @@ def test():
 # Flask Driver Function
 def run_flask():
     #Run app through port 5000 on 
-    app.run(debug=True, host='172.20.10.3', port=5000)
+    app.run(debug=True, host='192.168.86.20', port=5000)
 
 
 if __name__ == '__main__':

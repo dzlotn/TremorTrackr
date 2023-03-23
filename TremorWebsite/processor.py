@@ -10,8 +10,8 @@ def start_processing(db, userID, key):
     directory = os.path.dirname(__file__)
     datafile = os.path.join(directory, filepath)
     data = pd.read_csv(datafile, delimiter=',')
-    acc = data['Accel']#[key-3000:key]
-    emg = data['EMG']#[key-3000:key]
+    acc = data['IMU'][key-3000:key]
+    emg = data['EMG'][key-3000:key]
 
     #Records the time stamp when processing starts, and calls the processing chunk function
     timeStamp = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
