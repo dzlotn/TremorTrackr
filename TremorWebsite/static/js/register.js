@@ -10,13 +10,13 @@ import { getDatabase, ref, set, update, child, get } from "https://www.gstatic.c
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyBFAJTz0ORWNa4XWc5V5VPSkj4h2_lrM2s",
-    authDomain: "wearable-sensor-project.firebaseapp.com",
-    databaseURL: "https://wearable-sensor-project-default-rtdb.firebaseio.com",
-    projectId: "wearable-sensor-project",
-    storageBucket: "wearable-sensor-project.appspot.com",
-    messagingSenderId: "657322824284",
-    appId: "1:657322824284:web:dc883d616173145cc00c99"
+  apiKey: "AIzaSyBFAJTz0ORWNa4XWc5V5VPSkj4h2_lrM2s",
+  authDomain: "wearable-sensor-project.firebaseapp.com",
+  databaseURL: "https://wearable-sensor-project-default-rtdb.firebaseio.com",
+  projectId: "wearable-sensor-project",
+  storageBucket: "wearable-sensor-project.appspot.com",
+  messagingSenderId: "657322824284",
+  appId: "1:657322824284:web:dc883d616173145cc00c99"
 };
 
 // Initialize Firebase

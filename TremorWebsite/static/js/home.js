@@ -10,13 +10,13 @@ import { getDatabase, ref, set, update, child, get } from "https://www.gstatic.c
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyBFAJTz0ORWNa4XWc5V5VPSkj4h2_lrM2s",
-    authDomain: "wearable-sensor-project.firebaseapp.com",
-    databaseURL: "https://wearable-sensor-project-default-rtdb.firebaseio.com",
-    projectId: "wearable-sensor-project",
-    storageBucket: "wearable-sensor-project.appspot.com",
-    messagingSenderId: "657322824284",
-    appId: "1:657322824284:web:dc883d616173145cc00c99"
+  apiKey: "AIzaSyBFAJTz0ORWNa4XWc5V5VPSkj4h2_lrM2s",
+  authDomain: "wearable-sensor-project.firebaseapp.com",
+  databaseURL: "https://wearable-sensor-project-default-rtdb.firebaseio.com",
+  projectId: "wearable-sensor-project",
+  storageBucket: "wearable-sensor-project.appspot.com",
+  messagingSenderId: "657322824284",
+  appId: "1:657322824284:web:dc883d616173145cc00c99"
 };
 
 // Initialize Firebase
@@ -30,21 +30,21 @@ const db = getDatabase(app)
 //Graph CSV data using chart.js
 async function createAccelChart() {
 
-fetch('/data')
-  .then(response => response.json())
-  .then(data => {
-    const time = data.map(row => row.Time);
-    const acceleration = data.map(row => row.Accel);
-    const ctx = document.getElementById('accelChart').getContext('2d');
-    const chart = new Chart(ctx, {
+  fetch('/data')
+    .then(response => response.json())
+    .then(data => {
+      const time = data.map(row => row.Time);
+      const acceleration = data.map(row => row.Accel);
+      const ctx = document.getElementById('accelChart').getContext('2d');
+      const chart = new Chart(ctx, {
         type: 'line',
         data: {
           labels: time,
           datasets: [{
             data: acceleration,
-            radius:0,
+            radius: 0,
             borderColor: 'rgba(255, 99, 132, 1)',
-            
+
           }]
         },
         options: {
@@ -54,16 +54,16 @@ fetch('/data')
           },
           responsive: true,
 
-          plugins:{
+          plugins: {
             legend: {
-            display:false,   
+              display: false,
             },
             title: {
-                display: true,
-                text: 'Resultant Acceleration over Time'
+              display: true,
+              text: 'Resultant Acceleration over Time'
             }
-        },
-        
+          },
+
           scales: {
             y: {
               beginAtZero: true,
@@ -78,8 +78,8 @@ fetch('/data')
                 text: 'Time (ms)'
               }
             },
-            
-            
+
+
           }
         }
       });
@@ -88,106 +88,106 @@ fetch('/data')
 //Graph CSV data using chart.js
 async function createEMGChart() {
 
-    fetch('/data')
-      .then(response => response.json())
-      .then(data => {
-        const time = data.map(row => row.Time);
-        const EMG = data.map(row=>row.EMG)
-        const ctx = document.getElementById('EMGChart').getContext('2d');
-        const chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-              labels: time,
-              datasets: [{
-                label: 'Voltage',
-                data: EMG,
-                radius:0,
-                borderColor: 'rgba(37, 83, 123, 1)',
-                
-              }]
-            },
-            options: {
-              responsive: true,
-              plugins:{
-                legend: {
-                    display:false,   
-                    },
-                title: {
-                    display: true,
-                    text: 'EMG Voltage over Time'
-                }
-            },
-              scales: {
-                y: {
-                  beginAtZero: true,
-                  title: {
-                    display: true,
-                    text: 'Voltage'
-                  }
-                },
-                x: {
-                  title: {
-                    display: true,
-                    text: 'Time (ms)'
-                  }
-                },
-                
-              }
-            }
-          });
-        });
-    }
-    async function createCalcChart() {
+  fetch('/data')
+    .then(response => response.json())
+    .then(data => {
+      const time = data.map(row => row.Time);
+      const EMG = data.map(row => row.EMG)
+      const ctx = document.getElementById('EMGChart').getContext('2d');
+      const chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: time,
+          datasets: [{
+            label: 'Voltage',
+            data: EMG,
+            radius: 0,
+            borderColor: 'rgba(37, 83, 123, 1)',
 
-        fetch('/data')
-          .then(response => response.json())
-          .then(data => {
-            const time = data.map(row => row.Time);
-            const EMG = data.map(row=>row.EMG)
-            const ctx = document.getElementById('EMGChart').getContext('2d');
-            const chart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                  labels: time,
-                  datasets: [{
-                    label: 'Voltage',
-                    data: EMG,
-                    radius:0,
-                    borderColor: 'rgba(37, 83, 123, 1)',
-                    
-                  }]
-                },
-                options: {
-                  responsive: true,
-                  plugins:{
-                    legend: {
-                        display:false,   
-                        },
-                    title: {
-                        display: true,
-                        text: 'EMG Voltage over Time'
-                    }
-                },
-                  scales: {
-                    y: {
-                      beginAtZero: true,
-                      title: {
-                        display: true,
-                        text: 'Voltage'
-                      }
-                    },
-                    x: {
-                      title: {
-                        display: true,
-                        text: 'Time (ms)'
-                      }
-                    },
-                    
-                  }
-                }
-              });
-            });
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              display: false,
+            },
+            title: {
+              display: true,
+              text: 'EMG Voltage over Time'
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Voltage'
+              }
+            },
+            x: {
+              title: {
+                display: true,
+                text: 'Time (ms)'
+              }
+            },
+
+          }
         }
+      });
+    });
+}
+async function createCalcChart() {
+
+  fetch('/data')
+    .then(response => response.json())
+    .then(data => {
+      const time = data.map(row => row.Time);
+      const EMG = data.map(row => row.EMG)
+      const ctx = document.getElementById('EMGChart').getContext('2d');
+      const chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: time,
+          datasets: [{
+            label: 'Voltage',
+            data: EMG,
+            radius: 0,
+            borderColor: 'rgba(37, 83, 123, 1)',
+
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              display: false,
+            },
+            title: {
+              display: true,
+              text: 'EMG Voltage over Time'
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Voltage'
+              }
+            },
+            x: {
+              title: {
+                display: true,
+                text: 'Time (ms)'
+              }
+            },
+
+          }
+        }
+      });
+    });
+}
 
 createAccelChart()
 createEMGChart()
