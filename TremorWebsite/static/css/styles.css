@@ -6,17 +6,22 @@
 .footer {
     background-color: #540b0da2;
 }
-body{
-    background-color:#ddddddff;
+
+body {
+    background-color: #ddddddff;
+}
+
+.bgcolor {
+    background-color: rgb(85, 83, 83)
 }
 
 .noborder td,
 .noborder th {
-    border:0px;
+    border: 0px;
 }
 
-th h1{
-    font-family:serif;
+th h1 {
+    font-family: serif;
     font: 90px;
 }
 
@@ -26,8 +31,8 @@ th h1{
 }
 
 
-.table td{
-    font-size:20px;
+.table td {
+    font-size: 20px;
 }
 
 .showcase {
@@ -37,17 +42,19 @@ th h1{
 .nb-bg-color {
     background-color: #718ca0ff;
 }
-.signInPage{
-    background-color:#ddddddff;
+
+.signInPage {
+    background-color: #ddddddff;
 }
 
 
 /* Navbar CSS */
 .hover-underline-animation {
     display: inline-block;
-    position:relative
-    /*color: #0087ca;*/
+    position: relative
+        /*color: #0087ca;*/
 }
+
 .hover-underline-animation:after {
     content: '';
     position: absolute;
@@ -65,39 +72,44 @@ th h1{
     transform: scaleX(1);
     /*transform-origin: bottom left;*/
 }
-a#nbMenuItem{
+
+a#nbMenuItem {
     font-size: 25px;
-    margin:auto;
+    margin: auto;
     color: #FFFFFF;
-    font-weight:bold;
-    padding-right:30px;
-} 
+    font-weight: bold;
+    padding-right: 30px;
+}
 
 
 
-.navbar{
+.navbar {
     border-radius: 30px;
-    height:10%;
-    padding-top:-5%;
+    height: 5%;
+    padding-top: -5%;
 }
+
 .navbar-brand {
-    width:130px;
-    height:100%;
+    width: 130px;
+    height: 100%;
+    margin-left:-20px;
 }
+
 /* Chart JS CSS */
-.accelChart{
+.accelChart {
     margin: 50px auto;
     background-color: white;
     border: 5px solid #718ca0ff;
-    border-radius:5px;
+    border-radius: 5px;
     width: 80%;
     padding: 10px;
 }
-.EMGChart{
+
+.EMGChart {
     margin: 50px auto;
     background-color: white;
     border: 5px solid #718ca0ff;
-    border-radius:5px;
+    border-radius: 5px;
     width: 80%;
     padding: 10px;
 }
@@ -109,54 +121,57 @@ a#nbMenuItem{
 
 
 /* About Us Components */
-.gridSystem{
-    display:grid;
+.gridSystem {
+    display: grid;
     grid-template-columns: repeat(2, 45%);
     grid-auto-rows: 45%;
 
 }
+
 .peopleCard {
-  display: grid;
-  width: 80%;
-  max-width: 350px;
-  height: 450px;
-  border-radius: 10px;
-  
+    display: grid;
+    width: 80%;
+    max-width: 350px;
+    height: 450px;
+    border-radius: 10px;
+
 }
 
-.peopleCard > * {
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
+.peopleCard>* {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
 }
 
 
 .cardText {
-  height: 55%;
-  padding: 5% 20px 30px;
-  background: rgba(0, 0, 0, 0.25);
-  
+    height: 55%;
+    padding: 5% 20px 30px;
+    background: rgba(0, 0, 0, 0.25);
+
 }
 
-@media (any-hover: hover)  {
-  /*Changes card properties and moves text before and after hovering*/
-    .cardText {
-    transform: translateY(60%);
-    transition: transform 400ms ease-out;
-  }
-  .peopleCard {
-    transform: scale(1);
-    transition: transform 400ms linear;
-  }
+@media (any-hover: hover) {
 
-  .peopleCard:hover { 
-    transform: scale(1.05);
-    transition: transform 400ms linear;
-  }
- 
-  .peopleCard:hover .cardText,
-  .peopleCard:focus-within .cardText {
-    transform: translateY(0);
-    transition: transform 400ms ease-in;
-  }
+    /*Changes card properties and moves text before and after hovering*/
+    .cardText {
+        transform: translateY(60%);
+        transition: transform 400ms ease-out;
+    }
+
+    .peopleCard {
+        transform: scale(1);
+        transition: transform 400ms linear;
+    }
+
+    .peopleCard:hover {
+        transform: scale(1.05);
+        transition: transform 400ms linear;
+    }
+
+    .peopleCard:hover .cardText,
+    .peopleCard:focus-within .cardText {
+        transform: translateY(0);
+        transition: transform 400ms ease-in;
+    }
 }
 

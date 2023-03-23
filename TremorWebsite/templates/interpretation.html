@@ -1,5 +1,130 @@
 {% extends "layout.html" %}
 
 {% block content %}
++<!-- Detailed Trail Overviews -->
+<div class="container justify-content-center sensortitle">
+  <h1 class="text-center font-weight-bold">Sensor</h1>
+<div id="sensorDiagram" class="justify-content-center d-flex m-5">
+  <img src="{{url_for('static', filename='img/')}}" alt="Your Image Description" class="w-25 justify-content-center">
+</div>
+</div>
+<section class= "aboutSensor bgcolor mb-4">
+<div class=" m-5 rounded aboutSensorText p-3 ">
+  <h2 class= "text-light">What is TremorTrackr?</h2>
+  <p class="text-light">The TremorTrackr, is worn via a comfortable sweatband with a box attached to the top on the wrist. The band is flexible, so it can fit on anyone. Three electrodes are attached to the upper arm, but are small enough to not impede on daily activities.
+    The goal of the TremorTrackr is to monitor the severity and power of a tremor over time, to test the effectiveness of different medication, and to help doctors diagnose and monitor tremors in their patients.</p>
+</div>
+<div class="aboutSensorPicContainer align-content-center">
+    <img src="{{url_for('static', filename='img/IMG-3644.jpg')}}" alt="Diagram of the Sensor"class="mt-3 aboutSensorPic align-content-center">
+</div> 
+
+
+</section>
+<section class="circuitDiagram">
+<div class="container justify-content-center">
+  <h1 class="text-center font-weight-bold">Circuit Diagram</h1>
+<div id="sensorDiagram" class="justify-content-center d-flex m-5 ">
+  <img src="{{url_for('static', filename='img/sensorDiagram.png')}}" alt="Diagram of the Sensor Circuit" class="w-50 justify-content-center">
+</div>
+</section>
+ <section class= "emgaccel">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6 mb-3 mt-3">
+          <div class="p-3 rounded bgcolor text-light d-flex flex-column px-5"data-aos="fade-right" >
+            <div class="d-flex flex-grow-1 justify-content-left">
+              <div class="flex-grow-1">
+                <h2 class="text-center">Accelerometry</h2>
+                <p>Acceleration is the rate of change of velocity with respect to time. Acceleration data can be used to analyze and measure tremor movements in patients. A higher rate of resultant acceleration can be indicative of a higher tremor frequency or power. Accelerometers can be attached to different parts to record acceleration data for tremor analysis.</p>
+              </div>
+              <div class="flex-grow-1 d-flex justify-content-end align-items-center m-2">
+                <img src="{{url_for('static', filename='img/IMUsensor.jpg')}}" alt="Tremor" class="aboutSensorPic">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-3 mt-3 z-1">
+          <div class="p-3 rounded bgcolor text-light d-flex flex-column px-5" data-aos="fade-left">
+            <div class="d-flex flex-grow-1 justify-content-left">
+              <div class="flex-grow-1">
+                <h2 class="text-center">EMG</h2>
+                <p id="emgInfo">Electromyography (EMG) is a technique used to measure the electrical activity of muscles. EMG data can be used to analyze and measure muscle activity during tremor movements in patients. EMG sensors can be attached to the skin or inserted into the muscle to detect and record muscle activity data.</p>
+              </div>
+              <div class="flex-grow-1 d-flex justify-content-end align-items-center">
+                <img src="{{url_for('static', filename='img/d936b5f1-cb69-4bfc-a372-ea040198144f.6dc360cd1e842c1de22ae32da90d263a.jpeg')}}" alt="Tremor" class="aboutSensorPic">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+</section>
+<div class="arrowAnimContainer" style="margin-bottom:-10vh">
+  <div id="arrowAnim">
+    <div class="arrowSliding">
+      <div class="arrow"></div>
+    </div>
+    <div class="arrowSliding delay1">
+      <div class="arrow"></div>
+    </div>
+    <div class="arrowSliding delay2">
+      <div class="arrow"></div>
+    </div>
+    <div class="arrowSliding delay3">
+      <div class="arrow"></div>
+    </div>
+  </div>
+
+  <div id="arrowAnim">
+    <div class="arrowSliding z-1">
+      <div class="arrow z-1"></div>
+    </div>
+    <div class="arrowSliding delay1">
+      <div class="arrow z-1"></div>
+    </div>
+    <div class="arrowSliding delay2">
+      <div class="arrow z-1"></div>
+    </div>
+    <div class="arrowSliding delay3">
+      <div class="arrow z-1"></div>
+    </div>
+  </div>
+</div>
+<section class="dataRetrieval">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6 mb-3 mt-3">
+        <div class="p-3 rounded bgcolor text-light d-flex flex-column px-5"data-aos="fade-right" >
+          <div class="d-flex flex-grow-1 justify-content-left">
+            <div class="flex-grow-1">
+              <h2 class="text-center">Raw Acceleration</h2>
+              <p>The acceleration in the X, Y, and Z directions are plugged into a formula to get the resultant acceleration, which is the total acceleration vector for each time.</p>
+            </div>
+            <div class="flex-grow-1 d-flex justify-content-end align-items-center m-2">
+              <img src="{{url_for('static', filename='img/resultAccel.png')}}" alt="Tremor" class="aboutSensorPic w-75">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mb-3 mt-3 z-3">
+        <div class="p-3 rounded bgcolor text-light d-flex flex-column px-5 z-3" data-aos="fade-left" >
+          <div class="d-flex flex-grow-1 justify-content-left z-3">
+            <div class="flex-grow-1">
+              <h2 class="text-center">Raw EMG Data</h2>
+              <p id="emgInfo">The EMG sensor gets voltage values from the right extensor muscle</p>
+            </div>
+            <div class="flex-grow-1 d-flex justify-content-end align-items-center">
+              <img src="{{url_for('static', filename='img/EMGfake data.jpeg')}}" alt="Tremor" class="aboutSensorPic">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  
 
 {% endblock %}

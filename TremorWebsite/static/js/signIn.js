@@ -6,11 +6,11 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebas
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } 
-from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword }
+    from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
 
-import { getDatabase, ref, set, update, child, get, remove } 
-from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+import { getDatabase, ref, set, update, child, get, remove }
+    from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -33,51 +33,51 @@ const auth = getAuth();
 const db = getDatabase(app);
 
 // ---------------------- Sign-In User ---------------------------------------//
-document.getElementById('signIn').onclick = function() {
+document.getElementById('signIn').onclick = function () {
     // Get user's email and password for sign in
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
 
     // Attempt to sign user in
     signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-        // Create a user and store the user ID
-        const user = userCredential.user;
+        .then((userCredential) => {
+            // Create a user and store the user ID
+            const user = userCredential.user;
 
-        // Log sign-in date in DB
-        // update will only add the last_login and won't overwrite anything
-        let logDate = new Date();
-        update(ref(db, 'users/' + user.uid + '/accountInfo'), {
-            last_login: logDate,
-        })
-        .then(() => {
-            // User signed in!
-            alert('User signed in successfully!');
+            // Log sign-in date in DB
+            // update will only add the last_login and won't overwrite anything
+            let logDate = new Date();
+            update(ref(db, 'users/' + user.uid + '/accountInfo'), {
+                last_login: logDate,
+            })
+                .then(() => {
+                    // User signed in!
+                    alert('User signed in successfully!');
 
-            // Get snapshot of all the user info
-            // login() function and stored in session or local storage
-            get(ref(db, 'users/' + user.uid + '/accountInfo')).then((snapshot) => {
-                if (snapshot.exists()) {
-                    console.log(snapshot.val());
-                    logIn(snapshot.val(), firebaseConfig)
-                } else {
-                    console.log('User does not exist.');
-                }
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+                    // Get snapshot of all the user info
+                    // login() function and stored in session or local storage
+                    get(ref(db, 'users/' + user.uid + '/accountInfo')).then((snapshot) => {
+                        if (snapshot.exists()) {
+                            console.log(snapshot.val());
+                            logIn(snapshot.val(), firebaseConfig)
+                        } else {
+                            console.log('User does not exist.');
+                        }
+                    })
+                        .catch((error) => {
+                            console.log(error)
+                        })
+                })
+                .catch((error) => {
+                    // Sign-in failed
+                    alert(error);
+                });
         })
         .catch((error) => {
-            // Sign-in failed
-            alert(error);
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            alert(errorMessage);
         });
-    })
-    .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        alert(errorMessage);
-    });
 }
 
 
@@ -97,7 +97,7 @@ function logIn(user, fbcfg) {
         // Send to app.py
         fetch('/test', {
             "method": "POST",
-            "headers": {"Content-Type": "application/json"},
+            "headers": { "Content-Type": "application/json" },
             "body": JSON.stringify(fbcfg)
         })
     }
@@ -111,7 +111,7 @@ function logIn(user, fbcfg) {
         // Send to app.py
         fetch('/test', {
             "method": "POST",
-            "headers": {"Content-Type": "application/json"},
+            "headers": { "Content-Type": "application/json" },
             "body": JSON.stringify(fbcfg)
         })
     }
