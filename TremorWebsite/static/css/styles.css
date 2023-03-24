@@ -68,7 +68,7 @@ th h1 {
 
 /*Sign in and Register Css*/
 .signInPage {
-    background: var(--main-bg-color)
+    background: var(--main-bg-color);
 }
 
 .signInText {
@@ -485,7 +485,7 @@ a#nbMenuItem {
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 10vw;
-    color: white;
+    color: var(--text-color2);
 }
 
 .showcase-subheader {
