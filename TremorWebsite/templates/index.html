@@ -1,11 +1,13 @@
 {% extends "layout.html" %}
 
 {% block content %}
+<!-- Showcase/Title -->
 <div class="showcase">
     <h1 class="showcase-text">TremorTrackr</h1>
     <h2 class="showcase-subheader"></h2>
 </div>
 
+<!-- Diagram with arm and boxes to the side -->
 <div class="home-diagram d-flex flex-row justify-content-center">
     <div class="col-4">
         <img src="{{url_for('static', filename='img/device-icon.svg')}}" alt="Diagram">
@@ -35,6 +37,7 @@
     </div>
 </div>
 
+<!-- Register Button -->
 <div class="home-register d-flex flex-column align-items-center">
     <hr>
     <h2>Interested? Sign Up Today!</h2>

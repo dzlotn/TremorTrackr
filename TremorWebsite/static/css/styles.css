@@ -211,6 +211,23 @@ a#nbMenuItem {
 
 
 /* Chart JS CSS */
+.data-button {
+    background-color: var(--border-secondary);
+    color: var(--text-color2);
+    padding: 14px 25px;
+    margin: 2vh;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size:2vw;
+    font-weight:bold;
+    border-radius: 8px;
+}
+
+.data-button:hover {
+    background-color: var(--border-color);
+}
+
 .accelChart {
     margin: 50px auto;
     background-color: white;
@@ -464,7 +481,7 @@ a#nbMenuItem {
 
 
 
-/* ----------------------Home Page CSS------------------ */
+/* ----------------------Index Page CSS------------------ */
 .showcase {
     position: relative;
     background-color: #D6A99A;
