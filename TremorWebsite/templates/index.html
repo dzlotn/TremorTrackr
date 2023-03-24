@@ -2,21 +2,42 @@
 
 {% block content %}
 <div class="showcase">
-    <h1 class="showcase-text">TremorTracker</h1>
-    <h2 class="showcase-subheader">Tracking Tremors since 1982</h2>
+    <h1 class="showcase-text">TremorTrackr</h1>
+    <h2 class="showcase-subheader"></h2>
 </div>
 
-<div class="about-blurb d-flex flex-column w-50 mx-auto text-center">
-    <h3 class="subheader">What Is TremorTracker?</h3>
-    <p class="blurb-text">TremorTracker is a state-of-the-art wearable sensor device for Parkinson's patients.
-    The device is worn on the arm, and by using precise accelerometry and electromyography sensors, your tremor is
-    quantified and classified throughout the day. Helps to track the effectiveness of your medication and treatments.
-    </p>
-</div>
-
-<div class="home-diagram row">
+<div class="home-diagram d-flex flex-row justify-content-center">
     <div class="col-4">
         <img src="{{url_for('static', filename='img/device-icon.svg')}}" alt="Diagram">
     </div>
+    <div class="home-blurbs col-8 d-flex flex-column justify-content-center">
+        <div class="home-blurb">
+            <h3>Life-Changing</h3>
+            <p>
+                Rethink your Parkinsons treatment with the power of the tremor tracker. Quantify your tremors in real-time and
+                throughout the day to see which treatments are working best.
+            </p>
+        </div>
+        <div class="home-blurb">
+            <h3>Dual Sensors</h3>
+            <p>
+                The TremorTrackr houses both an inertial measurement unit (IMU) and an electromyography sensor (EMG) to measure
+                your hand and muscle movement to the highest accuracy.
+            </p>
+        </div>
+        <div class="home-blurb">
+            <h3>Flexible</h3>
+            <p>
+                The TremorTrackr is attached via a stylish elastic armband which will fit all wrist sizes. No need for any adjusting,
+                just quickly slip it on and get on with your day.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="home-register d-flex flex-column align-items-center">
+    <hr>
+    <h2>Interested? Sign Up Today!</h2>
+    <a href="{{url_for('register')}}">Register</a>
 </div>
 {% endblock %}
