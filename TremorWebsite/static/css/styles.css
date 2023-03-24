@@ -14,15 +14,32 @@
 }
 
 .footer {
-    background-color: #540b0da2;
+    background-color: var(--navbar-color);
 }
 
 body {
-    background-color: #ddddddff;
+    background-color: var(--main-bg-color);
+    overflow-x:hidden;
 }
+::-webkit-scrollbar {
+    width: 13px;
+  }
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+  /* Buttons */
 
+  
+
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-secondary);
+    border-radius: 10px;
+  }
 .bgcolor {
-    background-color: rgb(85, 83, 83)
+    background-color: var(--navbar-color);
 }
 
 .noborder td,
@@ -45,24 +62,89 @@ th h1 {
     font-size: 20px;
 }
 
-.showcase {
-    background-color: #D6A99A;
-}
-
 .nb-bg-color {
     background-color: var(--navbar-color);
 }
 
+/*Sign in and Register Css*/
 .signInPage {
-    background-color: #ddddddff;
+    background:var(--main-bg-color)
+
 }
+.signInText{
+    color:var(--text-color);
+}
+.signInText1{
+    color:#efe8e8;
+}
+.signincard{
+    background-color:var(--border-color);
+}
+input[type="email"], input[type="password"],input[type="text"]{
+    border:none;
+    background:transparent;
+    border-bottom: 2px solid var(--border-color);
+    line-height:2em;
+    
+}
+input[type="email"]:focus,input[type="password"]:focus,input[type="text"]:focus{
+    animation: barColorChange 0.5s ease-out 0s 1 forwards;
+}
+
+@keyframes barColorChange {
+    0% {
+        border-bottom-color:var(--border-color);
+        
+    }
+    50%{
+        border-bottom-color:#f5658d;
+    }
+
+    100% {
+        border-bottom-color:#f890ad
+    }
+   
+}
+
+.email:focus,.password:focus,.lname:focus,.fname:focus{
+    outline:none;
+    
+}
+#signIn,#submitData{
+    background: linear-gradient(190deg, var(--border-color), var(--border-secondary))
+}
+
+#keepLoggedInSwitch{
+    background-color:var(--border-color);
+    cursor:pointer;
+}
+#signIn:hover,#submitData:hover{
+    opacity:0.8;
+}
+#signIn:active,#submitData:active{
+    opacity:1;
+}
+.noAccount:hover,.yesAccount:hover{
+    color:#e03e6c;
+}
+input[type="checkbox"]:focus{
+    outline:none;
+    border:none;
+}
+input[type="checkbox"]:checked{
+    outline:none;
+    border:none;
+}
+.register-card-body{
+    height:450px;
+}
+
 
 
 /* Navbar CSS */
 .hover-underline-animation {
     display: inline-block;
     position: relative
-        /*color: #0087ca;*/
 }
 
 .hover-underline-animation:after {
@@ -73,7 +155,7 @@ th h1 {
     height: 2px;
     bottom: 0;
     left: -8%;
-    background-color: #eae6e6;
+    background-color: var(--text-color);
     /*transform-origin: bottom right;*/
     transition: transform 0.35s ease-out;
 }
@@ -86,30 +168,30 @@ th h1 {
 a#nbMenuItem {
     font-size: 25px;
     margin: auto;
-    color: #FFFFFF;
+    color: #eae6e6;
     font-weight: bold;
     padding-right: 30px;
 }
 
 
-
 .navbar {
-    border-radius: 30px;
     height: 5%;
-    padding-top: -5%;
 }
 
 .navbar-brand {
     width: 130px;
     height: 100%;
     margin-left:-20px;
+    filter: brightness(0) invert(1);
+
 }
+
 
 /* Chart JS CSS */
 .accelChart {
     margin: 50px auto;
     background-color: white;
-    border: 5px solid #718ca0ff;
+    border: 5px solid var(--border-color);
     border-radius: 5px;
     width: 80%;
     padding: 10px;
@@ -118,7 +200,7 @@ a#nbMenuItem {
 .EMGChart {
     margin: 50px auto;
     background-color: white;
-    border: 5px solid #718ca0ff;
+    border: 5px solid var(--border-color);
     border-radius: 5px;
     width: 80%;
     padding: 10px;
@@ -131,6 +213,13 @@ a#nbMenuItem {
 
 
 /* About Us Components */
+.aboutUs{
+    background-color:var(--border-color);
+    border-radius:5px;
+    width:50vh;
+    display:flex;
+    justify-content:center;
+}
 .gridSystem {
     display: grid;
     grid-template-columns: repeat(2, 45%);
@@ -153,17 +242,29 @@ a#nbMenuItem {
 }
 
 
-.cardText {
+
+
+.cardTextDaniel{
     height: 55%;
     padding: 5% 20px 30px;
     background: rgba(0, 0, 0, 0.25);
 
 }
+.cardText{
+    height: 55%;
+    padding: 10% 20px 30px;
+    background: rgba(0, 0, 0, 0.25);}
+.cardTextAngelina{
+    height: 55%;
+    padding: 2% 20px 30px;
+
+    background: rgba(0, 0, 0, 0.25);
+}
 
 @media (any-hover: hover) {
 
     /*Changes card properties and moves text before and after hovering*/
-    .cardText {
+    .cardTextDaniel,.cardText,.cardTextAngelina {
         transform: translateY(60%);
         transition: transform 400ms ease-out;
     }
@@ -178,12 +279,26 @@ a#nbMenuItem {
         transition: transform 400ms linear;
     }
 
+
+    
+    .peopleCard:hover .cardTextDaniel,
+    .peopleCard:focus-within .cardTextDaniel {
+        transform: translateY(0);
+        transition: transform 400ms ease-in;
+
+    }
     .peopleCard:hover .cardText,
     .peopleCard:focus-within .cardText {
         transform: translateY(0);
         transition: transform 400ms ease-in;
     }
+    .peopleCard:hover .cardTextAngelina,
+    .peopleCard:focus-within .cardTextAngelina {
+        transform: translateY(0);
+        transition: transform 400ms ease-in;
+    }
 }
+
 
 .details {
     background: linear-gradient(112.1deg, rgb(32, 38, 57) 11.4%, rgb(35, 75, 83) 70.2%);
@@ -197,13 +312,120 @@ a#nbMenuItem {
     padding: 10px;
 }
 
-.arrow {
+
+
+/*Sensor Info CSS */
+
+.circuitDiagram h1, .sensortitle h1 {
+    font-weight: bold;
+}
+.aboutSensor {
+    display: flex;
+    justify-content: space-between;
+}
+
+.aboutSensorText {
+    width: 50%;
+}
+
+.aboutSensorPicContainer {
+    float: right;
+    justify-content: center;
+    display: flex;
+}
+
+.aboutSensorPic {
+
+    height: 1.3*width;
+    width: 175px;
+    margin-left: -250%;
+    border-radius: 3px;
+    margin-bottom: 5%;
+    border: 5px solid var(--border-color);
+}
+
+#emgInfo {
+    width: 90%;
+}
+
+  .arrowAnimContainer {
+    width:100%;
+    
+    height:10vh;
+    display:flex;
+    justify-content: space-around;
+    margin-bottom: auto;
+    
+  }
+.arrow{
+    opacity:0;
+    position:relative;
+}
+.arrow1 {
+    top: 80%; 
+}
+@keyframes arrow-movement1 {
+    0% {
+        opacity: 0;
+        top: 0%;
+        
+    }
+    70% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.arrow-first1 {
+    animation: arrow-movement1 2s ease-in-out infinite;
+}
+.arrow-second1 {
+    animation: arrow-movement1 2s 1s ease-in-out infinite;
+}
+
+.arrow:before,
+.arrow:after {
+    background: var(--border-color);
+    content: "";
+    display: block;
+    height: 3px;
     position: absolute;
-    width: 0;
+    width: 30px;
+}
+
+.arrow:before {
+    transform: rotate(45deg) translateX(-23%);
+    transform-origin: top left;
+}
+
+.arrow:after {
+    transform: rotate(-45deg) translateX(23%);
+    transform-origin: top right;
+}
+
+.flex-grow-1 h2::after, .aboutSensorText h2::after, .aboutUsTitle {
+    content: "";
+    display: block;
     height: 0;
-    border-top: 20px solid transparent;
-    border-bottom: 20px solid transparent;
-    border-right: 20px solid black;
+    margin-top: 1vh;
+    margin-left:25%;
+    margin-right:25%;
+    border-bottom: 2px solid var(--border-color); /* set the color of the middle 20% of the bottom border */
+  }
+
+
+.details {
+    background: linear-gradient(112.1deg, rgb(32, 38, 57) 11.4%, rgb(35, 75, 83) 70.2%);
+    height: 15em;
+
+}
+
+.column {
+    float: left;
+    width: 50%;
+    padding: 10px;
 }
 
 /*Sensor Info CSS */
@@ -240,53 +462,6 @@ a#nbMenuItem {
     width: 90%;
 }
 
-#arrowAnim {
-    width: 55vw;
-    height: 55vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index:1;
-  }
-  
-  .arrow {
-    width: 3vw;
-    height: 3vw;
-    border: 1.5vw solid;
-    border-color: black transparent transparent black;
-    transform: rotate(225deg);
-  }
-  
-  .arrowAnimContainer {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-
-
-  .arrowSliding {
-    margin-top:-23vh;
-    animation: slide 2.4s linear infinite;
-    z-index:1;
-
-  }
-  
-  .delay1 {
-      animation-delay: 0.6s;
-  }
-  .delay2 {
-      animation-delay: 1.2s;
-  }
-  .delay3 {
-      animation-delay: 1.8s;
-  }
-  
-  @keyframes slide {
-      0% { opacity:0; transform: translateY(-9vw); }	
-     20% { opacity:1; transform: translateY(-5.4vw); }	
-     80% { opacity:1; transform: translateY(5.4vw); }	
-    100% { opacity:0; transform: translateY(9vw); }	
-  }
 /* -------------------Navbar CSS--------------------- */
 .hover-underline-animation {
     display: inline-block;
@@ -489,13 +664,6 @@ a#nbMenuItem{
     background-color: #EFEAE7;
 }
 
-.footer {
-    background-color: #540b0da2;
-}
-body{
-    background-color:#ddddddff;
-}
-
 .noborder td,
 .noborder th {
     border:0px;
@@ -520,7 +688,3 @@ th h1{
     background-color: #D6A99A;
 }
 
-
-.signInPage{
-    background-color:#ddddddff;
-}

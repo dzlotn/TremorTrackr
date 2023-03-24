@@ -1,52 +1,63 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<!-- About the Author-->
+<!-- About the Team (Mission Statememt)-->
+<!-- <section class="aboutUs text-center m-5">
+  <div class="container ">
+  <h2>Mission Statement</h2>
+  <p>We are dedicated to helping patients minimize the horrible effects of Parkinson's Disease by recording tremor severity information for doctors.</p>
+</div>
+</section> -->
 <section class="author">
+
   <div class="container">
-    <br>
-    <h1 class="text-center about-author font-weight-bold ">Meet the Team!</h1>
-    <hr>
+    <br style="color:var(--navbar-color)">
+    <h1 class="text-center signInText1 about-author font-weight-bold ">Meet the Team!</h1>
+    <div class="aboutUsTitle w-50"></div>
     <!--Cards Organized in a 2x2 table format and when hovering over card, the name of the person and information of their role shows up-->
-    <div class="grid d-flex justify-content-center g-2">
+    <div class="grid d-flex justify-content-center">
       <div class="gridSystem g-2">
         <div class="peopleCard m-5 overflow-hidden ">
           <img class="cardImage h-100 mw-100 object-fit-cover" src="{{url_for('static', filename='/img/IMG_1500.JPG')}}"
             alt="Picture of Daniel" />
-          <div class="cardText d-flex align-self-end flex-column">
+          <div class="cardTextDaniel d-flex align-self-end flex-column">
             <h2 class="text-white">Daniel Zlotnick</h2>
             <p class="cardDescr text-white p-3">
-              Daniel is an essential coder on the team, and is responsible for making this website and processing the sensor data.
+              Daniel is one of the software engineering students involved, and helped to the website, build the sensor, and process the sensor data.
             </p>
           </div>
         </div>
         <div class="peopleCard m-5 overflow-hidden ">
-          <img class="cardImage h-100 mw-100 object-fit-cover" src="{{url_for('static', filename='/img/IMG_1500.JPG')}}"
+          <img class="cardImage h-100 mw-100 object-fit-cover" src="{{url_for('static', filename='/img/laurenPic.png')}}"
             alt="Picture of Lauren" />
           <div class="cardText d-flex align-self-end flex-column">
             <h2 class="text-white">Lauren Fleming</h2>
             <p class="cardDescr text-white p-3">
-              Add role in team
+              Lauren is am one of the Biomedical Engineering students involved, and helped to create the concept and rational for the inital idea of the device, as well as developed the design and circuitry.
+
+
             </p>
           </div>
         </div>
         <div class="peopleCard m-5 overflow-hidden ">
-          <img class="cardImage h-100 mw-100 object-fit-cover" src="{{url_for('static', filename='/img/IMG_1500.JPG')}}"
+          <img class="cardImage h-100 mw-100 object-fit-cover" src="{{url_for('static', filename='/img/IMG_3725 (1).jpg')}}"
             alt="Picture of Angelina" />
-          <div class="cardText d-flex align-self-end flex-column">
+          <div class="cardTextAngelina d-flex align-self-end flex-column">
             <h2 class="text-white">Angelina Otero</h2>
             <p class="cardDescr text-white p-3">
-              Add role in team
+              Angelina is a BME student who helped develop the prototype drawings, device design, and circuit.
+
+
             </p>
           </div>
         </div>
         <div class="peopleCard m-5 overflow-hidden ">
-          <img class="cardImage h-100 mw-100 object-fit-cover" src="{{url_for('static', filename='/img/IMG_1500.JPG')}}"
+          <img class="cardImage h-100 mw-100 object-fit-cover" src="{{url_for('static', filename='/img/owenPic.jpeg')}}"
             alt="Picture of Owen" />
           <div class="cardText d-flex align-self-end flex-column">
             <h2 class="text-white">Owen Powell</h2>
             <p class="cardDescr text-white p-3">
-              Add role in team
+              Owen Powell is a coder on the team, and helped designing the website and sensor circuit.
             </p>
           </div>
         </div>
