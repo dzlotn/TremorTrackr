@@ -29,10 +29,9 @@ def about():
     return render_template("about.html")
 
 
-@app.route("/sensorInfo")
-def sensorInfo():
-    return render_template("sensorInfo.html")
-
+@app.route("/interpretation")
+def interpretation():
+    return render_template("interpretation.html")
 
 @app.route("/procedure")
 def procedure():
