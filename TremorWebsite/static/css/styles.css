@@ -1,11 +1,11 @@
 :root {
     --main-bg-color: #4d5053;
     --bg-color-2: #2b2e32;
-    --navbar-color:#212428;
-    --border-color:#ff0e52;
-    --border-secondary:#e03e6c;
-    --text-color:#c9c7c7;
-    --text-color2:#efe8e8;
+    --navbar-color: #212428;
+    --border-color: #ff0e52;
+    --border-secondary: #e03e6c;
+    --text-color: #c9c7c7;
+    --text-color2: #efe8e8;
 }
 
 /*-------Class CSS ------*/
@@ -19,25 +19,24 @@
 
 body {
     background-color: var(--main-bg-color);
-    overflow-x:hidden;
+    overflow-x: hidden;
 }
+
 ::-webkit-scrollbar {
     width: 13px;
-  }
-  ::-webkit-scrollbar-track {
+}
+
+::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px grey;
     border-radius: 10px;
-  }
-  /* Buttons */
+}
 
-  
-
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
+/* Handle */
+::-webkit-scrollbar-thumb {
     background: var(--border-secondary);
     border-radius: 10px;
-  }
+}
+
 .bgcolor {
     background-color: var(--navbar-color);
 }
@@ -66,77 +65,101 @@ th h1 {
     background-color: var(--navbar-color);
 }
 
+
 /*Sign in and Register Css*/
 .signInPage {
-    background:var(--main-bg-color)
+    background: var(--main-bg-color)
+}
+
+.signInText {
+    color: var(--text-color);
+}
+
+.signInText1 {
+    color: #efe8e8;
+}
+
+.signincard {
+    background-color: var(--border-color);
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+    border: none;
+    background: transparent;
+    border-bottom: 2px solid var(--border-color);
+    line-height: 2em;
 
 }
-.signInText{
-    color:var(--text-color);
-}
-.signInText1{
-    color:#efe8e8;
-}
-.signincard{
-    background-color:var(--border-color);
-}
-input[type="email"], input[type="password"],input[type="text"]{
-    border:none;
-    background:transparent;
-    border-bottom: 2px solid var(--border-color);
-    line-height:2em;
-    
-}
-input[type="email"]:focus,input[type="password"]:focus,input[type="text"]:focus{
+
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="text"]:focus {
     animation: barColorChange 0.5s ease-out 0s 1 forwards;
 }
 
 @keyframes barColorChange {
     0% {
-        border-bottom-color:var(--border-color);
-        
+        border-bottom-color: var(--border-color);
+
     }
-    50%{
-        border-bottom-color:#f5658d;
+
+    50% {
+        border-bottom-color: #f5658d;
     }
 
     100% {
-        border-bottom-color:#f890ad
+        border-bottom-color: #f890ad
     }
-   
+
 }
 
-.email:focus,.password:focus,.lname:focus,.fname:focus{
-    outline:none;
-    
+.email:focus,
+.password:focus,
+.lname:focus,
+.fname:focus {
+    outline: none;
+
 }
-#signIn,#submitData{
+
+#signIn,
+#submitData {
     background: linear-gradient(190deg, var(--border-color), var(--border-secondary))
 }
 
-#keepLoggedInSwitch{
-    background-color:var(--border-color);
-    cursor:pointer;
+#keepLoggedInSwitch {
+    background-color: var(--border-color);
+    cursor: pointer;
 }
-#signIn:hover,#submitData:hover{
-    opacity:0.8;
+
+#signIn:hover,
+#submitData:hover {
+    opacity: 0.8;
 }
-#signIn:active,#submitData:active{
-    opacity:1;
+
+#signIn:active,
+#submitData:active {
+    opacity: 1;
 }
-.noAccount:hover,.yesAccount:hover{
-    color:#e03e6c;
+
+.noAccount:hover,
+.yesAccount:hover {
+    color: #e03e6c;
 }
-input[type="checkbox"]:focus{
-    outline:none;
-    border:none;
+
+input[type="checkbox"]:focus {
+    outline: none;
+    border: none;
 }
-input[type="checkbox"]:checked{
-    outline:none;
-    border:none;
+
+input[type="checkbox"]:checked {
+    outline: none;
+    border: none;
 }
-.register-card-body{
-    height:450px;
+
+.register-card-body {
+    height: 450px;
 }
 
 
@@ -181,7 +204,7 @@ a#nbMenuItem {
 .navbar-brand {
     width: 130px;
     height: 100%;
-    margin-left:-20px;
+    margin-left: -20px;
     filter: brightness(0) invert(1);
 
 }
@@ -213,13 +236,14 @@ a#nbMenuItem {
 
 
 /* About Us Components */
-.aboutUs{
-    background-color:var(--border-color);
-    border-radius:5px;
-    width:50vh;
-    display:flex;
-    justify-content:center;
+.aboutUs {
+    background-color: var(--border-color);
+    border-radius: 5px;
+    width: 50vh;
+    display: flex;
+    justify-content: center;
 }
+
 .gridSystem {
     display: grid;
     grid-template-columns: repeat(2, 45%);
@@ -244,17 +268,20 @@ a#nbMenuItem {
 
 
 
-.cardTextDaniel{
+.cardTextDaniel {
     height: 55%;
     padding: 5% 20px 30px;
     background: rgba(0, 0, 0, 0.25);
 
 }
-.cardText{
+
+.cardText {
     height: 55%;
     padding: 10% 20px 30px;
-    background: rgba(0, 0, 0, 0.25);}
-.cardTextAngelina{
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.cardTextAngelina {
     height: 55%;
     padding: 2% 20px 30px;
 
@@ -264,7 +291,9 @@ a#nbMenuItem {
 @media (any-hover: hover) {
 
     /*Changes card properties and moves text before and after hovering*/
-    .cardTextDaniel,.cardText,.cardTextAngelina {
+    .cardTextDaniel,
+    .cardText,
+    .cardTextAngelina {
         transform: translateY(60%);
         transition: transform 400ms ease-out;
     }
@@ -280,18 +309,20 @@ a#nbMenuItem {
     }
 
 
-    
+
     .peopleCard:hover .cardTextDaniel,
     .peopleCard:focus-within .cardTextDaniel {
         transform: translateY(0);
         transition: transform 400ms ease-in;
 
     }
+
     .peopleCard:hover .cardText,
     .peopleCard:focus-within .cardText {
         transform: translateY(0);
         transition: transform 400ms ease-in;
     }
+
     .peopleCard:hover .cardTextAngelina,
     .peopleCard:focus-within .cardTextAngelina {
         transform: translateY(0);
@@ -300,25 +331,17 @@ a#nbMenuItem {
 }
 
 
-.details {
-    background: linear-gradient(112.1deg, rgb(32, 38, 57) 11.4%, rgb(35, 75, 83) 70.2%);
-    height: 15em;
 
-}
-
-.column {
-    float: left;
-    width: 50%;
-    padding: 10px;
-}
 
 
 
 /*Sensor Info CSS */
 
-.circuitDiagram h1, .sensortitle h1 {
+.circuitDiagram h1,
+.sensortitle h1 {
     font-weight: bold;
 }
+
 .aboutSensor {
     display: flex;
     justify-content: space-between;
@@ -348,31 +371,36 @@ a#nbMenuItem {
     width: 90%;
 }
 
-  .arrowAnimContainer {
-    width:100%;
-    
-    height:10vh;
-    display:flex;
+.arrowAnimContainer {
+    width: 100%;
+
+    height: 10vh;
+    display: flex;
     justify-content: space-around;
     margin-bottom: auto;
-    
-  }
-.arrow{
-    opacity:0;
-    position:relative;
+
 }
+
+.arrow {
+    opacity: 0;
+    position: relative;
+}
+
 .arrow1 {
-    top: 80%; 
+    top: 80%;
 }
+
 @keyframes arrow-movement1 {
     0% {
         opacity: 0;
         top: 0%;
-        
+
     }
+
     70% {
         opacity: 1;
     }
+
     100% {
         opacity: 0;
     }
@@ -381,6 +409,7 @@ a#nbMenuItem {
 .arrow-first1 {
     animation: arrow-movement1 2s ease-in-out infinite;
 }
+
 .arrow-second1 {
     animation: arrow-movement1 2s 1s ease-in-out infinite;
 }
@@ -405,15 +434,18 @@ a#nbMenuItem {
     transform-origin: top right;
 }
 
-.flex-grow-1 h2::after, .aboutSensorText h2::after, .aboutUsTitle {
+.flex-grow-1 h2::after,
+.aboutSensorText h2::after,
+.aboutUsTitle {
     content: "";
     display: block;
     height: 0;
     margin-top: 1vh;
-    margin-left:25%;
-    margin-right:25%;
-    border-bottom: 2px solid var(--border-color); /* set the color of the middle 20% of the bottom border */
-  }
+    margin-left: 25%;
+    margin-right: 25%;
+    border-bottom: 2px solid var(--border-color);
+    /* set the color of the middle 20% of the bottom border */
+}
 
 
 .details {
@@ -428,89 +460,19 @@ a#nbMenuItem {
     padding: 10px;
 }
 
-/*Sensor Info CSS */
 
-.circuitDiagram h1, .sensortitle h1 {
-    font-weight: bold;
-}
-.aboutSensor {
-    display: flex;
-    justify-content: space-between;
-}
 
-.aboutSensorText {
-    width: 50%;
-}
 
-.aboutSensorPicContainer {
-    float: right;
-    justify-content: center;
-    display: flex;
-}
-
-.aboutSensorPic {
-
-    height: 1.3*width;
-    width: 175px;
-    margin-left: -250%;
-    border-radius: 3px;
-    margin-bottom: 5%;
-    border: 5px solid #718ca0ff;
-}
-
-#emgInfo {
-    width: 90%;
-}
-
-/* -------------------Navbar CSS--------------------- */
-.hover-underline-animation {
-    display: inline-block;
-    position:relative
-    /*color: #0087ca;*/
-}
-.hover-underline-animation:after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    transform: scaleX(0);
-    height: 2px;
-    bottom: 0;
-    left: -8%;
-    background-color: #eae6e6;
-    /*transform-origin: bottom right;*/
-    transition: transform 0.35s ease-out;
-}
-
-.hover-underline-animation:hover:after {
-    transform: scaleX(1);
-    /*transform-origin: bottom left;*/
-}
-a#nbMenuItem{
-    font-size: 25px;
-    margin:auto;
-    color: #FFFFFF;
-    font-weight:bold;
-    padding-right:30px;
-} 
-
-.navbar{
-    border-radius: 30px;
-    height:10%;
-    padding-top:-5%;
-}
-.navbar-brand {
-    width:130px;
-    height:100%;
-}
 
 /* ----------------------Home Page CSS------------------ */
 .showcase {
     position: relative;
-    top:-20vh;
-    margin-bottom:-20vh;
-    text-align:center;
-    width:100%;
-    height:120vh;
+    background-color: #D6A99A;
+    top: -20vh;
+    margin-bottom: -20vh;
+    text-align: center;
+    width: 100%;
+    height: 120vh;
     background-image: url("../img/index-showcase.svg");
     background-size: cover;
     background-position: center;
@@ -535,15 +497,15 @@ a#nbMenuItem{
     color: white;
 }
 
-.subheader{
-    color:black;
-    font-size:2rem;
+.subheader {
+    color: black;
+    font-size: 2rem;
 }
 
-.home-diagram{
-    position:relative;
+.home-diagram {
+    position: relative;
     padding: 10vh 10vh 0 10vh;
-    background-color:var(--bg-color-2);
+    background-color: var(--bg-color-2);
 }
 
 .home-blurbs {
@@ -551,27 +513,27 @@ a#nbMenuItem{
 }
 
 .home-blurb {
-    background-color:var(--navbar-color);
-    color:var(--text-color2);
+    background-color: var(--navbar-color);
+    color: var(--text-color2);
     padding: 7vh;
     margin: 2vh 2vw;
     border-radius: 10px;
     border-right: 10px solid;
     border-bottom: 10px solid;
-    border-color:var(--border-color);
+    border-color: var(--border-color);
 }
 
 .home-register {
     padding: 5vh 0;
     background-color: var(--bg-color-2);
-    color:var(--text-color2);
+    color: var(--text-color2);
 }
 
-.home-register > h2 {
+.home-register>h2 {
     font-size: 4vw;
 }
 
-.home-register > a {
+.home-register>a {
     background-color: var(--border-secondary);
     color: var(--text-color2);
     padding: 14px 25px;
@@ -579,112 +541,11 @@ a#nbMenuItem{
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size:2vw;
-    font-weight:bold;
+    font-size: 2vw;
+    font-weight: bold;
     border-radius: 8px;
 }
 
-.home-register > a:hover {
+.home-register>a:hover {
     background-color: var(--border-color);
 }
-
-/* ------------Chart JS CSS-------------- */
-.accelChart{
-    margin: 50px auto;
-    background-color: white;
-    border: 5px solid #718ca0ff;
-    border-radius:5px;
-    width: 80%;
-    padding: 10px;
-}
-.EMGChart{
-    margin: 50px auto;
-    background-color: white;
-    border: 5px solid #718ca0ff;
-    border-radius:5px;
-    width: 80%;
-    padding: 10px;
-}
-
-
-/* --------------About Us Components---------------- */
-.gridSystem{
-    display:grid;
-    grid-template-columns: repeat(2, 45%);
-    grid-auto-rows: 45%;
-
-}
-.peopleCard {
-  display: grid;
-  width: 80%;
-  max-width: 350px;
-  height: 450px;
-  border-radius: 10px;
-  
-}
-
-.peopleCard > * {
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
-}
-
-
-.cardText {
-  height: 55%;
-  padding: 5% 20px 30px;
-  background: rgba(0, 0, 0, 0.25);
-  
-}
-
-@media (any-hover: hover)  {
-  /*Changes card properties and moves text before and after hovering*/
-    .cardText {
-    transform: translateY(60%);
-    transition: transform 400ms ease-out;
-  }
-  .peopleCard {
-    transform: scale(1);
-    transition: transform 400ms linear;
-  }
-
-  .peopleCard:hover { 
-    transform: scale(1.05);
-    transition: transform 400ms linear;
-  }
- 
-  .peopleCard:hover .cardText,
-  .peopleCard:focus-within .cardText {
-    transform: translateY(0);
-    transition: transform 400ms ease-in;
-  }
-}
-
-/*----------------Misc--------------*/
-.overview {
-    background-color: #EFEAE7;
-}
-
-.noborder td,
-.noborder th {
-    border:0px;
-}
-
-th h1{
-    font-family:serif;
-    font: 90px;
-}
-
-
-.icon-white {
-    color: #FFFFFF;
-}
-
-
-.table td{
-    font-size:20px;
-}
-
-.showcase {
-    background-color: #D6A99A;
-}
-
