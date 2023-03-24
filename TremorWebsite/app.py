@@ -12,6 +12,7 @@ app = Flask(__name__)
 
 config = {}
 key = 0
+collect = False
 
 
 @app.route("/")
@@ -60,9 +61,9 @@ def signIn():
     return render_template("signIn.html", js="js/signIn.js")
 
 
-@app.route("/test", methods=["GET", "POST"])
+@app.route("/test", methods=["GET", "POST", "SET"])
 def test():
-    global config, userID, db, timeStamp, key
+    global config, userID, db, timeStamp, key, collect
 
     # POST request (FB configuration sent from login.js)
     if request.method == "POST":
@@ -87,10 +88,24 @@ def test():
             target=start_processing(db, userID, 3000)).start()
         return 'Success', 200
 
+    # SET request (Set data collection or not)
+    elif request.method == "SET":
+        c = request.get_json().pop("collecting")
+        if c == "start":
+            collect = True
+        if c == "stop":
+            collect = False
+        print(collect)
+        return 'Success', 200
+
+    # GET request (Get data from Arduino)
     else:
         # Code to GET data from Arduino will go here
         if (bool(config) == False):
             print("FB config is empty")
+
+        elif collect == False:
+            print("User stopped data collection")
 
         else:
             # Get data from Arduino and parse

@@ -25,8 +25,30 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth()
 // return instance of yuor app's firebase real time database (FRD)
 const db = getDatabase(app)
-// ----------------------- Get User's Name ------------------------------
 
+// ----------------------- Start/Stop Data ------------------------------
+document.getElementById("startData").onclick = function () {
+  console.log("Starting Data Collection...");
+  // Send to app.py
+  fetch('/test', {
+    "method": "SET",
+    "headers": { "Content-Type": "application/json" },
+    "body": JSON.stringify({collecting:"start"})
+  })
+}
+
+document.getElementById("stopData").onclick = function () {
+  console.log("Stopping Data Collection...");
+  // Send to app.py
+  fetch('/test', {
+    "method": "SET",
+    "headers": { "Content-Type": "application/json" },
+    "body": JSON.stringify({collecting:"stop"})
+  })
+}
+
+
+// ------------------------ Chart.js ----------------------------------
 //Graph CSV data using chart.js
 async function createAccelChart() {
 
@@ -85,7 +107,9 @@ async function createAccelChart() {
       });
     });
 }
-//Graph CSV data using chart.js
+
+
+// Graph CSV data using chart.js
 async function createEMGChart() {
 
   fetch('/data')
@@ -137,6 +161,8 @@ async function createEMGChart() {
       });
     });
 }
+
+// Graph Firebase data using chart.js
 async function createCalcChart() {
 
   fetch('/data')
