@@ -413,4 +413,89 @@ a#nbMenuItem {
     border-bottom: 2px solid var(--border-color); /* set the color of the middle 20% of the bottom border */
   }
 
+/*Home Page CSS*/
+/* ----------------------Home Page CSS------------------ */
+.showcase {
+    position: relative;
+    top:-20vh;
+    margin-bottom:-20vh;
+    text-align:center;
+    width:100%;
+    height:120vh;
+    background-image: url("../img/index-showcase.svg");
+    background-size: cover;
+    background-position: center;
+    z-index: -10;
+}
+
+.showcase-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 10vw;
+    color: white;
+}
+
+.showcase-subheader {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    color: white;
+}
+
+.subheader{
+    color:black;
+    font-size:2rem;
+}
+
+.home-diagram{
+    position:relative;
+    padding: 10vh 10vh 0 10vh;
+    background-color:var(--bg-color-2);
+}
+
+.home-blurbs {
+    padding: auto;
+}
+
+.home-blurb {
+    background-color:var(--navbar-color);
+    color:var(--text-color2);
+    padding: 7vh;
+    margin: 2vh 2vw;
+    border-radius: 10px;
+    border-right: 10px solid;
+    border-bottom: 10px solid;
+    border-color:var(--border-color);
+}
+
+.home-register {
+    padding: 5vh 0;
+    background-color: var(--bg-color-2);
+    color:var(--text-color2);
+}
+
+.home-register > h2 {
+    font-size: 4vw;
+}
+
+.home-register > a {
+    background-color: var(--border-secondary);
+    color: var(--text-color2);
+    padding: 14px 25px;
+    margin: 2vh;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size:2vw;
+    font-weight:bold;
+    border-radius: 8px;
+}
+
+.home-register > a:hover {
+    background-color: var(--border-color);
+}
 
