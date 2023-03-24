@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 :root {
     --main-bg-color: #4d5053;
     --navbar-color:#212428;
@@ -7,8 +6,6 @@
     --text-color:#c9c7c7;
     --text-color2:#efe8e8;
   }
-=======
->>>>>>> parent of f93a9e3 (Finished landing page)
 /*-------Class CSS ------*/
 .overview {
     background-color: #EFEAE7;
@@ -64,11 +61,7 @@ th h1 {
 }
 
 .nb-bg-color {
-<<<<<<< HEAD
     background-image: var(--navbar-color);
-=======
-    background-color: #718ca0ff;
->>>>>>> parent of f93a9e3 (Finished landing page)
 }
 
 /*Sign in and Register Css*/
@@ -400,7 +393,6 @@ a#nbMenuItem {
     width: 30px;
 }
 
-<<<<<<< HEAD
 .arrow:before {
     transform: rotate(45deg) translateX(-23%);
     transform-origin: top left;
@@ -423,42 +415,14 @@ a#nbMenuItem {
 
 /*Home Page CSS*/
 /* ----------------------Home Page CSS------------------ */
-=======
-.hover-underline-animation:hover:after {
-    transform: scaleX(1);
-    /*transform-origin: bottom left;*/
-}
-a#nbMenuItem{
-    font-size: 25px;
-    margin:auto;
-    color: #FFFFFF;
-    font-weight:bold;
-    padding-right:30px;
-} 
-
-.nb-bg-color {
-    background-color: #718ca0ff;
-}
-
-.navbar{
-    border-radius: 30px;
-    height:10%;
-    padding-top:-5%;
-}
-.navbar-brand {
-    width:130px;
-    height:100%;
-}
-
-/* ------------------Showcase CSS--------------- */
->>>>>>> parent of f93a9e3 (Finished landing page)
 .showcase {
     position: relative;
-    top:-150px;
+    top:-20vh;
+    margin-bottom:-20vh;
     text-align:center;
     width:100%;
-    min-height:853px;
-    background-image:linear-gradient(rgba(62, 62, 62, 0.60), rgba(62, 62, 62, 0.6)),url("../img/temp-showcase.jpg");
+    height:120vh;
+    background-image: url("../img/index-showcase.svg");
     background-size: cover;
     background-position: center;
     z-index: -10;
@@ -469,7 +433,7 @@ a#nbMenuItem{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 9rem;
+    font-size: 10vw;
     color: white;
 }
 
@@ -482,15 +446,56 @@ a#nbMenuItem{
     color: white;
 }
 
-/* ----------------------Home Page CSS------------------ */
 .subheader{
     color:black;
     font-size:2rem;
 }
 
-.about-blurb {
-    margin-top: -6rem;
-    margin-bottom: 1rem;
+.home-diagram{
+    position:relative;
+    padding: 10vh 10vh 0 10vh;
+    background-color:var(--bg-color-2);
 }
 
+.home-blurbs {
+    padding: auto;
+}
+
+.home-blurb {
+    background-color:var(--navbar-color);
+    color:var(--text-color2);
+    padding: 7vh;
+    margin: 2vh 2vw;
+    border-radius: 10px;
+    border-right: 10px solid;
+    border-bottom: 10px solid;
+    border-color:var(--border-color);
+}
+
+.home-register {
+    padding: 5vh 0;
+    background-color: var(--bg-color-2);
+    color:var(--text-color2);
+}
+
+.home-register > h2 {
+    font-size: 4vw;
+}
+
+.home-register > a {
+    background-color: var(--border-secondary);
+    color: var(--text-color2);
+    padding: 14px 25px;
+    margin: 2vh;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size:2vw;
+    font-weight:bold;
+    border-radius: 8px;
+}
+
+.home-register > a:hover {
+    background-color: var(--border-color);
+}
 
