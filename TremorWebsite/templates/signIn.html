@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<section class="signInPage" style="height:713px;">
+    <!--Sign in Functions in a Card-->
+    <div class="container ">
+        <div class="row">
+            <div class="col-lg-11 m-auto ">
+                <div class="card d-flex flex-row bg-transparent rounded signincard" style="margin-top: 7%;">
+                    <img class="signinimage" alt="sign in tremor sensor"
+                        src="{{url_for('static', filename='/img/shakyHandsElder-1201217609-770x533-650x428.jpg')}}"
+                        style="height:500px; width:700px">
+
+                    <div class="d-flex justify-content-center align-items-center  flex-column flex-grow-1"style="background-color:var(--navbar-color);">
+
+
+                        <div class="signin-card-body ">
+                            <div class="card-title text-light align-self-baseline ">
+                                <h3 class="text-center signInText py-2 font-weight-bold mb-3 mt-5">Sign-In</h3>
+                            </div>
+                            <form>
+                                <input type="email" placeholder="Email" id="loginEmail" class=" mb-4 w-100 d-flex justify-content-center email signInText" autocomplete="off">
+                                <input type="password" placeholder="Password" id="loginPassword" 
+                                    class=" mb-4 w-100 password signInText"> 
+                                <div class="form-check  mb-4">
+                                    <input class="form-check-input" type="checkbox" role="switch"
+                                        id="keepLoggedInSwitch">
+                                    <label class="form-check-label signInText" for="flexSwitchCheckDefault">Keep me
+                                        signed in</label>
+                                </div>
+                                <button type="button" id="signIn" name="signIn"
+                                    class="btn text-light mb-3 w-100">Sign In</button>
+                                <a href="{{url_for('register')}}" class="badge signInText mb-3 py-1 w-100 noAccount">Don't have an
+                                    account?</a>
+
+
+
+                            </form>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

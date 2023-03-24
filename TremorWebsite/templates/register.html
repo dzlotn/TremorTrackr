@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <!-- HTML goes here -->
+    <section class="signInPage" style="height:713px;">
+    <!--Registration -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-11 m-auto ">
+                <div class="card d-flex flex-row align-items-center justify-content-center bg-transparent rounded " style="margin-top: 7%">
+
+                    <img class="registerimage" src="{{url_for('static', filename='/img/istockphoto-884498068-612x612.jpg')}}" alt="register tremor image" style="height:450px; width:700px">
+
+                    <div class="d-flex justify-content-center align-items-center flex-column flex-grow-1"style="background-color:var(--navbar-color);">
+
+
+                        <div class="register-card-body">
+                            <div class="card-title text-black align-self-baseline d-flex justify-content-center">
+                                <h3 class="text-center signInText py-2 font-weight-bold mb-3 mt-5">Register</h3>
+                            </div>
+                            <form class="d-flex flex-column justify-content-center">
+                                <input type="text" placeholder="First Name" id="firstName" class=" mb-3 w-100 signInText fname" autocomplete="off">
+                                <input type="text" placeholder="Last Name" id="lastName" class=" mb-3 w-100 signInText lname"autocomplete="off">
+                                <input type="email" placeholder="Email" id="userEmail" class=" mb-4 w-100 d-flex justify-content-center email signInText"autocomplete="off">
+                                <input type="password" placeholder="Password" id="userPass" class="mb-4 w-100 password signInText">
+                                <button type="button" id="submitData" name="submitData"
+                                    class="btn text-light mb-3 w-100">Register</button>
+                                    <a href="{{url_for('signIn')}}" class="badge signInText mb-3 py-1 w-100 yesAccount">Already have an
+                                        account?</a>
+
+                                
+                            </form> 
+                            <div id="error" class = "font-weight-bold" style="color:var(--timelinepath);"></div>                      
+                        </div>
+                    </div>
+
+
+                </div>
+                
+            </div>
+        </div>
+        </div>
+    </section>
+
+
+
+{% endblock %}

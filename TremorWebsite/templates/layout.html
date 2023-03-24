@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if title %}
+    <title>TremorTracker - {{ title }}</title>
+    {% else %}
+    <title>TremorTracker</title>
+    {% endif %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js" defer
+        integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"
+        integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    {% if js %}
+    <script type="module" src="{{url_for('static', filename=js)}}" defer></script>
+    {% endif %}
+
+
+</head>
+
+<html>
+
+<body>
+    {% block nav %}
+    <nav class="navbar navbar-expand-lg navbar-light nb-bg-color"
+        style="height:10%; background-color:var(--navbar-color)">
+        <div class="container">
+            <a href="{{url_for('index')}}" class="navbar-brand mr-auto">
+                <img src="{{url_for('static', filename='img/parkinson-removebg-preview.png')}}" alt="Tremor"
+                    style="width:40%; text-align:left;">
+            </a>
+            <!-- Hamburger Menu Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+                <span class="navbar-toggler-icon"> </span>
+            </button>
+            <!-- collapsible navbar menu with custom hover underline CSS animation-->
+            <div class="collapse navbar-collapse" id="navmenu">
+
+                <!-- links to hamburger menu button-->
+                <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item">
+                        <a href="{{url_for('about')}}" class="nav-link hover-underline-animation "
+                            id="nbMenuItem">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{url_for('procedure')}}" class="nav-link hover-underline-animation "
+                            id="nbMenuItem">Procedure</a>
+                    </li>
+                    <li class="nav-item nbMenuItem">
+                        <a href="{{url_for('interpretation')}}" class="nav-link hover-underline-animation "
+                            id="nbMenuItem">The Sensor</a>
+                    </li>
+                    <li class="nav-item nbMenuItem">
+                        <a href="{{url_for('register')}}" class="nav-link hover-underline-animation "
+                            id="nbMenuItem">Register</a>
+                    </li>
+                    <li class="nav-item nbMenuItem">
+                        <a href="{{url_for('signIn')}}" class="nav-link hover-underline-animation "
+                            id="nbMenuItem">Sign-In</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% endblock %}
+
+    {% block content %}{% endblock %}
+
+    {% block footer %}
+    <!--Footer (Requires BootStrap Icon CSS)-->
+    <footer class="p-5 footer text-light text-center position-relative  nb-bg-color">
+        <div class="container">
+            <p class="lead">Copyright &copy; BME SE 2023 TremorTrackr</p>
+            <a href="#" class="position-absolute bottom-0 end-0 p-5 ">
+                <i class="bi bi-arrow-up-circle h2 icon-white"></i>
+            </a>
+        </div>
+    </footer>
+    {% endblock %}
+</body>
+
+</html>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
