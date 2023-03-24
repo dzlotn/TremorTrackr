@@ -37,7 +37,8 @@
 
 <body>
     {% block nav %}
-    <nav class="navbar navbar-expand-lg navbar-light nb-bg-color m-4" style="height:10%;">
+    <nav class="navbar navbar-expand-lg navbar-light nb-bg-color"
+        style="height:10%; background-color:var(--navbar-color)">
         <div class="container">
             <a href="{{url_for('index')}}" class="navbar-brand mr-auto">
                 <img src="{{url_for('static', filename='img/parkinson-removebg-preview.png')}}" alt="Tremor"
@@ -85,7 +86,7 @@
     <!--Footer (Requires BootStrap Icon CSS)-->
     <footer class="p-5 footer text-light text-center position-relative  nb-bg-color">
         <div class="container">
-            <p class="lead">Copyright &copy; SE 2022 BootStrap Demo</p>
+            <p class="lead">Copyright &copy; BME SE 2023 TremorTrackr</p>
             <a href="#" class="position-absolute bottom-0 end-0 p-5 ">
                 <i class="bi bi-arrow-up-circle h2 icon-white"></i>
             </a>
