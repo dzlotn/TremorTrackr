@@ -47,7 +47,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-6 mb-3 mt-3">
-        <div class="p-3 rounded bgcolor signInText11 d-flex flex-column px-5" data-aos="fade-right">
+        <div class="p-3 rounded bgcolor signInText1 d-flex flex-column px-5" data-aos="fade-right">
           <div class="d-flex flex-grow-1 justify-content-left">
             <div class="flex-grow-1">
               <h2 class="text-center signInText1 redLine">Accelerometry</h2>
@@ -161,7 +161,7 @@
                  The acceleration data higher than 20 and lower than 0.5 were cut out.</p>
             </div>
             <div class="flex-grow-1 d-flex justify-content-end align-items-center m-2">
-              <img src="{{url_for('static', filename='img/accelFiltering.png')}}" alt="Tremor" class="aboutSensorPic w-1oo">
+              <img src="{{url_for('static', filename='img/accelFiltering.png')}}" alt="Tremor" class="aboutSensorPic">
             </div>
           </div>
         </div>
@@ -171,12 +171,60 @@
           <div class="d-flex flex-grow-1 justify-content-left z-3">
             <div class="flex-grow-1">
               <h2 class="text-center">EMG Filtering</h2>
-              <p id="emgInfo">EMG data is fed through a 4th order butterworth filter. Voltage data above 400 V and lower tha 20 V are cut out. A Hilbert Transform is then performed, which plots
-                the instantaneous amplitudes and frequencies of the signal. Then, the absolute value of the transformation is found, which is equal to the EMG envelope (core signal without noise). Finally, 
+              <p id="emgInfo">EMG data is fed through a butterworth filter. A Hilbert Transform is performed, and the absolute value of the transformation is found, which is equal to the EMG envelope (core signal without noise). Finally, 
                 the signal is detrended to remove the effects of the DC component.
               </p>
             </div>
-            <div class="flex-grow-1 d-flex justify-content-end align-items-center"style="width:250%;">
+            <div class="flex-grow-1 d-flex justify-content-end align-items-center m-2"">
+              <img src="{{url_for('static', filename='img/EMGFilter.jpg')}}" alt="Tremor" class="aboutSensorPic" >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="arrowAnimContainer">
+    <div class=" arrowAnimContainer">
+      <div class="leftArrow">
+        <div class="arrow1 arrow arrow-first1"></div>
+        <div class="arrow1 arrow arrow-second1"></div>
+      </div>
+      <div class="rightArrow">
+        <div class="arrow1 arrow arrow-first1"></div>
+        <div class="arrow1 arrow arrow-second1"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="dataRetrieval">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6 mb-3 mt-3">
+        <div class="p-3 rounded bgcolor signInText1 d-flex flex-column px-5" data-aos="fade-right">
+          <div class="d-flex flex-grow-1 justify-content-left">
+            <div class="flex-grow-1">
+              <h2 class="text-center">Acceleration Filtering</h2>
+              <p>The acceleration data is filtered using a butterworth filter of the fourth order.
+                 The acceleration data higher than 20 and lower than 0.5 were cut out.</p>
+            </div>
+            <div class="flex-grow-1 d-flex justify-content-end align-items-center m-2">
+              <img src="{{url_for('static', filename='img/accelFiltering.png')}}" alt="Tremor" class="aboutSensorPic">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mb-3 mt-3 z-3">
+        <div class="p-3 rounded bgcolor signInText1 d-flex flex-column px-5 z-3" data-aos="fade-left">
+          <div class="d-flex flex-grow-1 justify-content-left z-3">
+            <div class="flex-grow-1">
+              <h2 class="text-center">EMG Filtering</h2>
+              <p id="emgInfo">EMG data is fed through a butterworth filter. A Hilbert Transform is performed, and the absolute value of the transformation is found, which is equal to the EMG envelope (core signal without noise). Finally, 
+                the signal is detrended to remove the effects of the DC component.
+              </p>
+            </div>
+            <div class="flex-grow-1 d-flex justify-content-end align-items-center m-2"">
               <img src="{{url_for('static', filename='img/EMGFilter.jpg')}}" alt="Tremor" class="aboutSensorPic" >
             </div>
           </div>

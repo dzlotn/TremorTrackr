@@ -20,6 +20,8 @@
 body {
     background-color: var(--main-bg-color);
     overflow-x: hidden;
+    
+    
 }
 
 ::-webkit-scrollbar {
@@ -479,6 +481,40 @@ a#nbMenuItem {
 
 
 
+@media (max-width: 1250px) {
+    .aboutSensorPic,.aboutSensorPicContainer{
+        display:none;
+        
+        
+    }
+    .signInText1,.aboutSensorText{
+        text-align:center;
+        width:100%;
+    }
+    .signinimage{
+        display:none;
+        vertical-align: center;
+    }
+    .signincard {
+        width: 65%;
+        max-width: 700px;
+        margin: 0 auto;
+        background-color: var(--navbar-color);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 40px;
+        border-radius: 10px;
+        text-align: center;
+      }
+      
+      
+      
+      
+    
+  
+  }
 
 
 /* ----------------------Index Page CSS------------------ */
