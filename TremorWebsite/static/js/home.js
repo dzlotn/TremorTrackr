@@ -35,6 +35,9 @@ document.getElementById("startData").onclick = function () {
     "headers": { "Content-Type": "application/json" },
     "body": JSON.stringify({collecting:"start"})
   })
+
+  createCSVChart("accelChart", "Raw Acceleration", "Resultant Acceleration (m/s^2)");
+  createCSVChart("EMGChart", "Raw Electromyography", "Signal (mV)");
 }
 
 document.getElementById("stopData").onclick = function () {
@@ -49,171 +52,67 @@ document.getElementById("stopData").onclick = function () {
 
 
 // ------------------------ Chart.js ----------------------------------
-//Graph CSV data using chart.js
-async function createAccelChart() {
-
-  fetch('/data')
-    .then(response => response.json())
-    .then(data => {
-      const time = data.map(row => row.Time);
-      const acceleration = data.map(row => row.Accel);
-      const ctx = document.getElementById('accelChart').getContext('2d');
-      const chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: time,
-          datasets: [{
-            data: acceleration,
-            radius: 0,
-            borderColor: 'rgba(255, 99, 132, 1)',
-
-          }]
-        },
-        options: {
-          animation: {
-            duration: 1000,
-            easing: 'linear',
-          },
-          responsive: true,
-
-          plugins: {
-            legend: {
-              display: false,
-            },
-            title: {
-              display: true,
-              text: 'Resultant Acceleration over Time'
-            }
-          },
-
-          scales: {
-            y: {
-              beginAtZero: true,
-              title: {
-                display: true,
-                text: 'Acceleration (m/s^2)'
-              }
-            },
-            x: {
-              title: {
-                display: true,
-                text: 'Time (ms)'
-              }
-            },
-
-
-          }
-        }
-      });
-    });
-}
-
-
 // Graph CSV data using chart.js
-async function createEMGChart() {
+async function getCSVData() {
+  const response = await fetch('/data');
+  const data = await response.json()
 
-  fetch('/data')
-    .then(response => response.json())
-    .then(data => {
-      const time = data.map(row => row.Time);
-      const EMG = data.map(row => row.EMG)
-      const ctx = document.getElementById('EMGChart').getContext('2d');
-      const chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: time,
-          datasets: [{
-            label: 'Voltage',
-            data: EMG,
-            radius: 0,
-            borderColor: 'rgba(37, 83, 123, 1)',
+  const xTime = data.map( item => { return parseInt(item.KEY) });
+  const yEMG = data.map( item => { return parseFloat(item.EMG) });
+  const yIMU = data.map( item => { return parseFloat(item.IMU) });
 
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: {
-              display: false,
-            },
-            title: {
-              display: true,
-              text: 'EMG Voltage over Time'
-            }
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              title: {
-                display: true,
-                text: 'Voltage'
-              }
-            },
-            x: {
-              title: {
-                display: true,
-                text: 'Time (ms)'
-              }
-            },
-
-          }
-        }
-      });
-    });
+  return {xTime, yEMG, yIMU};
 }
 
-// Graph Firebase data using chart.js
-async function createCalcChart() {
+// Graph data in CSV data file
+async function createCSVChart(id, title, scale) {
+  const data = await getCSVData();
+  console.log(data);
+  const ctx = document.getElementById(id).getContext('2d');
+  const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: data.xTime,
+      datasets: [{
+        data: ((id === "accelChart") ? data.yIMU : data.yEMG),
+        radius: 0,
+        borderColor: 'rgba(255, 99, 132, 1)',
+      }]
+    },
+    options: {
+      animation: {
+        duration: 1000,
+        easing: 'linear',
+      },
+      responsive: true,
 
-  fetch('/data')
-    .then(response => response.json())
-    .then(data => {
-      const time = data.map(row => row.Time);
-      const EMG = data.map(row => row.EMG)
-      const ctx = document.getElementById('EMGChart').getContext('2d');
-      const chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: time,
-          datasets: [{
-            label: 'Voltage',
-            data: EMG,
-            radius: 0,
-            borderColor: 'rgba(37, 83, 123, 1)',
-
-          }]
+      plugins: {
+        legend: {
+          display: false,
         },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: {
-              display: false,
-            },
-            title: {
-              display: true,
-              text: 'EMG Voltage over Time'
-            }
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              title: {
-                display: true,
-                text: 'Voltage'
-              }
-            },
-            x: {
-              title: {
-                display: true,
-                text: 'Time (ms)'
-              }
-            },
-
-          }
+        title: {
+          display: true,
+          text: title
         }
-      });
-    });
-}
+      },
 
-createAccelChart()
-createEMGChart()
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: scale
+          }
+        },
+        x: {
+          title: {
+            display: true,
+            text: 'Time (ms)'
+          }
+        },
+
+
+      }
+    }
+  });
+}

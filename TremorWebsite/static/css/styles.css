@@ -230,16 +230,7 @@ a#nbMenuItem {
     background-color: var(--border-color);
 }
 
-.accelChart {
-    margin: 50px auto;
-    background-color: white;
-    border: 5px solid var(--border-color);
-    border-radius: 5px;
-    width: 80%;
-    padding: 10px;
-}
-
-.EMGChart {
+.data-chart {
     margin: 50px auto;
     background-color: white;
     border: 5px solid var(--border-color);
