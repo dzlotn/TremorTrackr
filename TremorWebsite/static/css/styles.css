@@ -1,6 +1,5 @@
 :root {
     --main-bg-color: #4d5053;
-    --bg-color-2: #2b2e32;
     --navbar-color: #212428;
     --border-color: #ff0e52;
     --border-secondary: #e03e6c;
@@ -549,7 +548,7 @@ a#nbMenuItem {
 .home-diagram {
     position: relative;
     padding: 10vh 10vh 0 10vh;
-    background-color: var(--bg-color-2);
+    background-color: var(--main-bg-color);
 }
 
 .home-blurbs {
@@ -569,7 +568,7 @@ a#nbMenuItem {
 
 .home-register {
     padding: 5vh 0;
-    background-color: var(--bg-color-2);
+    background-color: var(--main-bg-color);
     color: var(--text-color2);
 }
 
