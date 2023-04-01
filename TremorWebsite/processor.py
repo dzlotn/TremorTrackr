@@ -3,9 +3,13 @@ import os
 import numpy as np
 from scipy import signal
 import pandas as pd
+import math
 
 
 def start_processing(db, userID, key):
+
+    freq = 1000
+
     # Separates the current data csv into separate arrays for the raw data
     filepath = 'data\data.csv'
     directory = os.path.dirname(__file__)
@@ -16,14 +20,13 @@ def start_processing(db, userID, key):
 
     # Records the time stamp when processing starts, and calls the processing chunk function
     timeStamp = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
-    result = processingFunc(acc, emg)
-    print(result)
+    result = processingFunc(acc, emg, freq)
     # appends the resulting data and timestamp into the firebase
     db.child('users').child(userID).child('data').update({timeStamp: result})
     return  # return nothing, terminates the thread
 
 
-def processingFunc(emg, acc):
+def processingFunc(emg, acc, freq):
 
     emg_Filtered = butter_filter(emg, 4, 20, 400)
     acc_Filtered = butter_filter(acc, 2, 0.5, 20)
@@ -33,12 +36,14 @@ def processingFunc(emg, acc):
     emg_envelope = np.abs(emgHilbert)
     emg_detrend = signal.detrend(emg_envelope, type='constant')
 
-    # Compute the power spectral density (PSD) using welch's blackman method.
-    # The number of segments is defined as 256, which is the closest power of 2 to 1/3 of the sample frequency
+    # Calculates the number of segments, which is the closest power of 2 to 1/3 of the sample frequency
+    numseg = closest_power_of_two(freq)
+
+    # Compute the power spectral density (PSD) using welch's blackman method and the number of segments defined above
     f1, Pxx_emg = signal.welch(
-        emg_detrend, fs=1000, nperseg=256, window='blackman')
+        emg_detrend, fs=freq, nperseg=numseg, window='blackman')
     f2, Pxx_acc = signal.welch(
-        acc_Filtered, fs=1000, nperseg=256, window='blackman')
+        acc_Filtered, fs=freq, nperseg=numseg, window='blackman')
 
     # Calculate the frequency with the highest power in the EMG PSD
     f_max_emg = f1[np.argmax(Pxx_emg)]
@@ -58,6 +63,21 @@ def butter_filter(data, order, low, high):
     b, a = signal.butter(
         order, [low, high], btype='band', output='ba', fs=1000, analog=False)
     return signal.filtfilt(b, a, data, method="gust")
+
+
+def closest_power_of_two(freq):
+    freq = freq / 3  # redefine freq as freq/3
+    # Find the closest power of two greater than or equal to freq
+    closestPow = 2**math.ceil(math.log(freq, 2))
+
+    # Find the closest power of two less than or equal to freq
+    closestPowPrev = closestPow // 2
+
+    # Return the closest power of two
+    if abs(freq - closestPow) < abs(freq - closestPowPrev):
+        return closestPow
+    else:
+        return closestPowPrev
 
 
 if __name__ == "__main__":

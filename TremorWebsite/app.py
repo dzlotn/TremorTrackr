@@ -36,7 +36,7 @@ def interpretation():
 
 @app.route("/procedure")
 def procedure():
-    return render_template("procedure.html")
+    return render_template("procedure.html",js="js/interpretation.js")
 
 
 @app.route('/data')

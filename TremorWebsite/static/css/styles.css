@@ -592,3 +592,77 @@ a#nbMenuItem {
 .home-register>a:hover {
     background-color: var(--border-color);
 }
+
+
+/*--Interactive Diagram CSS*/
+.container {
+    position: relative;
+    display: inline-block;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .image {
+    display: block;
+    width: 30vw;
+    height: auto;
+    margin: 0 auto;
+  }
+  
+  .overlay {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s ease-in-out;
+  }
+  
+  .overlay1 {
+    top: 50%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .overlay2 {
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .container:hover .overlay {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .text {
+    background-color: #fff;
+    color: #000;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    white-space: nowrap;
+    max-width: 200px;
+  }
+  
+  .text1 {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    margin-top: -10px;
+    margin-left: 10px;
+  }
+  
+  .text2 {
+    position: absolute;
+    bottom: 0;
+    left: 100%;
+    margin-bottom: -10px;
+    margin-left: 10px;
+  }
+  
+  .hide {
+    visibility: hidden;
+    opacity: 0;
+  }
+  
+  
+  
