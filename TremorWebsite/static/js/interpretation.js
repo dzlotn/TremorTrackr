@@ -1,33 +1,19 @@
-const container = document.querySelector('.container');
-const image = document.querySelector('.image');
-const overlay1 = document.querySelector('.overlay1');
-const overlay2 = document.querySelector('.overlay2');
+//Sets the info box to different dataset infos depending on which diagram section the mouse is hovering over
+//Deletes the info box div when not hovering over important component
+const interactiveSections = document.querySelectorAll('.interactive-section');
+const infoBox = document.querySelector('.info-box');
 
-function moveOverlay1(event) {
-  const x = event.clientX - container.offsetLeft - 50;
-  const y = event.clientY - container.offsetTop - 50;
-  overlay1.style.left = `${x}px`;
-  overlay1.style.top = `${y}px`;
-}
+interactiveSections.forEach((section) => {
+  section.addEventListener('mouseenter', () => {
+    const info = section.dataset.info;
+    infoBox.textContent = info;
+    infoBox.style.display = 'block';
+    section.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
 
-function moveOverlay2(event) {
-  const x = event.clientX - container.offsetLeft - 50;
-  const y = event.clientY - container.offsetTop - 50;
-  overlay2.style.left = `${x}px`;
-  overlay2.style.top = `${y}px`;
-}
+  });
 
-image.addEventListener('mousemove', function(event) {
-  moveOverlay1(event);
-  moveOverlay2(event);
-});
-
-container.addEventListener('mouseleave', function() {
-  overlay1.classList.add('hide');
-  overlay2.classList.add('hide');
-});
-
-container.addEventListener('mouseenter', function() {
-  overlay1.classList.remove('hide');
-  overlay2.classList.remove('hide');
+  section.addEventListener('mouseleave', () => {
+    infoBox.style.display = 'none';
+    section.style.backgroundColor = 'rgba(255, 255, 255, 0)';
+  });
 });

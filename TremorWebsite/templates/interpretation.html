@@ -32,14 +32,21 @@
 </section>
 <!--Interactive Circuit Diagram of the Sensor-->
 <section class="circuitDiagram">
-  <div class="container justify-content-center">
-    <h1 class="text-center font-weight-bold signInText1">Circuit Diagram</h1>
-    <div id="sensorDiagram" class="justify-content-center d-flex m-5 ">
-      <img src="{{url_for('static', filename='img/circuitDiagram.png')}}" alt="Diagram of the Sensor Circuit"
-        class=" justify-content-center">
+  <div class="circuitcontainer">
+    <div class="image-container">
+      <img src="{{ url_for('static', filename='img/circuitdiagram.png') }}" alt="Circuit diagram">
+      <div class="interactive-section" data-info="IMU Sensor" id="imu-sensor"></div>
+      <div class="interactive-section" data-info="Arduino Nano" id="arduino-nano"></div>
+      <div class="interactive-section" data-info="Power Switches" id="power-switches"></div>
+      <div class="interactive-section" data-info="EMG Sensor" id="emg-sensor"></div>
+      <div class="interactive-section" data-info="Battery" id="battery-1"></div>
+      <div class="interactive-section" data-info="Battery" id="battery-2"></div>
+      <div class="interactive-section" data-info="Electrodes" id="electrodes"></div>
     </div>
+    <div class="info-box"></div>
   </div>
 </section>
+
 
 <!-- Two cards side by side that describe the sensors that get data received by tremorTrackr-->
 

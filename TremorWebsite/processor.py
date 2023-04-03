@@ -28,8 +28,8 @@ def start_processing(db, userID, key):
 
 def processingFunc(emg, acc, freq):
 
-    emg_Filtered = butter_filter(emg, 4, 20, 400)
-    acc_Filtered = butter_filter(acc, 2, 0.5, 20)
+    emg_Filtered = butter_filter(emg, 4, 20, 400,freq)
+    acc_Filtered = butter_filter(acc, 2, 0.5, 20,freq)
 
     # Compute the hilbert transform and emg envelope
     emgHilbert = signal.hilbert(emg_Filtered)
@@ -59,9 +59,9 @@ def processingFunc(emg, acc, freq):
 ''' Do a bandpass filter on data with low and high being the min and max frequencies'''
 
 
-def butter_filter(data, order, low, high):
+def butter_filter(data, order, low, high,freq):
     b, a = signal.butter(
-        order, [low, high], btype='band', output='ba', fs=1000, analog=False)
+        order, [low, high], btype='band', output='ba', fs=freq, analog=False)
     return signal.filtfilt(b, a, data, method="gust")
 
 

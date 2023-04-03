@@ -32,11 +32,11 @@ def about():
 
 @app.route("/interpretation")
 def interpretation():
-    return render_template("interpretation.html")
+    return render_template("interpretation.html",js="js/interpretation.js")
 
 @app.route("/procedure")
 def procedure():
-    return render_template("procedure.html",js="js/interpretation.js")
+    return render_template("procedure.html")
 
 
 @app.route('/data')
