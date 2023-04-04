@@ -445,7 +445,7 @@ a#nbMenuItem {
 
 .flex-grow-1 h2::after,
 .aboutSensorText h2::after,
-.aboutUsTitle {
+.aboutUsTitle{
     content: "";
     display: block;
     height: 0;
@@ -609,7 +609,7 @@ a#nbMenuItem {
     width: 80%;
     height: 80%;
     max-width: 800px;
-    left:10%;
+    left:10vw;
   }
   
   .interactive-section {
@@ -624,7 +624,7 @@ a#nbMenuItem {
   
   .info-box {
     position: absolute;
-    top: 100%;
+    top: 110%;
     left: 75%;
     transform: translate(-50%, -50%);
     width: 30%;
@@ -657,15 +657,15 @@ a#nbMenuItem {
   #power-switches {
     top: 42%;
     left: 42%;
-    width: 3.5%;
+    width: 3.1%;
     height: 20%;
   }
   
   #emg-sensor {
-    top: 63%;
+    top: 65%;
     left: 28%;
-    width: 11%;
-    height: 25%;
+    width: 10%;
+    height: 21%;
   }
   
   #battery-1 {
@@ -681,7 +681,7 @@ a#nbMenuItem {
     left: 35%;
     width: 8%;
     height: 17%;
-    border-radius:30%;
+    border-radius:50%;
   }
   
   #electrodes {
@@ -692,10 +692,12 @@ a#nbMenuItem {
     border-radius:20%;
   }
   
-  @media screen and (max-width: 1200px) {
+  @media (max-width: 1200px) {
     .image-container {
-      width: 90%;
+      display:flex;
+      left: 40%;
       height: auto;
+
     }
     .interactive-section {
       top: 60%;
@@ -704,32 +706,30 @@ a#nbMenuItem {
       height: 20%;
     }
     .info-box {
+        
       width: 50%;
       height: 30%;
       font-size: 3vw;
+
     }
   }
-  
-  @media screen and (max-width: 768px) {
+  @media (max-width: 900px) {
     .image-container {
-      width: 90%;
+      display:flex;
+      left:10%;
       height: auto;
-      max-width: 500px;
+
+
     }
     .interactive-section {
-      top: 50%;
-      left: 10%;
-      width: 50%;
-      height: 25%;
+      display:none;
     }
     .info-box {
-      width: 70%;
+      width: 50%;
       height: 30%;
-      font-size: 4vw;
-      top: 80%;
-      right: 15%;
-      transform: translateY(0);
+      font-size: 3vw;
+
     }
   }
   
-  
+ 

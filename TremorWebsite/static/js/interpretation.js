@@ -8,7 +8,7 @@ interactiveSections.forEach((section) => {
     const info = section.dataset.info;
     infoBox.textContent = info;
     infoBox.style.display = 'block';
-    section.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+    section.style.backgroundColor = 'rgba(255, 255, 255, 0.15)';
 
   });
 
