@@ -358,6 +358,7 @@ a#nbMenuItem {
 
 .aboutSensorText {
     width: 50%;
+    text-align:center;
 }
 
 .aboutSensorPicContainer {
@@ -469,7 +470,10 @@ a#nbMenuItem {
     padding: 10px;
 }
 
-
+.circuitTitle{
+    text-align:center;
+    width:100%;
+}
 
 @media (max-width: 1250px) {
     .aboutSensorPic,.aboutSensorPicContainer{
@@ -609,6 +613,7 @@ a#nbMenuItem {
     width: 80%;
     height: 80%;
     max-width: 800px;
+
     left:10vw;
   }
   
@@ -624,9 +629,9 @@ a#nbMenuItem {
   
   .info-box {
     position: absolute;
-    top: 110%;
+    
     left: 75%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -100%);
     width: 30%;
     height: 50%;
     color: var(--text-color2);
@@ -692,44 +697,17 @@ a#nbMenuItem {
     border-radius:20%;
   }
   
-  @media (max-width: 1200px) {
+  @media (max-width: 1000px) {
     .image-container {
       display:flex;
-      left: 40%;
-      height: auto;
-
-    }
-    .interactive-section {
-      top: 60%;
-      left: 10%;
-      width: 40%;
-      height: 20%;
-    }
-    .info-box {
-        
-      width: 50%;
-      height: 30%;
-      font-size: 3vw;
-
-    }
-  }
-  @media (max-width: 900px) {
-    .image-container {
-      display:flex;
-      left:10%;
-      height: auto;
-
+      align-content:center;
+      justify-content:center;
 
     }
     .interactive-section {
       display:none;
     }
-    .info-box {
-      width: 50%;
-      height: 30%;
-      font-size: 3vw;
 
-    }
   }
   
  
