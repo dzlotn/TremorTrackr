@@ -33,10 +33,11 @@
 
 <!--Interactive Circuit Diagram of the Sensor-->
 <div class="mt-3 rounded aboutSensorText circuitTitle p-3 ">
-  <h2 class="signInText1 redLine text-center ">Circuit Diagram</h2>
-  </div>
+  <h2 class="signInText1  text-center" id="cdTitle">Circuit Diagram</h2>
+  <h5 class="signInText1 redLine text-center">Hover over a component for more information</h5>
+</div>
 <section class="circuitDiagram">
-  
+
   <div class="circuitcontainer">
     <div class="image-container">
       <img src="{{ url_for('static', filename='img/circuitdiagram.png') }}" alt="Circuit diagram">
@@ -48,7 +49,11 @@
       <div class="interactive-section" data-info="Battery" id="battery-2"></div>
       <div class="interactive-section" data-info="Electrodes" id="electrodes"></div>
     </div>
-    <div class="info-box"></div>
+    <div class="info-box">
+      <h2 class="component-name"></h2>
+      <p class="component-info"></p>
+    </div>
+
   </div>
 </section>
 
@@ -170,7 +175,7 @@
             <div class="flex-grow-1">
               <h2 class="text-center">Acceleration Filtering</h2>
               <p>The acceleration data is filtered using a butterworth filter of the fourth order.
-                 The acceleration data higher than 20 and lower than 0.5 were cut out.</p>
+                The acceleration data higher than 20 and lower than 0.5 were cut out.</p>
             </div>
             <div class="flex-grow-1 d-flex justify-content-end align-items-center m-2">
               <img src="{{url_for('static', filename='img/accelFiltering.png')}}" alt="Tremor" class="aboutSensorPic">
@@ -183,12 +188,14 @@
           <div class="d-flex flex-grow-1 justify-content-left z-3">
             <div class="flex-grow-1">
               <h2 class="text-center">EMG Filtering</h2>
-              <p id="emgInfo">EMG data is fed through a butterworth filter. A Hilbert Transform is performed, and the absolute value of the transformation is found, which is equal to the EMG envelope (core signal without noise). Finally, 
+              <p id="emgInfo">EMG data is fed through a butterworth filter. A Hilbert Transform is performed, and the
+                absolute value of the transformation is found, which is equal to the EMG envelope (core signal without
+                noise). Finally,
                 the signal is detrended to remove the effects of the DC component.
               </p>
             </div>
             <div class="flex-grow-1 d-flex justify-content-end align-items-center m-2"">
-              <img src="{{url_for('static', filename='img/EMGFilter.jpg')}}" alt="Tremor" class="aboutSensorPic" >
+              <img src=" {{url_for('static', filename='img/EMGFilter.jpg' )}}" alt="Tremor" class="aboutSensorPic">
             </div>
           </div>
         </div>
@@ -219,7 +226,7 @@
             <div class="flex-grow-1">
               <h2 class="text-center">Acceleration Filtering</h2>
               <p>The acceleration data is filtered using a butterworth filter of the fourth order.
-                 The acceleration data higher than 20 and lower than 0.5 were cut out.</p>
+                The acceleration data higher than 20 and lower than 0.5 were cut out.</p>
             </div>
             <div class="flex-grow-1 d-flex justify-content-end align-items-center m-2">
               <img src="{{url_for('static', filename='img/accelFiltering.png')}}" alt="Tremor" class="aboutSensorPic">
@@ -232,12 +239,14 @@
           <div class="d-flex flex-grow-1 justify-content-left z-3">
             <div class="flex-grow-1">
               <h2 class="text-center">EMG Filtering</h2>
-              <p id="emgInfo">EMG data is fed through a butterworth filter. A Hilbert Transform is performed, and the absolute value of the transformation is found, which is equal to the EMG envelope (core signal without noise). Finally, 
+              <p id="emgInfo">EMG data is fed through a butterworth filter. A Hilbert Transform is performed, and the
+                absolute value of the transformation is found, which is equal to the EMG envelope (core signal without
+                noise). Finally,
                 the signal is detrended to remove the effects of the DC component.
               </p>
             </div>
             <div class="flex-grow-1 d-flex justify-content-end align-items-center m-2"">
-              <img src="{{url_for('static', filename='img/EMGFilter.jpg')}}" alt="Tremor" class="aboutSensorPic" >
+              <img src=" {{url_for('static', filename='img/EMGFilter.jpg' )}}" alt="Tremor" class="aboutSensorPic">
             </div>
           </div>
         </div>

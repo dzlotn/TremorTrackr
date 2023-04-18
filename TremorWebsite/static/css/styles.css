@@ -19,8 +19,8 @@
 body {
     background-color: var(--main-bg-color);
     overflow-x: hidden;
-    
-    
+
+
 }
 
 ::-webkit-scrollbar {
@@ -66,6 +66,9 @@ th h1 {
     background-color: var(--navbar-color);
 }
 
+.navbar-toggler-icon,.navbar-toggler{
+    background-color:white;
+}
 
 /*Sign in and Register Css*/
 .signInPage {
@@ -179,7 +182,7 @@ input[type="checkbox"]:checked {
     height: 2px;
     bottom: 0;
     left: -8%;
-    background-color: var(--text-color);
+    background-color: var(--border-color);
     /*transform-origin: bottom right;*/
     transition: transform 0.35s ease-out;
 }
@@ -220,8 +223,8 @@ a#nbMenuItem {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size:2vw;
-    font-weight:bold;
+    font-size: 2vw;
+    font-weight: bold;
     border-radius: 8px;
 }
 
@@ -358,7 +361,7 @@ a#nbMenuItem {
 
 .aboutSensorText {
     width: 50%;
-    text-align:center;
+    text-align: center;
 }
 
 .aboutSensorPicContainer {
@@ -446,7 +449,7 @@ a#nbMenuItem {
 
 .flex-grow-1 h2::after,
 .aboutSensorText h2::after,
-.aboutUsTitle{
+.aboutUsTitle {
     content: "";
     display: block;
     height: 0;
@@ -470,45 +473,52 @@ a#nbMenuItem {
     padding: 10px;
 }
 
-.circuitTitle{
-    text-align:center;
-    width:100%;
+.circuitTitle {
+    text-align: center;
+    width: 100%;
 }
 
 @media (max-width: 1250px) {
-    .aboutSensorPic,.aboutSensorPicContainer{
-        display:none;
-        
-        
+
+    .aboutSensorPic,
+    .aboutSensorPicContainer {
+        display: none;
+
+
     }
-    .signInText1,.aboutSensorText{
-        text-align:center;
-        width:100%;
+
+    .signInText1,
+    .aboutSensorText {
+        text-align: center;
+        width: 100%;
     }
-    .signinimage{
-        display:none;
+
+    .signinimage,.registerimage{
+        display: none;
         vertical-align: center;
     }
-    .signincard {
-        width: 65%;
+
+    .signincard,.register-card {
+        width: 80%;
         max-width: 700px;
         margin: 0 auto;
         background-color: var(--navbar-color);
         display: flex;
+        border:none;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         padding: 40px;
         border-radius: 10px;
         text-align: center;
-      }
-      
-      
-      
-      
-    
-  
-  }
+    }
+
+
+
+
+
+
+}
 
 
 /* ----------------------Index Page CSS------------------ */
@@ -606,30 +616,31 @@ a#nbMenuItem {
     justify-content: center;
     align-items: center;
     height: 100vh;
-  }
-  
-  .image-container {
+}
+
+.image-container {
     position: relative;
     width: 80%;
     height: 80%;
     max-width: 800px;
 
-    left:10vw;
-  }
-  
-  .interactive-section {
+    left: 10vw;
+}
+
+.interactive-section {
     position: absolute;
     top: 20%;
     left: 20%;
     width: 30%;
     height: 30%;
-    background-color: rgba(0, 0, 255, 0); /* Change the color here */
+    background-color: rgba(0, 0, 255, 0);
+    /* Change the color here */
     cursor: pointer;
-  }
-  
-  .info-box {
+}
+
+.info-box {
     position: absolute;
-    
+
     left: 75%;
     transform: translate(-50%, -100%);
     width: 30%;
@@ -638,76 +649,95 @@ a#nbMenuItem {
     background-color: var(--navbar-color);
     text-align: center;
     font-size: 2vw;
-    display: none; /* add this property */
+    display: none;
+    /* add this property */
+    border-radius: 5px;
 
-  }
+}
 
-  /*---Locations of circuit diagram hover points----*/
-  
-  #imu-sensor {
+.component-name {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-weight: 5px;
+    font-size: 35px;
+
+}
+
+.component-info {
+    font-size: 33px;
+    margin: 10px;
+    text-align: center;
+}
+
+#cdTitle {
+    font-size: 40px;
+}
+
+/*---Locations of circuit diagram hover points----*/
+
+#imu-sensor {
     top: 4%;
     left: 15.5%;
     width: 10%;
     height: 14%;
-    border-radius:10%;
+    border-radius: 10%;
 }
-  
-  #arduino-nano {
+
+#arduino-nano {
     top: 30%;
     left: 17.7%;
     width: 16%;
     height: 15%;
-  }
-  
-  #power-switches {
+}
+
+#power-switches {
     top: 42%;
     left: 42%;
     width: 3.1%;
     height: 20%;
-  }
-  
-  #emg-sensor {
+}
+
+#emg-sensor {
     top: 65%;
     left: 28%;
     width: 10%;
     height: 21%;
-  }
-  
-  #battery-1 {
+}
+
+#battery-1 {
     top: 55%;
     left: 14%;
     width: 8%;
     height: 40%;
-    border-radius:20%;
-  }
-  
-  #battery-2 {
+    border-radius: 20%;
+}
+
+#battery-2 {
     top: 22%;
     left: 35%;
     width: 8%;
     height: 17%;
-    border-radius:50%;
-  }
-  
-  #electrodes {
+    border-radius: 50%;
+}
+
+#electrodes {
     top: 61%;
     left: 47%;
     width: 13%;
     height: 33%;
-    border-radius:20%;
-  }
-  
-  @media (max-width: 1000px) {
+    border-radius: 20%;
+}
+
+@media (max-width: 1000px) {
     .image-container {
-      display:flex;
-      align-content:center;
-      justify-content:center;
+        display: flex;
+        align-content: center;
+        justify-content: center;
 
     }
+
     .interactive-section {
-      display:none;
+        display: none;
     }
 
-  }
-  
- 
+}
