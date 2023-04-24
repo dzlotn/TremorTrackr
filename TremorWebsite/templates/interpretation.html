@@ -34,7 +34,7 @@
 <!--Interactive Circuit Diagram of the Sensor-->
 <div class="mt-3 rounded aboutSensorText circuitTitle p-3 ">
   <h2 class="signInText1  text-center" id="cdTitle">Circuit Diagram</h2>
-  <h5 class="signInText1 redLine text-center">Hover over a component for more information</h5>
+  <h5 class="signInText1 redLine text-center" id="cdSubtitle">Hover over a component for more information</h5>
 </div>
 <section class="circuitDiagram">
 
@@ -194,7 +194,7 @@
                 the signal is detrended to remove the effects of the DC component.
               </p>
             </div>
-            <div class="flex-grow-1 d-flex justify-content-end align-items-center m-2"">
+            <div class="flex-grow-1 d-flex justify-content-end align-items-center m-2">
               <img src=" {{url_for('static', filename='img/EMGFilter.jpg' )}}" alt="Tremor" class="aboutSensorPic">
             </div>
           </div>
@@ -217,43 +217,28 @@
     </div>
   </div>
 </section>
-<section class="dataRetrieval">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-6 mb-3 mt-3">
-        <div class="p-3 rounded bgcolor signInText1 d-flex flex-column px-5" data-aos="fade-right">
-          <div class="d-flex flex-grow-1 justify-content-left">
-            <div class="flex-grow-1">
-              <h2 class="text-center">Acceleration Filtering</h2>
-              <p>The acceleration data is filtered using a butterworth filter of the fourth order.
-                The acceleration data higher than 20 and lower than 0.5 were cut out.</p>
-            </div>
-            <div class="flex-grow-1 d-flex justify-content-end align-items-center m-2">
-              <img src="{{url_for('static', filename='img/accelFiltering.png')}}" alt="Tremor" class="aboutSensorPic">
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 mb-3 mt-3 z-3">
-        <div class="p-3 rounded bgcolor signInText1 d-flex flex-column px-5 z-3" data-aos="fade-left">
-          <div class="d-flex flex-grow-1 justify-content-left z-3">
-            <div class="flex-grow-1">
-              <h2 class="text-center">EMG Filtering</h2>
-              <p id="emgInfo">EMG data is fed through a butterworth filter. A Hilbert Transform is performed, and the
-                absolute value of the transformation is found, which is equal to the EMG envelope (core signal without
-                noise). Finally,
-                the signal is detrended to remove the effects of the DC component.
-              </p>
-            </div>
-            <div class="flex-grow-1 d-flex justify-content-end align-items-center m-2"">
-              <img src=" {{url_for('static', filename='img/EMGFilter.jpg' )}}" alt="Tremor" class="aboutSensorPic">
-            </div>
-          </div>
-        </div>
-      </div>
+
+  <section class="aboutSensor PSD bgcolor mb-4 mt-3 mr-5 ml-5 rounded" >
+    <div class=" m-5 rounded aboutSensorText p-3 ">
+      <h2 class="signInText1 redLine text-center">Power Spectral Density</h2>
+      <p class="signInText1">
+        A function is used to calculate important features of the current data. Using this data,
+                  the power spectral density (PSD) is calculated for both EMG and accelerometry data. This creates a
+                  function of the power of the data per frequency. The frequency with the highest power in each graph is
+                  the tremor dominant frequency (TDF), and both TDF's over the time frames are averaged. This is a
+                  measure of the power of the tremor being recorded.
+      </p>
     </div>
-  </div>
-</section>
+  
+    <div class="aboutSensorPicContainer align-content-center">
+      <img src="{{url_for('static', filename='img/PSDSample.png')}}" alt="Diagram of the Sensor"
+        class="mt-3 sensorPic align-content-center">
+    </div>
+  </section>
+  
+
+
+
 
 
 

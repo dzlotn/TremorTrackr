@@ -15,7 +15,7 @@ const sensorInfo = {
   },
   'Power Switches': {
     name: 'Power Switches',
-    info: 'The power switches are used to turn the device on and off. They are connected to the battery and allow the user to control the power to the entire circuit.'
+    info: 'The power switches are used to turn the device on and off. They are connected to the battery.'
   },
   'EMG Sensor': {
     name: 'EMG Sensor',
