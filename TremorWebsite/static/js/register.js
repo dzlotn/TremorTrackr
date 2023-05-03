@@ -57,8 +57,27 @@ document.getElementById('submitData').onclick = function () {
         lastname: lastName
       })
         .then(() => {
+          firebaseConfig.userID = user.uid;
+          user.firstname = firstName;
+          console.log(JSON.stringify(user))
+          sessionStorage.setItem('user', JSON.stringify({
+            "uid": user.uid,     //save userId for home.js reference
+            "email": email,
+            "password": encryptPass(password),
+            "firstname": firstName,
+            "lastname": lastName}));
+
+          // Send to app.py
+          fetch('/test', {
+              "method": "POST",
+              "headers": { "Content-Type": "application/json" },
+              "body": JSON.stringify(firebaseConfig)
+          })
           //data saved successfully
           alert('User created successfully!')
+
+          window.location = "home"; // Browser redirect to the home page
+          
         })
         .catch((error) => {
           alert(error)
