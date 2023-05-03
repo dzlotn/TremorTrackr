@@ -31,11 +31,16 @@ Instructions:
 #include <Adafruit_LSM6DSOX.h>
 
 // Define global variables and constants for the circuit & sensor
+const int batchSize = 15;
+const int totalBatches = 200;
 int32_t accelerometer[3];
 double resultant;
 const int EMG_SIG = A6;
 int muscle;
 Adafruit_LSM6DSOX sox;
+float resultants[batchSize * totalBatches];
+int muscles[batchSize * totalBatches];
+int batchIndex = 0;
 
 
 ///////please enter your sensitive data in the Secret tab/arduino_secrets.h
@@ -49,24 +54,22 @@ WiFiClient client;
 
 // server address:
 //char server[] = "jsonplaceholder.typicode.com"; // for public domain server
-<<<<<<< Updated upstream
-IPAddress server(172,20,10,3); // for localhost server (server IP address can be found with ipconfig or ifconfig)
-=======
-IPAddress server(172,20,10,4); // for localhost server (server IP address can be found with ipconfig or ifconfig)
->>>>>>> Stashed changes
+
+IPAddress server(192,168,86,24); // for localhost server (server IP address can be found with ipconfig or ifconfig)
 
 unsigned long lastConnectionTime = 0;
-const unsigned long postingInterval = 1; // delay between updates, in milliseconds (10L * 50L is around 1 second between requests)
+const unsigned long postingInterval = 40; // delay between updates, in milliseconds (10L * 50L is around 1 second between requests)
 
 void setup(){
-  Serial.begin(115200); // Start serial monitor
-
-  while (!Serial) {
-    ; // wait for serial port to connect. Needed for native USB port only
-  }
+  Serial.begin(9600); // Start serial monitor
+  
+  // while (!Serial) {
+  //   ; // wait for serial port to connect. Needed for native USB port only
+  // }
 
   // Pin INPUTS/OUTPUT
   pinMode(EMG_SIG, INPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
 
   if (!sox.begin_I2C(0x6B)) {
     Serial.println("Failed to connect to IMU (bad solder?)");
@@ -83,19 +86,26 @@ void setup(){
   if (fv < WIFI_FIRMWARE_LATEST_VERSION) {
     Serial.println("Please upgrade the firmware");
   }
+  
 
   // attempt to connect to Wifi network:
   while (status != WL_CONNECTED) {
     Serial.print("Attempting to connect to SSID: ");
     Serial.println(ssid); // Connect to WPA/WPA2 network. Change this line if using open or WEP network:
     status = WiFi.begin(ssid, pass);
-    delay(1000); // wait 1 second for connection
+    delay(500); // wait 1 second for connection
+    digitalWrite(LED_BUILTIN, HIGH);
+    delay(500);
+    digitalWrite(LED_BUILTIN, LOW);
   }
+
+  
 
   printWifiStatus(); // you're connected now, so print out the status
 }
 
 void loop(){
+
   StaticJsonDocument<200> doc;
 
   // if there's incoming data from the net connection, append each character to a variable
@@ -109,15 +119,27 @@ void loop(){
   if (response != "") {
     Serial.println(response);
   }
+
+  // Collect data
+  emg();
+  imu();
+  batchIndex += 1;
+
+  Serial.println(batchIndex);
   
-  // repeat request after around 1 second
-  if (millis() - lastConnectionTime > postingInterval) {
-    httpRequest();
+  if (batchIndex == batchSize * totalBatches) {
+    for (int i = 0; i < totalBatches; i++) {
+      httpRequest(i);
+      batchIndex = 0;
+      Serial.println(i);
+    }
   }
 }
 
 // this method makes a HTTP connection to the server:
-void httpRequest() {
+void httpRequest(int batchNum) {
+  // note the time that the connection was made:
+  lastConnectionTime = millis();
 
   // close any connection before send a new request to free the socket
   client.stop();
@@ -134,21 +156,46 @@ void httpRequest() {
   if (client.connect(server, 5000)) {
     Serial.println("connecting...");
 
+    Serial.println("making string");
     // Parse data
+<<<<<<< Updated upstream
     String data = String(resultant) + "," + String(muscle);
+
+    String data = "";
+    for (int i = 0; i < batchSize; i++) {
+      Serial.println(resultants[i + batchSize * batchNum]);
+      data += String(resultants[i + batchSize * batchNum]) + "," + String(muscles[batchSize * batchNum]) + ",";
+    }
+>>>>>>> Stashed changes
+
+    // char data[3000] = "";
+    // for (int i = 0; i < batchSize; i++) {
+    //   Serial.println(resultants[i + batchSize * batchNum]);
+    //   String datum = String(resultants[i + batchSize * batchNum]) + "," + String(muscles[batchSize * batchNum]) + ","; 
+    //   Serial.println(datum);
+    //   char char_array[datum.length() + 1]; 
+    //   datum.toCharArray(char_array, datum.length() + 1);
+      
+    //   strcat(data, char_array);
+    // }
+    // Serial.println("posting");
 
     // send the HTTP GET request with the distance as a parameter.
     // The Flask route to call should be inbetween the "/" and "?" (ex:  GET /test?...
     // where "test" is the Flask route that will GET the data, "distance" is the key
     // and the value is provided by:  String(distance))
-    String request = "GET /test?data=" + data + " HTTP/1.1";
+    String request = "GET /test?data=" + String(data) + " HTTP/1.1";
     client.println(request);
 
     // set the host as server IP address
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     client.println("Host: 172.20.10.3");
 =======
     client.println("Host: 172.20.10.4");
+>>>>>>> Stashed changes
+=======
+    client.println("Host: 192.168.86.24");
 >>>>>>> Stashed changes
 
     // other request properties
@@ -179,7 +226,11 @@ void printWifiStatus(){
 // collect emg values
 void emg(){
   // Read pin
+<<<<<<< Updated upstream
   muscle = analogRead(EMG_SIG);
+=======
+  muscles[batchIndex] = int(round(analogRead(EMG_SIG)));
+>>>>>>> Stashed changes
 }
 
 // collect imu values
