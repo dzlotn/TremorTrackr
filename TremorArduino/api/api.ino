@@ -157,16 +157,11 @@ void httpRequest(int batchNum) {
     Serial.println("connecting...");
 
     Serial.println("making string");
-    // Parse data
-<<<<<<< Updated upstream
-    String data = String(resultant) + "," + String(muscle);
-
     String data = "";
     for (int i = 0; i < batchSize; i++) {
       Serial.println(resultants[i + batchSize * batchNum]);
       data += String(resultants[i + batchSize * batchNum]) + "," + String(muscles[batchSize * batchNum]) + ",";
     }
->>>>>>> Stashed changes
 
     // char data[3000] = "";
     // for (int i = 0; i < batchSize; i++) {
@@ -188,15 +183,7 @@ void httpRequest(int batchNum) {
     client.println(request);
 
     // set the host as server IP address
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    client.println("Host: 172.20.10.3");
-=======
-    client.println("Host: 172.20.10.4");
->>>>>>> Stashed changes
-=======
     client.println("Host: 192.168.86.24");
->>>>>>> Stashed changes
 
     // other request properties
     client.println("User-Agent: ArduinoWiFi/1.1");
@@ -226,11 +213,7 @@ void printWifiStatus(){
 // collect emg values
 void emg(){
   // Read pin
-<<<<<<< Updated upstream
-  muscle = analogRead(EMG_SIG);
-=======
   muscles[batchIndex] = int(round(analogRead(EMG_SIG)));
->>>>>>> Stashed changes
 }
 
 // collect imu values

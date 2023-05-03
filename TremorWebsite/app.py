@@ -115,21 +115,6 @@ def test():
             # Get data from Arduino and parse
             IMU, EMG = request.args.get('data').split(",")
 
-<<<<<<< Updated upstream
-            # Update csv from values
-            field_names = ['KEY','EMG','IMU']
-            row = [key, int(EMG), float(IMU)]
-            filepath = 'data\data.csv'
-            directory = os.path.dirname(__file__)
-            datafile = os.path.join(directory, filepath)
-            with open(datafile, 'a', newline='') as csvfile:
-                writer = csv.writer(csvfile)
-                writer.writerow(row)
-                csvfile.close()
-
-            # Every 3000ms after 1500ms, call processor to process chunk and reset the raw data graphs
-            if  key % 1000 == 0 and key != 0:
-=======
             IMU_all += IMU
             EMG_all += EMG
 
@@ -148,17 +133,11 @@ def test():
 
             # Every 3000ms after 1500ms, call processor to process chunk and reset the raw data graphs
             if len(IMU_all) >= 3000:
->>>>>>> Stashed changes
                 t1 = threading.Thread(target=start_processing(db, userID,key)).start()
                 IMU_all, EMG_all = [], []
                 #js2py.run_file("TremorWebsite\static\js\home.js") 
-<<<<<<< Updated upstream
-                
-            key += 1 # Update key
-=======
 
             # key += batch_size  # Update key
->>>>>>> Stashed changes
 
         return 'Success'
 
@@ -169,11 +148,7 @@ def test():
 
 def run_flask():
     #Run app through port 5000 on 
-<<<<<<< Updated upstream
-    app.run(debug=True, host='127.0.0.1', port=5000)
-=======
     app.run(debug=True, host='192.168.86.24', port=5000)
->>>>>>> Stashed changes
 
 
 if __name__ == '__main__':
