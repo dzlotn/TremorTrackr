@@ -25,6 +25,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"
         integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="module" src="{{url_for('static', filename='js/navbar.js')}}" defer></script>
 
     {% if js %}
     <script type="module" src="{{url_for('static', filename=js)}}" defer></script>
@@ -55,24 +56,24 @@
                 <ul class="navbar-nav ms-auto">
 
                     <li class="nav-item">
-                        <a href="{{url_for('about')}}" class="nav-link hover-underline-animation "
+                        <a href="{{url_for('about')}}" class="nav-link hover-underline-animation nbMenuItem"
                             id="nbMenuItem">About</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{url_for('procedure')}}" class="nav-link hover-underline-animation "
-                            id="nbMenuItem">Procedure</a>
+                        <a href="{{url_for('procedure')}}" class="nav-link hover-underline-animation nbMenuItem"
+                            id="">Procedure</a>
                     </li>
-                    <li class="nav-item nbMenuItem">
-                        <a href="{{url_for('interpretation')}}" class="nav-link hover-underline-animation "
-                            id="nbMenuItem">The Sensor</a>
+                    <li class="nav-item">
+                        <a href="{{url_for('interpretation')}}" class="nav-link hover-underline-animation nbMenuItem"
+                            id="">The Sensor</a>
                     </li>
-                    <li class="nav-item nbMenuItem">
-                        <a href="{{url_for('register')}}" class="nav-link hover-underline-animation "
-                            id="nbMenuItem">Register</a>
+                    <li class="nav-item">
+                        <a href="{{url_for('register')}}" class="nav-link hover-underline-animation nbMenuItem"
+                            id="register-nav">Register</a>
                     </li>
-                    <li class="nav-item nbMenuItem">
-                        <a href="{{url_for('signIn')}}" class="nav-link hover-underline-animation "
-                            id="nbMenuItem">Sign-In</a>
+                    <li class="nav-item">
+                        <a href="{{url_for('signIn')}}" class="nav-link hover-underline-animation nbMenuItem"
+                            id="signIn-nav">Sign-In</a>
                     </li>
                 </ul>
             </div>

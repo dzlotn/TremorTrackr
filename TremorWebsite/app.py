@@ -62,12 +62,13 @@ def signIn():
     return render_template("signIn.html", js="js/signIn.js")
 
 
-@app.route("/test", methods=["GET", "POST", "SET"])
+@app.route("/test", methods=["GET", "POST", "SET", "POST2"])
 def test():
     global config, userID, db, timeStamp, key, collect
 
     # POST request (FB configuration sent from login.js)
     if request.method == "POST":
+
         # Receive FB credentials, pop uid and assign to userID
         config = request.get_json()
         userID = config.pop("userID")
@@ -87,6 +88,12 @@ def test():
         # db.child('users/' + userID + '/data/' + timeStamp).update({'testKey2':'testValue'})
         # t1 = threading.Thread(
         #     target=start_processing(db, userID, 3000)).start()
+        return 'Success', 200
+    
+    # Signing out
+    elif request.method == "POST2":
+        print("logging out")
+        config = ''
         return 'Success', 200
 
     # SET request (Set data collection or not)
@@ -148,7 +155,7 @@ def test():
 
 def run_flask():
     #Run app through port 5000 on 
-    app.run(debug=True, host='192.168.86.24', port=5000)
+    app.run(debug=True, host='127.0.0.1', port=5000)
 
 
 if __name__ == '__main__':
