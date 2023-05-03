@@ -1,7 +1,43 @@
 {% extends "layout.html" %}
 
 {% block content %}
+<!-- Portions of this code was adapted from https://codepen.io/RobVermeer/pen/japZpY-->
+<div class="cardContainer">    
 
+    <div class="proCards">
+      <div class="procedureCard">
+        <img src="{{url_for('static', filename='/img/istockphoto-884498068-612x612.jpg')}}">
+        <h3>Demo card 1</h3>
+        <p>This is a demo for  swipe cards</p>
+      </div>
+      <div class="procedureCard">
+        <img src="https://placeimg.com/600/300/animals">
+        <h3>Demo card 2</h3>
+        <p>This is a demo for  swipe cards</p>
+      </div>
+      <div class="procedureCard">
+        <img src="https://placeimg.com/600/300/nature">
+        <h3>Demo card 3</h3>
+        <p>This is a demo for  swipe cards</p>
+      </div>
+      <div class="procedureCard">
+        <img src="https://placeimg.com/600/300/tech">
+        <h3>Demo card 4</h3>
+        <p>This is a demo for swipe cards</p>
+      </div>
+      <div class="procedureCard">
+        <img src="https://placeimg.com/600/300/arch">
+        <h3>Demo card 5</h3>
+        <p>This is a demo for swipe cards</p>
+      </div>
+    </div>
+  
+    <div class="arrowButtons">
+        <button id="left" class="arrowProcedure leftArrow"></button>
+        <button id="right" class="arrowProcedure rightArrow"></button>
+      </div>
+      
+  </div>
 
   
 
