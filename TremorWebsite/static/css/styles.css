@@ -782,18 +782,21 @@ a#nbMenuItem {
     align-items: flex-end;
   }
   
-  .procedureCard {
-    display: inline-block;
-    width: 90vw;
-    max-width: 400px;
-    height: 70vh;
-    background: #FFFFFF;
-    border-radius: 8px;
-    overflow: hidden;
-    position: absolute;
-    top: 5vh; /* Adjusted value */
-    transition: all 0.3s ease-in-out;
-  }
+.procedureCard {
+  display: inline-block;
+  width: 95vw;
+  max-width: 600px; 
+  height: 70vh;
+  background: #FFFFFF;
+  border-radius: 8px;
+  overflow: hidden;
+  position: absolute;
+  top: 5vh;
+  transition: all 0.3s ease-in-out;
+}
+.procedureCard p{
+    font-size:1em;
+}
   
   .procedureCard img {
     max-width: 100%;
@@ -814,7 +817,7 @@ a#nbMenuItem {
   .arrowButtons{
     text-align:center;
     flex: 0 0 100px;
-    padding-top:5vh; /* Adjusted value */
+    padding-top:5vh;
     position: absolute;
     width: 100%;
     bottom: 0;
@@ -826,16 +829,16 @@ a#nbMenuItem {
     display: inline-block;
     padding: 20px;
     position: relative;
-    top: -14vh; /* Adjusted value */
+    top: -14vh; 
   }
   .arrowProcedure:hover{
     opacity:0.6;
   }
-  .leftArrow {
+  .leftProcedureArrow {
     transform: rotate(135deg);
   }
   
-  .rightArrow {
+  .rightProcedureArrow {
     transform: rotate(315deg);
   }
   

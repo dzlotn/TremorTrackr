@@ -11,7 +11,7 @@ function initCards(card, index) {
   var newCards = document.querySelectorAll('.procedureCard:not(.removed)');
 
   newCards.forEach(function (card, index) {
-    card.style.transform = 'scale(' + (19 - index) / 19 + ') translateX(-' + 30 * index + 'px)';
+    card.style.transform = 'scale(' + (19 - index) / 19 + ') translateX(-' + 40 * index + 'px)';
     card.style.zIndex = allCards.length - index;
     card.style.opacity = (12 - index) / 12;
   });
