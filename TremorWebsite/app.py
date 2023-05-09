@@ -138,7 +138,7 @@ def test():
             #     writer.writerows(rows)
             #     csvfile.close()
 
-            row = []
+            row = [key, int(EMG[0]), float(IMU[0])]
             filepath = 'data\data.csv'
             directory = os.path.dirname(__file__)
             datafile = os.path.join(directory, filepath)
@@ -151,7 +151,7 @@ def test():
 
             # Every 3000ms after 1500ms, call processor to process chunk and reset the raw data graphs
             if len(IMU_all) >= 3000:
-                t1 = threading.Thread(target=start_processing(db, userID,key)).start()
+                t1 = threading.Thread(target=start_processing(EMG_all, IMU_all, db, userID, key)).start()
                 IMU_all, EMG_all = [], []
                 key = 0
                 js2py.run_file("TremorWebsite\static\js\home.js") 

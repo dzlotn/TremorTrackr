@@ -6,23 +6,24 @@ import pandas as pd
 import math
 
 
-def start_processing(db, userID, key):
+def start_processing(emg, acc, db, userID, key):
 
     freq = 1000
 
     # Separates the current data csv into separate arrays for the raw data
-    filepath = 'data\data.csv'
-    directory = os.path.dirname(__file__)
-    datafile = os.path.join(directory, filepath)
-    data = pd.read_csv(datafile, delimiter=',')
-    acc = data['IMU'][key-1000:key]
-    emg = data['EMG'][key-1000:key]
+    # filepath = 'data\data.csv'
+    # directory = os.path.dirname(__file__)
+    # datafile = os.path.join(directory, filepath)
+    # data = pd.read_csv(datafile, delimiter=',')
+    # acc = data['IMU'][key-1000:key]
+    # emg = data['EMG'][key-1000:key]
 
     # Records the time stamp when processing starts, and calls the processing chunk function
     timeStamp = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
-    result = processingFunc(acc, emg, freq)
+    result_freq, result_power = processingFunc(acc, emg, freq)
     # appends the resulting data and timestamp into the firebase
-    db.child('users').child(userID).child('data').update({timeStamp: result})
+    db.child('users').child(userID).child('data').child('frequency').update({timeStamp: result_freq})
+    db.child('users').child(userID).child('data').child('power').update({timeStamp: result_power})
     return  # return nothing, terminates the thread
 
 
@@ -52,8 +53,9 @@ def processingFunc(emg, acc, freq):
     f_max_acc = f2[np.argmax(Pxx_acc)]
 
     tremorDominantFrequency = float(f_max_emg + f_max_acc)/2.0
+    averagePower = float(Pxx_emg[np.argmax(Pxx_emg)]+ Pxx_acc[np.argmax(Pxx_acc)])/2.0
 
-    return tremorDominantFrequency
+    return tremorDominantFrequency, averagePower
 
 
 ''' Do a bandpass filter on data with low and high being the min and max frequencies'''
