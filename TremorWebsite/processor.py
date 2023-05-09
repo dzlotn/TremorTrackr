@@ -46,16 +46,36 @@ def processingFunc(emg, acc, freq):
     f2, Pxx_acc = signal.welch(
         acc_Filtered, fs=freq, nperseg=numseg, window='blackman')
 
-    # Calculate the frequency with the highest power in the EMG PSD
-    f_max_emg = f1[np.argmax(Pxx_emg)]
+    #calculates the frequency resolution
+    freqRes = float(freq/numseg)
 
-    # Calculate the frequency with the highest power in the Accelerometer PSD
-    f_max_acc = f2[np.argmax(Pxx_acc)]
+    #finds the power of the nearest bins(segments) in the FFT for EMG and ACC
+    accMaxPower = Pxx_acc[np.argmax(Pxx_acc)]
+    accPowerNext =  Pxx_acc[np.argmax(Pxx_acc)+1]
+    accPowerPrev = Pxx_acc[np.argmax(Pxx_acc)-1]
 
-    tremorDominantFrequency = float(f_max_emg + f_max_acc)/2.0
-    averagePower = float(Pxx_emg[np.argmax(Pxx_emg)]+ Pxx_acc[np.argmax(Pxx_acc)])/2.0
+    emgMaxPower = Pxx_emg[np.argmax(Pxx_emg)]
+    emgPowerNext = Pxx_emg[np.argmax(Pxx_emg)+1]
+    emgPowerPrev = Pxx_emg[np.argmax(Pxx_emg)-1]
 
-    return tremorDominantFrequency, averagePower
+    #calculates the deviation of the true maximum from the max bin in the FFT using gaussian interpolation
+    accDevNumer = float(math.log(accPowerNext/accPowerPrev))
+    accDevDenom = 2*float(math.log((accMaxPower*accMaxPower)/(accPowerPrev*accPowerNext)))
+    accDeviation = np.argmax(Pxx_acc) + float(accDevNumer/accDevDenom)
+
+    emgDevNumer = float(math.log(emgPowerNext/emgPowerPrev))
+    emgDevDenom = 2*float(math.log((emgMaxPower*emgMaxPower)/(emgPowerPrev*emgPowerNext)))
+    emgDeviation = np.argmax(Pxx_emg) + float(emgDevNumer/emgDevDenom)
+
+    #calculates the true max input frequency for ACC and EMG
+    trueMaxFreqACC = accDeviation * freqRes
+    trueMaxFreqEMG = emgDeviation * freqRes
+
+    #Takes the average of the EMG and ACC frequencies/powers
+    tremorDominantFrequency = float(trueMaxFreqACC + trueMaxFreqEMG)/2.0
+    tremorDominantPower = float(accMaxPower + emgMaxPower)/2.0
+
+    return tremorDominantFrequency,tremorDominantPower
 
 
 ''' Do a bandpass filter on data with low and high being the min and max frequencies'''

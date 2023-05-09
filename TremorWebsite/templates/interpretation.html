@@ -224,8 +224,8 @@
       <p class="signInText1">
         A function is used to calculate important features of the current data. Using this data,
                   the power spectral density (PSD) is calculated for both EMG and accelerometry data. This creates a
-                  function of the power of the data per frequency. The frequency with the highest power in each graph is
-                  the tremor dominant frequency (TDF), and both TDF's over the time frames are averaged. This is a
+                  function of the power of the data per frequency. The frequency of the highest power in each graph is
+                  then interpolated using a Gaussian function of the segments around it. The updated frequency is called the tremor dominant frequency (TDF), and both TDF's over the time frames for EMG and accelerometry are averaged. This is a
                   measure of the power of the tremor being recorded.
       </p>
     </div>
