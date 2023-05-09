@@ -39,21 +39,52 @@ def dataProcessing():
     plt.semilogy(f1, Pxx_emg, label='EMG')
     plt.semilogy(f2, Pxx_acc, label='Accelerometer')
 
-    # Add a vertical line to indicate the frequency with the highest power for EMG
-    plt.axvline(x=f_max_emg, color='r', linestyle='--', label=f'Max EMG frequency: {f_max_emg:.2f} Hz')
-    
-    # Add a vertical line to indicate the frequency with the highest power for Accelerometer
-    plt.axvline(x=f_max_acc, color='b', linestyle='--', label=f'Max Accelerometer frequency: {f_max_acc:.2f} Hz')
-
+   
     # Set the plot title and labels
     plt.title('Power Spectral Density')
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('Power/Frequency (dB/Hz)')
 
+    #calculates the frequency resolution
+    freqRes = float(freq/numseg)
+
+    #finds the power of the nearest bins in the FFT for EMG and ACC
+    accMaxPower = Pxx_acc[np.argmax(Pxx_acc)]
+    accPowerNext =  Pxx_acc[np.argmax(Pxx_acc)+1]
+    accPowerPrev = Pxx_acc[np.argmax(Pxx_acc)-1]
+
+    emgMaxPower = Pxx_emg[np.argmax(Pxx_emg)]
+    emgPowerNext = Pxx_emg[np.argmax(Pxx_emg)+1]
+    emgPowerPrev = Pxx_emg[np.argmax(Pxx_emg)-1]
+
+    #calculates the deviation of the true maximum from the max bin in the FFT using gaussian interpolation
+    accDevNumer = float(math.log(accPowerNext/accPowerPrev))
+    accDevDenom = 2*float(math.log((accMaxPower*accMaxPower)/(accPowerPrev*accPowerNext)))
+    accDeviation = np.argmax(Pxx_acc) + float(accDevNumer/accDevDenom)
+
+    emgDevNumer = float(math.log(emgPowerNext/emgPowerPrev))
+    emgDevDenom = 2*float(math.log((emgMaxPower*emgMaxPower)/(emgPowerPrev*emgPowerNext)))
+    emgDeviation = np.argmax(Pxx_emg) + float(emgDevNumer/emgDevDenom)
+
+    #calculates the true max input frequency for ACC and EMG
+    trueMaxFreqACC = accDeviation * freqRes
+    trueMaxFreqEMG = emgDeviation *freqRes
+
+    tremorDominantFrequency = float(trueMaxFreqACC + trueMaxFreqEMG)/2.0
+    avgTremorPower = float(accMaxPower + emgMaxPower)/2.0
+     
+
+     # Add a vertical line to indicate the frequency with the highest power for EMG
+    plt.axvline(x=trueMaxFreqEMG, color='r', linestyle='--', label=f'Max EMG frequency: {trueMaxFreqEMG:.2f} Hz')
+    
+    # Add a vertical line to indicate the frequency with the highest power for Accelerometer
+    plt.axvline(x=trueMaxFreqACC, color='b', linestyle='--', label=f'Max Accelerometer frequency: {trueMaxFreqACC:.2f} Hz')
+
     # Add a legend to differentiate between the signals and the max frequency lines
     plt.legend()
     plt.show()
-    return [f_max_emg,f_max_acc]
+    
+    return tremorDominantFrequency,avgTremorPower
 
 
 ''' Do a bandpass filter on data with low and high being the min and max frequencies'''
