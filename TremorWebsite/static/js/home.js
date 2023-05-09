@@ -38,6 +38,7 @@ document.getElementById("startData").onclick = function () {
 
   createCSVChart("accelChart", "Raw Acceleration", "Resultant Acceleration (m/s^2)");
   createCSVChart("EMGChart", "Raw Electromyography", "Signal (mV)");
+  createChart(currentUser.uid);
 }
 
 document.getElementById("stopData").onclick = function () {
@@ -115,4 +116,126 @@ async function createCSVChart(id, title, scale) {
       }
     }
   });
+}
+async function createChart(uid) {
+  const data = await getDataSet(uid);
+  console.log(data);
+  const mainColor = "#FFFFFF";
+
+  let datasets = null;
+  datasets = parseData(data)
+  
+const ctx = document.getElementById('calcChart');
+const myChart = new Chart(ctx, {
+type: 'scatter',
+data: {
+    datasets: datasets
+},
+options: {
+  responsive: true,                   // Re-size based on screen size
+  scales: {                           // x & y axes display options
+      x: {
+          type: 'time',
+          title: {
+              display: true,
+              color: mainColor,
+              text: 'Date',
+              font: {
+                  size: 20
+              },
+          },
+          ticks: {
+            color: mainColor,
+            stepSize: 1,
+            font: {
+                size: 13
+            }
+          },
+          time: {
+            unit: "day",
+            displayFormats: {
+               'millisecond': 'MMM DD',
+               'second': 'MMM DD',
+               'minute': 'MMM DD',
+               'hour': 'MMM DD',
+               'day': 'MMM DD',
+               'week': 'MMM DD',
+               'month': 'MMM DD',
+               'quarter': 'MMM DD',
+               'year': 'MMM DD',
+            }
+          },
+          grid: {
+            color: mainColor
+          }
+      },
+      y: {
+          beginAtZero: true,
+          title: {
+              color: mainColor,
+              display: true,
+              text: 'Miles Ridden',
+              font: {
+                  size: 20
+              },
+          },
+          ticks: {
+            color: mainColor
+          },
+          grid: {
+            color: mainColor
+          }
+      }
+  },
+  plugins: {                          // title and legend display options
+      title: {
+          display: true,
+          color: mainColor,
+          text: 'Your Rides',
+          font: {
+              size: 30
+          },
+          padding: {
+              top: 10,
+              bottom: 30
+          }
+      },
+      legend: {
+          position: 'top',
+          labels: {
+            color: mainColor
+          }
+      },
+      tooltip: {
+        callbacks: {
+          label: function(ctx) {
+            console.log(ctx);
+            const label = ctx.dataset.label;
+            const val = ctx.parsed.y + " mi";
+            const date = ctx.label.slice(0,-13);
+            return [label, val, date];
+          }
+        }
+      }
+    }
+  }
+});
+
+globChart = myChart;
+}
+function parseData(data) {
+  const colors = ["#C93226", "#2471C3", "#1EB449", "#D4AC0D", "#AF601A", "#6C3483", "#148F77", "#34495E"]
+  const datasets = []
+  for (let i = 0; i < data.trails.length; i++) {
+    datasets.push({label: data.trails[i], 
+                    data: data.rides[i],
+                    borderColor: colors[i % 8],
+                    backgroundColor: colors[i % 8] + "99",
+                    borderWidth: 3,
+                    hoverBorderWidth: 3,
+                    pointRadius: 8,
+                    pointHoverRadius: 10
+                  })
+  }
+  return datasets;
 }
