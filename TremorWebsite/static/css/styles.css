@@ -761,3 +761,92 @@ a.nbMenuItem:hover {
     }
 
 }
+
+/*--Procedure Page - Portions if this code were adapted from https://codepen.io/RobVermeer/pen/japZpY*/
+.cardContainer {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    opacity: 0;
+    transition: opacity 0.1s ease-in-out;
+  }
+  
+  .loaded.cardContainer {
+    opacity: 1;
+  }
+  
+  .proCards {
+    flex-grow: 1;
+    padding-top: 5px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  
+.procedureCard {
+  display: inline-block;
+  width: 95vw;
+  max-width: 600px; 
+  height: 70vh;
+  background: #FFFFFF;
+  border-radius: 8px;
+  overflow: hidden;
+  position: absolute;
+  top: 5vh;
+  transition: all 0.3s ease-in-out;
+}
+.procedureCard p{
+    font-size:1em;
+}
+  
+  .procedureCard img {
+    max-width: 100%;
+  }
+  
+  .procedureCard h3 {
+    margin-top: 32px;
+    font-size: 32px;
+    padding: 0 16px;
+  }
+  
+  .procedureCard p {
+    margin-top: 24px;
+    font-size: 20px;
+    padding: 0 1vh;
+  }
+  
+  .arrowButtons{
+    text-align:center;
+    flex: 0 0 100px;
+    padding-top:5vh;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+  }
+  
+  .arrowProcedure {
+    border: solid var(--border-color);
+    border-width: 0 12px 12px 0;
+    display: inline-block;
+    padding: 20px;
+    position: relative;
+    top: -14vh; 
+  }
+  .arrowProcedure:hover{
+    opacity:0.6;
+  }
+  .leftProcedureArrow {
+    transform: rotate(135deg);
+  }
+  
+  .rightProcedureArrow {
+    transform: rotate(315deg);
+  }
+  
+  #left,#right{
+    background-color:var(--main-bg-color)
+  }
+ 
