@@ -125,13 +125,12 @@ void loop(){
   imu();
   batchIndex += 1;
 
-  Serial.println(batchIndex);
+  //Serial.println(muscles[batchIndex]);
   
   if (batchIndex == batchSize * totalBatches) {
     for (int i = 0; i < totalBatches; i++) {
       httpRequest(i);
       batchIndex = 0;
-      Serial.println(i);
     }
   }
 }
@@ -213,6 +212,7 @@ void printWifiStatus(){
 // collect emg values
 void emg(){
   // Read pin
+  Serial.println(analogRead(EMG_SIG));
   muscles[batchIndex] = int(round(analogRead(EMG_SIG)));
 }
 
@@ -224,5 +224,5 @@ void imu(){
   sox.getEvent(&accel, &gyro, &temp);
 
   // Calculate resultant acceleration
-  resultant = sqrt(sq(accel.acceleration.x)+sq(accel.acceleration.y)+sq(accel.acceleration.z));
+  resultants[batchIndex] = sqrt(sq(accel.acceleration.x)+sq(accel.acceleration.y)+sq(accel.acceleration.z));
 }

@@ -127,7 +127,7 @@ def test():
 
             print(IMU)
 
-            # # Update csv from values
+            # Update csv from values
             # field_names = ['KEY','EMG','IMU']
             # rows = [[key + i, int(EMG[i]), float(IMU[i])] for i in range(batch_size)]
             # filepath = 'data\data.csv'
@@ -138,11 +138,23 @@ def test():
             #     writer.writerows(rows)
             #     csvfile.close()
 
+            row = []
+            filepath = 'data\data.csv'
+            directory = os.path.dirname(__file__)
+            datafile = os.path.join(directory, filepath)
+            with open(datafile, 'a', newline='') as csvfile:
+                writer = csv.writer(csvfile)
+                writer.writerow(row)
+                csvfile.close()
+
+            key += 1
+
             # Every 3000ms after 1500ms, call processor to process chunk and reset the raw data graphs
             if len(IMU_all) >= 3000:
                 t1 = threading.Thread(target=start_processing(db, userID,key)).start()
                 IMU_all, EMG_all = [], []
-                #js2py.run_file("TremorWebsite\static\js\home.js") 
+                key = 0
+                js2py.run_file("TremorWebsite\static\js\home.js") 
 
             # key += batch_size  # Update key
 
@@ -155,7 +167,7 @@ def test():
 
 def run_flask():
     #Run app through port 5000 on 
-    app.run(debug=True, host='127.0.0.1', port=5000)
+    app.run(debug=True, host='192.168.86.24', port=5000)
 
 
 if __name__ == '__main__':

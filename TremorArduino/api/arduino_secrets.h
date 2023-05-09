@@ -1,2 +1,2 @@
-#define SECRET_SSID "Dan's iPhone"
-#define SECRET_PASS "abcdefghij"
+#define SECRET_SSID "Powell WiFi"
+#define SECRET_PASS "roar96safe75wiser"
