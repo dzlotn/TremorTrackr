@@ -26,6 +26,11 @@ const auth = getAuth()
 // return instance of yuor app's firebase real time database (FRD)
 const db = getDatabase(app)
 
+// Charts and data
+let collecting = false
+let IMUchart = null
+let EMGchart = null
+
 // ----------------------- Start/Stop Data ------------------------------
 document.getElementById("startData").onclick = function () {
   console.log("Starting Data Collection...");
@@ -38,7 +43,8 @@ document.getElementById("startData").onclick = function () {
 
   createCSVChart("accelChart", "Raw Acceleration", "Resultant Acceleration (m/s^2)");
   createCSVChart("EMGChart", "Raw Electromyography", "Signal (mV)");
-  createChart(currentUser.uid);
+  collecting = true
+  //createChart(currentUser.uid);
 }
 
 document.getElementById("stopData").onclick = function () {
@@ -49,7 +55,26 @@ document.getElementById("stopData").onclick = function () {
     "headers": { "Content-Type": "application/json" },
     "body": JSON.stringify({collecting:"stop"})
   })
+
+  collecting = false
 }
+
+
+// Update charts every couple seconds
+let delay = 200;
+setInterval(async function() {
+  if (collecting) {
+    const data = await getCSVData();
+    IMUchart.data.labels = data.xTime;
+    IMUchart.data.datasets[0].data = data.yIMU;
+    EMGchart.data.labels = data.xTime;
+    EMGchart.data.datasets[0].data = data.yEMG;
+    
+    
+    IMUchart.update('none');
+    EMGchart.update('none');
+  }
+}, delay);
 
 
 // ------------------------ Chart.js ----------------------------------
@@ -116,7 +141,11 @@ async function createCSVChart(id, title, scale) {
       }
     }
   });
+  (id === "accelChart") ? IMUchart = chart : EMGchart = chart
 }
+
+
+
 async function createChart(uid) {
   const data = await getDataSet(uid);
   console.log(data);

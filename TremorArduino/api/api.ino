@@ -32,7 +32,7 @@ Instructions:
 
 // Define global variables and constants for the circuit & sensor
 const int batchSize = 15;
-const int totalBatches = 200;
+const int totalBatches = 100;
 int32_t accelerometer[3];
 double resultant;
 const int EMG_SIG = A6;
@@ -41,6 +41,8 @@ Adafruit_LSM6DSOX sox;
 float resultants[batchSize * totalBatches];
 int muscles[batchSize * totalBatches];
 int batchIndex = 0;
+unsigned long batchTime = 0;
+unsigned long batchStartTime = 0;
 
 
 ///////please enter your sensitive data in the Secret tab/arduino_secrets.h
@@ -120,6 +122,11 @@ void loop(){
     Serial.println(response);
   }
 
+  // Start batch timer if it's the start of a batch
+  if (batchIndex == 0) {
+    batchStartTime = millis();
+  }
+
   // Collect data
   emg();
   imu();
@@ -127,11 +134,17 @@ void loop(){
 
   //Serial.println(muscles[batchIndex]);
   
+  // If done with all the batches, send data over
   if (batchIndex == batchSize * totalBatches) {
+    // note the time the data took to collect
+    batchTime = millis() - batchStartTime;
+
     for (int i = 0; i < totalBatches; i++) {
       httpRequest(i);
       batchIndex = 0;
     }
+
+    httpEnd();
   }
 }
 
@@ -142,14 +155,6 @@ void httpRequest(int batchNum) {
 
   // close any connection before send a new request to free the socket
   client.stop();
-
-  // call emg() function to get emg voltages
-  emg();
-  Serial.println(muscle);  
-
-  // call imu() function to get emg voltages
-  imu(); 
-  Serial.println(resultant);
   
   // if there's a successful connection:
   if (client.connect(server, 5000)) {
@@ -158,9 +163,10 @@ void httpRequest(int batchNum) {
     Serial.println("making string");
     String data = "";
     for (int i = 0; i < batchSize; i++) {
-      Serial.println(resultants[i + batchSize * batchNum]);
       data += String(resultants[i + batchSize * batchNum]) + "," + String(muscles[batchSize * batchNum]) + ",";
     }
+
+    // 
 
     // char data[3000] = "";
     // for (int i = 0; i < batchSize; i++) {
@@ -196,6 +202,36 @@ void httpRequest(int batchNum) {
   }
 }
 
+// send and "END" request to the server to signify it is done with the batch
+void httpEnd() {
+  // note the time that the connection was made:
+  lastConnectionTime = millis();
+
+  // close any connection before send a new request to free the socket
+  client.stop();
+  
+  // if there's a successful connection:
+  if (client.connect(server, 5000)) {
+    Serial.println("ENDING");
+
+    String request = "GET /test?data=END," + String(batchTime) + " HTTP/1.1";
+    client.println(request);
+
+    // set the host as server IP address
+    client.println("Host: 192.168.86.24");
+
+    // other request properties
+    client.println("User-Agent: ArduinoWiFi/1.1");
+    client.println("Connection: close");
+    client.println();
+
+    // note the time that the connection was made:
+    lastConnectionTime = millis();
+  } else {
+    Serial.println("connection failed"); // couldn't make a connection
+  }
+}
+
 // connect to wifi network and display status
 void printWifiStatus(){
   Serial.print("SSID: ");
@@ -212,7 +248,6 @@ void printWifiStatus(){
 // collect emg values
 void emg(){
   // Read pin
-  Serial.println(analogRead(EMG_SIG));
   muscles[batchIndex] = int(round(analogRead(EMG_SIG)));
 }
 
