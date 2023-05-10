@@ -3,6 +3,8 @@
 // ----------------- Firebase Setup & Initialization ------------------------//
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+import 'https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js';
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
@@ -25,6 +27,20 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth()
 // return instance of yuor app's firebase real time database (FRD)
 const db = getDatabase(app)
+let currentUser = null;
+
+function getUsername() {
+  // Grab the value for the 'keep logged in' switch
+  let keepLoggedIn = localStorage.getItem('keepLoggedIn');
+
+  // Grab user information passed from signIn.js
+  if (keepLoggedIn == 'yes') {
+    currentUser = JSON.parse(localStorage.getItem('user'));
+  } else {
+    currentUser = JSON.parse(sessionStorage.getItem('user'));
+  }
+}
+
 
 // ----------------------- Start/Stop Data ------------------------------
 document.getElementById("startData").onclick = function () {
@@ -33,12 +49,13 @@ document.getElementById("startData").onclick = function () {
   fetch('/test', {
     "method": "SET",
     "headers": { "Content-Type": "application/json" },
-    "body": JSON.stringify({collecting:"start"})
+    "body": JSON.stringify({ collecting: "start" })
   })
-
+  getUsername()
   createCSVChart("accelChart", "Raw Acceleration", "Resultant Acceleration (m/s^2)");
   createCSVChart("EMGChart", "Raw Electromyography", "Signal (mV)");
   createChart(currentUser.uid);
+
 }
 
 document.getElementById("stopData").onclick = function () {
@@ -47,7 +64,7 @@ document.getElementById("stopData").onclick = function () {
   fetch('/test', {
     "method": "SET",
     "headers": { "Content-Type": "application/json" },
-    "body": JSON.stringify({collecting:"stop"})
+    "body": JSON.stringify({ collecting: "stop" })
   })
 }
 
@@ -58,11 +75,11 @@ async function getCSVData() {
   const response = await fetch('/data');
   const data = await response.json()
 
-  const xTime = data.map( item => { return parseInt(item.KEY) });
-  const yEMG = data.map( item => { return parseFloat(item.EMG) });
-  const yIMU = data.map( item => { return parseFloat(item.IMU) });
+  const xTime = data.map(item => { return parseInt(item.KEY) });
+  const yEMG = data.map(item => { return parseFloat(item.EMG) });
+  const yIMU = data.map(item => { return parseFloat(item.IMU) });
 
-  return {xTime, yEMG, yIMU};
+  return { xTime, yEMG, yIMU };
 }
 
 // Graph data in CSV data file
@@ -117,125 +134,103 @@ async function createCSVChart(id, title, scale) {
     }
   });
 }
-async function createChart(uid) {
-  const data = await getDataSet(uid);
-  console.log(data);
-  const mainColor = "#FFFFFF";
+async function getDataSet(userID) {
+  const dataArray = [];
 
-  let datasets = null;
-  datasets = parseData(data)
-  
-const ctx = document.getElementById('calcChart');
-const myChart = new Chart(ctx, {
-type: 'scatter',
-data: {
-    datasets: datasets
-},
-options: {
-  responsive: true,                   // Re-size based on screen size
-  scales: {                           // x & y axes display options
-      x: {
-          type: 'time',
-          title: {
-              display: true,
-              color: mainColor,
-              text: 'Date',
-              font: {
-                  size: 20
-              },
-          },
-          ticks: {
-            color: mainColor,
-            stepSize: 1,
-            font: {
-                size: 13
-            }
-          },
-          time: {
-            unit: "day",
-            displayFormats: {
-               'millisecond': 'MMM DD',
-               'second': 'MMM DD',
-               'minute': 'MMM DD',
-               'hour': 'MMM DD',
-               'day': 'MMM DD',
-               'week': 'MMM DD',
-               'month': 'MMM DD',
-               'quarter': 'MMM DD',
-               'year': 'MMM DD',
-            }
-          },
-          grid: {
-            color: mainColor
-          }
-      },
-      y: {
-          beginAtZero: true,
-          title: {
-              color: mainColor,
-              display: true,
-              text: 'Miles Ridden',
-              font: {
-                  size: 20
-              },
-          },
-          ticks: {
-            color: mainColor
-          },
-          grid: {
-            color: mainColor
-          }
-      }
-  },
-  plugins: {                          // title and legend display options
+  const dataRef = ref(db, `users/${userID}/data`);
+  const snapshot = await get(dataRef);
+
+  if (!snapshot.exists()) {
+    setError("error-chart", "No data found");
+    return dataArray;
+  }
+
+  snapshot.forEach((childSnapshot) => {
+    const key = childSnapshot.key;
+    const value = childSnapshot.val();
+    dataArray.push({ x: key, TDF: value });
+  });
+
+  return dataArray;
+}
+
+
+
+// Function to create a Chart.js chart with the retrieved data
+async function createChart(userID) {
+  const chartData = await getDataSet(userID);
+  console.log(chartData);
+
+  if (chartData.length === 0) {
+    setError("error-chart", "No data found");
+    return;
+  }
+
+  const ctx = document.getElementById("calcChart").getContext("2d");
+
+  new Chart(ctx, {
+    type: "line",
+    data: {
+      datasets: [
+        {
+          label: "Tremor Dominant Frequency",
+          data: chartData,
+          borderColor: "gray",
+          backgroundColor: "rgba(50, 0, 0, 1)",
+          pointRadius: 2,
+          pointHoverRadius: 6,
+          pointBackgroundColor: "gray",
+        },
+      ],
+    },
+    options: {
       title: {
-          display: true,
-          color: mainColor,
-          text: 'Your Rides',
-          font: {
-              size: 30
-          },
-          padding: {
-              top: 10,
-              bottom: 30
-          }
+        display: true,
+        text: "Tremor Dominant Frequency over Time",
+        fontSize: 20,
+        fontColor: "black",
       },
       legend: {
-          position: 'top',
-          labels: {
-            color: mainColor
-          }
+        display: false,
       },
-      tooltip: {
-        callbacks: {
-          label: function(ctx) {
-            console.log(ctx);
-            const label = ctx.dataset.label;
-            const val = ctx.parsed.y + " mi";
-            const date = ctx.label.slice(0,-13);
-            return [label, val, date];
-          }
-        }
-      }
-    }
-  }
-});
-
-globChart = myChart;
-}
-function parseData(data) {
-  const colors = ["#C93226", "#2471C3", "#1EB449", "#D4AC0D", "#AF601A", "#6C3483", "#148F77", "#34495E"]
-  const datasets = []
-  for (let i = 0; i < data.trails.length; i++) {
-    datasets.push({label: data.trails[i], 
-                    data: data.rides[i],
-                    borderColor: colors[i % 8],
-                    backgroundColor: colors[i % 8] + "99",
-                    borderWidth: 3,
-                    hoverBorderWidth: 3,
-                    pointRadius: 8,
-                    pointHoverRadius: 10
-                  })
-  }
-  return datasets;
+      scales: {
+        xAxes: [
+          {
+            type: "time",
+            time: {
+              displayFormats: {
+                minute: "MMM DD, YYYY hh:mm:ss",
+              },
+            },
+            ticks: {
+              fontColor: "black",
+            },
+            gridLines: {
+              color: "gray",
+            },
+          },
+        ],
+        yAxes: [{
+          type: 'linear',
+          ticks: {
+            fontColor: 'black',
+            fontSize: 13,
+            min: 0, // Set the minimum value to 0
+            max: 200, // Set the maximum value to 200
+          },
+          gridLines: {
+            color: 'grey',
+            lineWidth: 0.5,
+          },
+          scaleLabel: {
+            display: true,
+            labelString: 'TDF (hz)',
+            fontColor: 'black',
+            fontSize: 16,
+          },
+        }]
+        
+      },
+    },
+  });
 }
