@@ -120,12 +120,30 @@ def test():
             global IMU_all, EMG_all
 
             # Get data from Arduino and parse
-            IMU, EMG = request.args.get('data').split(",")
+            incoming_data = request.args.get('data').split(",")
 
-            IMU_all += IMU
-            EMG_all += EMG
+            # Check if data sent was an endpoint
+            if (incoming_data[0] == "END"):
+                time = int(incoming_data[1]) / 1000.0
+                freq = int(len(IMU_all) / time)
+                print(int(incoming_data[1]))
+                print(time)
+                print(len(IMU_all))
+                print(freq)
+                #t1 = threading.Thread(target=start_processing(EMG_all, IMU_all, freq, db, userID, key)).start()
+                #start_processing(EMG_all, IMU_all, freq, db, userID, key)
+                IMU_all, EMG_all = [], []
+                key = 0
 
-            print(IMU)
+                return 'Success'
+
+            incoming_data = incoming_data[:-1]
+
+            IMU = incoming_data[::2]
+            EMG = incoming_data[1::2]
+
+            IMU_all += [float(x) for x in IMU]
+            EMG_all += [int(x) for x in EMG]
 
             # Update csv from values
             # field_names = ['KEY','EMG','IMU']
@@ -149,15 +167,6 @@ def test():
 
             key += 1
 
-            # Every 3000ms after 1500ms, call processor to process chunk and reset the raw data graphs
-            if len(IMU_all) >= 3000:
-                t1 = threading.Thread(target=start_processing(EMG_all, IMU_all, db, userID, key)).start()
-                IMU_all, EMG_all = [], []
-                key = 0
-                js2py.run_file("TremorWebsite\static\js\home.js") 
-
-            # key += batch_size  # Update key
-
         return 'Success'
 
     # GET Request
@@ -167,7 +176,7 @@ def test():
 
 def run_flask():
     #Run app through port 5000 on 
-    app.run(debug=True, host='127.0.0.1', port=5000)
+    app.run(debug=True, host='192.168.86.24', port=5000)
 
 
 if __name__ == '__main__':
