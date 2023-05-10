@@ -161,7 +161,11 @@ def test():
             directory = os.path.dirname(__file__)
             datafile = os.path.join(directory, filepath)
             with open(datafile, 'a', newline='') as csvfile:
+                # Check if first data point, in which case csv should be deleted
                 writer = csv.writer(csvfile)
+                if key == 0:
+                    csvfile.truncate(0)
+                    writer.writerow(['KEY','EMG','IMU'])
                 writer.writerow(row)
                 csvfile.close()
 
