@@ -27,6 +27,10 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="module" src="{{url_for('static', filename='js/navbar.js')}}" defer></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" 
+        crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment" defer></script>
+    
     {% if js %}
     <script type="module" src="{{url_for('static', filename=js)}}" defer></script>
     {% endif %}

@@ -60,7 +60,8 @@ document.getElementById("startData").onclick = function () {
   createCSVChart("accelChart", "Raw Acceleration", "Resultant Acceleration (m/s^2)");
   createCSVChart("EMGChart", "Raw Electromyography", "Signal (mV)");
   collecting = true
-  //createChart(currentUser.uid);
+  createfreqChart(currentUser.uid);
+  createPowerChart(currentUser.uid);
 
 }
 
@@ -79,15 +80,15 @@ document.getElementById("stopData").onclick = function () {
 
 // Update charts every couple seconds
 let delay = 200;
-setInterval(async function() {
+setInterval(async function () {
   if (collecting) {
     const data = await getCSVData();
     IMUchart.data.labels = data.xTime;
     IMUchart.data.datasets[0].data = data.yIMU;
     EMGchart.data.labels = data.xTime;
     EMGchart.data.datasets[0].data = data.yEMG;
-    
-    
+
+
     IMUchart.update('none');
     EMGchart.update('none');
   }
@@ -110,7 +111,6 @@ async function getCSVData() {
 // Graph data in CSV data file
 async function createCSVChart(id, title, scale) {
   const data = await getCSVData();
-  console.log(data);
   const ctx = document.getElementById(id).getContext('2d');
   const chart = new Chart(ctx, {
     type: 'line',
@@ -148,6 +148,8 @@ async function createCSVChart(id, title, scale) {
           }
         },
         x: {
+          beginAtZero: true,
+
           title: {
             display: true,
             text: 'Time (ms)'
@@ -161,102 +163,167 @@ async function createCSVChart(id, title, scale) {
   (id === "accelChart") ? IMUchart = chart : EMGchart = chart
 }
 async function getDataSet(userID) {
-  const dataArray = [];
+
+  const dataArray = []
 
   const dataRef = ref(db, `users/${userID}/data`);
   const snapshot = await get(dataRef);
 
-  if (!snapshot.exists()) {
-    setError("error-chart", "No data found");
-    return dataArray;
-  }
-
   snapshot.forEach((childSnapshot) => {
     const key = childSnapshot.key;
     const value = childSnapshot.val();
-    dataArray.push({ x: key, TDF: value });
+    dataArray.push({ x: key, y: value })
+
   });
 
-  return dataArray;
+  return dataArray
 }
 
 
 
-// Function to create a Chart.js chart with the retrieved data
-async function createChart(userID) {
+// Function to create a Chart.js tremor dominant frequency graph with the retrieved data
+async function createfreqChart(userID) {
   const chartData = await getDataSet(userID);
-  console.log(chartData);
-
-  if (chartData.length === 0) {
-    setError("error-chart", "No data found");
-    return;
-  }
 
   const ctx = document.getElementById("calcChart").getContext("2d");
-
+  console.log(chartData)
   new Chart(ctx, {
     type: "line",
     data: {
       datasets: [
         {
-          label: "Tremor Dominant Frequency",
           data: chartData,
-          borderColor: "gray",
-          backgroundColor: "rgba(50, 0, 0, 1)",
-          pointRadius: 2,
-          pointHoverRadius: 6,
-          pointBackgroundColor: "gray",
+          borderColor: 'rgba(255, 99, 132, 1)',
         },
       ],
     },
     options: {
-      title: {
-        display: true,
-        text: "Tremor Dominant Frequency over Time",
-        fontSize: 20,
-        fontColor: "black",
+      responsive: true,                  
+      animation: {
+        duration: 1000,
+        easing: 'linear',
       },
-      legend: {
-        display: false,
-      },
-      scales: {
-        xAxes: [
-          {
-            type: "time",
-            time: {
-              displayFormats: {
-                minute: "MMM DD, YYYY hh:mm:ss",
-              },
+      scales: {                     
+
+        x: {
+          type: 'time',
+          time: {
+            unit: 'second',
+            displayFormats: {
+              second: 'mm'
             },
-            ticks: {
-              fontColor: "black",
-            },
-            gridLines: {
-              color: "gray",
-            },
+            parser: 'dd-MM-yyyy HH:mm:ss'
           },
-        ],
-        yAxes: [{
-          type: 'linear',
           ticks: {
-            fontColor: 'black',
-            fontSize: 13,
-            min: 0, // Set the minimum value to 0
-            max: 200, // Set the maximum value to 200
+            source: 'data',
+            beginAtZero: true,
+
+    
           },
-          gridLines: {
-            color: 'grey',
-            lineWidth: 0.5,
-          },
-          scaleLabel: {
-            display: true,
-            labelString: 'TDF (hz)',
-            fontColor: 'black',
-            fontSize: 16,
-          },
-        }]
         
+          title: {
+            display: true,
+            text: 'Time (min)'
+          }
+          
+        },
+        y: {
+          title: {
+            display: true,
+            text: 'Tremor Dominant Frequency (Hz)',
+          },
+          
+
+        }
       },
+      plugins: {                        
+        title: {
+          display: true,
+          text: 'Tremor Dominant Frequency over Time',
+          padding: {
+            top: 10,
+            bottom: 30
+          }
+        },
+        legend: {
+          display: false,
+        },
+
+      }
+    }
+  });
+}
+
+// Function to create a Chart.js tremor power graph with the retrieved data
+
+async function createPowerChart(userID) {
+  const chartData = await getDataSet(userID);
+
+  const ctx = document.getElementById("powerChart").getContext("2d");
+  console.log(chartData)
+  new Chart(ctx, {
+    type: "line",
+    data: {
+      // labels: chartData.keyArray,
+      datasets: [
+        {
+          data: chartData,
+          borderColor: 'rgba(255, 99, 132, 1)',
+        },
+      ],
     },
+    options: {
+      responsive: true,                  
+      animation: {
+        duration: 1000,
+        easing: 'linear',
+      },
+      scales: {                           
+
+        x: {
+          type: 'time',
+          time: {
+            unit: 'second',
+            displayFormats: {
+              second: 'mm'
+            },
+            parser: 'dd-MM-yyyy HH:mm:ss'
+          },
+          ticks: {
+            source: 'data',
+            beginAtZero: true,
+
+    
+          },
+        
+          title: {
+            display: true,
+            text: 'Time (min)'
+          }
+          
+        },
+        y: {
+          title: {
+            display: true,
+            text: 'Tremor Power (dB/Hz)',
+          },
+
+        }
+      },
+      plugins: {                        
+        title: {
+          display: true,
+          text: 'Tremor Power over Time',
+          padding: {
+            top: 10,
+            bottom: 30
+          }
+        },
+        legend: {
+          display: false,
+        },
+
+      }
+    }
   });
 }

@@ -41,7 +41,7 @@ let register = document.getElementById('register-nav')
 getUsername()
 if (currentUser != null) {
     signIn.innerText = currentUser.firstname
-    signIn.href = '#'
+    signIn.href = '/home'
     register.innerText = 'Sign Out'
     register.href = '/'
     register.onclick = function() {
