@@ -180,7 +180,7 @@ def test():
 
 def run_flask():
     #Run app through port 5000 on 
-    app.run(debug=True, host='192.168.86.24', port=5000)
+    app.run(debug=True, host='127.0.0.1', port=5000)
 
 
 if __name__ == '__main__':

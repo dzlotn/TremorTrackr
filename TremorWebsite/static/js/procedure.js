@@ -6,14 +6,13 @@ var allCards = document.querySelectorAll('.procedureCard');
 var left = document.getElementById('left');
 var right = document.getElementById('right');
  
-//Initializes the cards and puts each consecutive card behind another, scaled down and slightly to the left, with lower opacity
+//Initializes the cards and puts each consecutive card behind another, scaled down and slightly to the left to give the appearance that they are behind eachother
 function initCards(card, index) {
   var newCards = document.querySelectorAll('.procedureCard:not(.removed)');
 
   newCards.forEach(function (card, index) {
     card.style.transform = 'scale(' + (19 - index) / 19 + ') translateX(-' + 40 * index + 'px)';
     card.style.zIndex = allCards.length - index;
-    card.style.opacity = (12 - index) / 12;
   });
 
   cardContainer.classList.add('loaded');
@@ -31,7 +30,7 @@ function undoCardAction() {
 
   initCards();
 }
-//Moves the cards out of the pile at an angle, and moves the next card in the pile upwards
+//Moves the cards out of the pile at an angle, and moves the next card in the pile upwards in z index and size
 function createButtonListener(right) {
     return function (event) {
       var cards = document.querySelectorAll('.procedureCard:not(.removed)');
@@ -52,7 +51,8 @@ function createButtonListener(right) {
       event.preventDefault();
     };
   }
-  
+    // waits for when either button is clicked
+
   var leftListener = createButtonListener(false);
   var rightListener = createButtonListener(true);
   

@@ -74,7 +74,6 @@ document.getElementById('submitData').onclick = function () {
               "body": JSON.stringify(firebaseConfig)
           })
           //data saved successfully
-          alert('User created successfully!')
 
           window.location = "home"; // Browser redirect to the home page
           

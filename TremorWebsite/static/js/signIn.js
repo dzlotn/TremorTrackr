@@ -52,8 +52,6 @@ document.getElementById('signIn').onclick = function () {
             })
                 .then(() => {
                     // User signed in!
-                    alert('User signed in successfully!');
-
                     // Get snapshot of all the user info
                     // login() function and stored in session or local storage
                     get(ref(db, 'users/' + user.uid + '/accountInfo')).then((snapshot) => {
