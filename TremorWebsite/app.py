@@ -133,8 +133,7 @@ def test():
                 print(time)
                 print(len(IMU_all))
                 print(freq)
-                #t1 = threading.Thread(target=start_processing(EMG_all, IMU_all, freq, db, userID, key)).start()
-                #start_processing(EMG_all, IMU_all, freq, db, userID, key)
+                t1 = threading.Thread(target=start_processing(EMG_all, IMU_all, freq, db, userID, key)).start()
                 IMU_all, EMG_all = [], []
                 key = 0
 
@@ -147,17 +146,6 @@ def test():
 
             IMU_all += [float(x) for x in IMU]
             EMG_all += [int(x) for x in EMG]
-
-            # Update csv from values
-            # field_names = ['KEY','EMG','IMU']
-            # rows = [[key + i, int(EMG[i]), float(IMU[i])] for i in range(batch_size)]
-            # filepath = 'data\data.csv'
-            # directory = os.path.dirname(__file__)
-            # datafile = os.path.join(directory, filepath)
-            # with open(datafile, 'a', newline='') as csvfile:
-            #     writer = csv.writer(csvfile)
-            #     writer.writerows(rows)
-            #     csvfile.close()
 
             row = [key, int(EMG[0]), float(IMU[0])]
             filepath = 'data\data.csv'

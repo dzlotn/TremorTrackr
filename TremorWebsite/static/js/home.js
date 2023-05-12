@@ -162,11 +162,11 @@ async function createCSVChart(id, title, scale) {
   });
   (id === "accelChart") ? IMUchart = chart : EMGchart = chart
 }
-async function getDataSet(userID) {
+async function getDataSet(userID, datatype) {
 
   const dataArray = []
 
-  const dataRef = ref(db, `users/${userID}/data`);
+  const dataRef = ref(db, `users/${userID}/data/${datatype}`);
   const snapshot = await get(dataRef);
 
   snapshot.forEach((childSnapshot) => {
@@ -183,7 +183,7 @@ async function getDataSet(userID) {
 
 // Function to create a Chart.js tremor dominant frequency graph with the retrieved data
 async function createfreqChart(userID) {
-  const chartData = await getDataSet(userID);
+  const chartData = await getDataSet(userID, 'frequency');
 
   const ctx = document.getElementById("calcChart").getContext("2d");
   console.log(chartData)
@@ -257,7 +257,7 @@ async function createfreqChart(userID) {
 // Function to create a Chart.js tremor power graph with the retrieved data
 
 async function createPowerChart(userID) {
-  const chartData = await getDataSet(userID);
+  const chartData = await getDataSet(userID, 'power');
 
   const ctx = document.getElementById("powerChart").getContext("2d");
   console.log(chartData)
