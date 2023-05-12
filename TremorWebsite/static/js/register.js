@@ -105,7 +105,7 @@ function isEmptyorSpaces(str) {
 function validation(firstName, lastName, email, password) {
   let fNameRegex = /^[a-zA-Z]+$/;
   let lNameRegex = /^[a-zA-Z]+$/;
-  let emailRegex = /^[a-zA-Z0-9]+@ctemc\.org$/;
+  let emailRegex = /^\w+@(gmail|ctemc|yahoo){1}\.(com|org){1}$/
 
   if (isEmptyorSpaces(firstName) || isEmptyorSpaces(lastName) ||
     isEmptyorSpaces(email) || isEmptyorSpaces(password)) {
