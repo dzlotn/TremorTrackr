@@ -56,6 +56,9 @@ def data():
 def register():
     return render_template("register.html", js="js/register.js")
 
+@app.route("/faq")
+def faq():
+    return render_template("faq.html", js="js/faq.js")
 
 @app.route("/signIn")
 def signIn():

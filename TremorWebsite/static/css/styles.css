@@ -200,7 +200,7 @@ input[type="checkbox"]:checked {
 
 a.nbMenuItem {
     font-size: 25px;
-    margin: auto;
+    margin-left:1vw;
     color: #eae6e6;
     font-weight: bold;
     padding-right: 30px;
@@ -607,24 +607,25 @@ a.nbMenuItem:hover {
 }
 
 .home-register {
-    padding: 5vh 0;
-    background-color: var(--main-bg-color);
+    padding: 2vh 0;
+    margin-top:2vh;
+    background-color: #34373b;
     color: var(--text-color2);
 }
 
 .home-register>h2 {
-    font-size: 4vw;
+    font-size: 3vw;
 }
 
 .home-register>a {
     background-color: var(--border-secondary);
     color: var(--text-color2);
-    padding: 14px 25px;
+    padding: 10px 20px;
     margin: 2vh;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 2vw;
+    font-size: 1.5vw;
     font-weight: bold;
     border-radius: 8px;
 }
@@ -866,3 +867,28 @@ a.nbMenuItem:hover {
 #right {
     background-color: var(--main-bg-color)
 }
+/* FAQ Page CSS */
+.faqtext{
+    margin-top:2vh;
+}
+.faqRedLine{
+    content: "";
+    display: block;
+    height: 0;
+    margin-top: 1vh;
+    margin-left: 40%;
+    margin-right: 40%;
+    border-bottom: 2px solid var(--border-color);
+}
+.answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+
+
+  
+  
+  
+  
