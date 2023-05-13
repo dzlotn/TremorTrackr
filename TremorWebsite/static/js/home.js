@@ -79,7 +79,7 @@ document.getElementById("stopData").onclick = function () {
 
 
 // Update charts every couple seconds
-let delay = 200;
+let delay = 1000;
 setInterval(async function () {
   if (collecting) {
     const data = await getCSVData();
@@ -87,7 +87,6 @@ setInterval(async function () {
     IMUchart.data.datasets[0].data = data.yIMU;
     EMGchart.data.labels = data.xTime;
     EMGchart.data.datasets[0].data = data.yEMG;
-
 
     IMUchart.update('none');
     EMGchart.update('none');
@@ -163,8 +162,10 @@ async function createCSVChart(id, title, scale) {
   (id === "accelChart") ? IMUchart = chart : EMGchart = chart
 }
 async function getDataSet(userID, datatype) {
+  const maxHistory = 120; // Age in seconds of a datapoint until it won't show
+  const now = new moment();
 
-  const dataArray = []
+  const dataArray = [];
 
   const dataRef = ref(db, `users/${userID}/data/${datatype}`);
   const snapshot = await get(dataRef);
@@ -172,8 +173,9 @@ async function getDataSet(userID, datatype) {
   snapshot.forEach((childSnapshot) => {
     const key = childSnapshot.key;
     const value = childSnapshot.val();
-    dataArray.push({ x: key, y: value })
-
+    if ((now.diff(moment(key, "DD-MM-yyyy HH:mm:ss"), "seconds")) < maxHistory) {
+      dataArray.push({ x: key, y: value })
+    }
   });
 
   return dataArray

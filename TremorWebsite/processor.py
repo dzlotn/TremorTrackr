@@ -8,13 +8,8 @@ import math
 
 def start_processing(emg, acc, freq, db, userID, key):
 
-    # Separates the current data csv into separate arrays for the raw data
-    # filepath = 'data\data.csv'
-    # directory = os.path.dirname(__file__)
-    # datafile = os.path.join(directory, filepath)
-    # data = pd.read_csv(datafile, delimiter=',')
-    # acc = data['IMU'][key-1000:key]
-    # emg = data['EMG'][key-1000:key]
+    print(emg[:100])
+    print(acc[:100])
 
     # Records the time stamp when processing starts, and calls the processing chunk function
     timeStamp = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
@@ -27,8 +22,11 @@ def start_processing(emg, acc, freq, db, userID, key):
 
 def processingFunc(emg, acc, freq):
 
-    emg_Filtered = butter_filter(emg, 4, 20, 400,freq)
+    emg_Filtered = butter_filter(emg, 4, 20, 0.4*freq,freq)
     acc_Filtered = butter_filter(acc, 2, 0.5, 20,freq)
+
+    print(emg_Filtered[:100])
+    print(acc_Filtered[:100])
 
     # Compute the hilbert transform and emg envelope
     emgHilbert = signal.hilbert(emg_Filtered)
@@ -37,6 +35,7 @@ def processingFunc(emg, acc, freq):
 
     # Calculates the number of segments, which is the closest power of 2 to 1/3 of the sample frequency
     numseg = closest_power_of_two(freq)
+    
 
     # Compute the power spectral density (PSD) using welch's blackman method and the number of segments defined above
     f1, Pxx_emg = signal.welch(
