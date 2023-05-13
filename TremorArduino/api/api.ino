@@ -57,7 +57,7 @@ WiFiClient client;
 // server address:
 //char server[] = "jsonplaceholder.typicode.com"; // for public domain server
 
-IPAddress server(172,20,10,4); // for localhost server (server IP address can be found with ipconfig or ifconfig)
+IPAddress server(192,168,50,218); // for localhost server (server IP address can be found with ipconfig or ifconfig)
 
 unsigned long lastConnectionTime = 0;
 const unsigned long postingInterval = 40; // delay between updates, in milliseconds (10L * 50L is around 1 second between requests)
@@ -188,7 +188,7 @@ void httpRequest(int batchNum) {
     client.println(request);
 
     // set the host as server IP address
-    client.println("Host: 172.20.10.4");
+    client.println("Host: 192.168.50.218");
 
     // other request properties
     client.println("User-Agent: ArduinoWiFi/1.1");
@@ -218,7 +218,7 @@ void httpEnd() {
     client.println(request);
 
     // set the host as server IP address
-    client.println("Host: 192.168.86.24");
+    client.println("Host: 192.168.50.218");
 
     // other request properties
     client.println("User-Agent: ArduinoWiFi/1.1");

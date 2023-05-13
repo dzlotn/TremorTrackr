@@ -6,7 +6,7 @@
 
     <div class="proCards">
       <div class="procedureCard">
-        <img src="https://placeimg.com/600/300/tech">
+        <img style = "height:65%; "src="{{url_for('static', filename='img/prochand.jpg')}}">
         <h3>Step 1</h3>
         <p>Slide the pink wristband onto your wrist and make sure that the black box is facing up and does not slide.
         </p>
@@ -42,31 +42,26 @@
       <div class="procedureCard">
         <img src="{{url_for('static', filename='img/proc7.png')}}">
         <h3>Step 7</h3>
-        <p>When you are ready to start tracking your tremors, click the “Start Collection” button on the screen.
+        <p>When you are ready to start tracking your tremors, click the “Start Collecting Data” button on the screen.
         </p>
       </div>
+      
       <div class="procedureCard">
-        <img src="https://placeimg.com/600/300/arch">
+        <img src="{{url_for('static', filename='img/procend.png')}}">
         <h3>Step 8</h3>
-        <p>Ensure that the device is securely on your wrist, and the electrodes are always in place. This is essential to track your tremors.
-        </p>
-      </div>
-      <div class="procedureCard">
-        <img src="https://placeimg.com/600/300/arch">
-        <h3>Step 9</h3>
-        <p>When you are finished, click the “End Collection” button. Now view graphs of your collected data.
+        <p>When you are finished, click the "Stop Collecting Data” button. Now view graphs of your collected data.
 
         </p>
       </div>
       <div class="procedureCard">
-        <img src="https://placeimg.com/600/300/arch">
-        <h3>Step 10</h3>
+        <img src="{{url_for('static', filename='img/procdata.png')}}">
+        <h3>Step 9</h3>
         <p>The wristband can now be removed from your forearm and you can log out of the website. Your data will saved.
         </p>
       </div>
       <div class="procedureCard">
         <img class ="proc11" src="{{url_for('static', filename='img/proc11.jpg')}}">
-        <h3>Step 11</h3>
+        <h3>Step 10</h3>
         <p>Consult with a medical professional to analyze the TremorTracker data. They will decide upon a treatment to reduce the severity.
 
         </p>

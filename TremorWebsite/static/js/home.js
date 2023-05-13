@@ -84,19 +84,22 @@ document.getElementById("stopData").onclick = function () {
 let delay = 1000;
 setInterval(async function () {
   if (collecting) {
+    console.log("dlkjaskajdfk")
+    console.log(freqchart.data.datasets[0].data )
     const data = await getCSVData();
     IMUchart.data.labels = data.xTime;
     IMUchart.data.datasets[0].data = data.yIMU;
     EMGchart.data.labels = data.xTime;
     EMGchart.data.datasets[0].data = data.yEMG;
 
-    const fdata = await getDataSet(userID, "frequency");
-    const pdata = await getDataSet(userID, "power");
+    IMUchart.update('none');
+    EMGchart.update('none');
+    const fdata = await getDataSet(currentUser.uid, "frequency");
+    const pdata = await getDataSet(currentUser.uid, "power");
     freqchart.data.datasets[0].data = fdata;
     powerchart.data.datasets[0].data = pdata;
 
-    IMUchart.update('none');
-    EMGchart.update('none');
+   
     freqchart.update('none');
     powerchart.update('none');
   }
