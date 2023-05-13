@@ -46,6 +46,8 @@ function getUsername() {
 let collecting = false
 let IMUchart = null
 let EMGchart = null
+let freqchart = null
+let powerchart = null
 
 // ----------------------- Start/Stop Data ------------------------------
 document.getElementById("startData").onclick = function () {
@@ -88,8 +90,15 @@ setInterval(async function () {
     EMGchart.data.labels = data.xTime;
     EMGchart.data.datasets[0].data = data.yEMG;
 
+    const fdata = await getDataSet(userID, "frequency");
+    const pdata = await getDataSet(userID, "power");
+    freqchart.data.datasets[0].data = fdata;
+    powerchart.data.datasets[0].data = pdata;
+
     IMUchart.update('none');
     EMGchart.update('none');
+    freqchart.update('none');
+    powerchart.update('none');
   }
 }, delay);
 
@@ -189,7 +198,7 @@ async function createfreqChart(userID) {
 
   const ctx = document.getElementById("calcChart").getContext("2d");
   console.log(chartData)
-  new Chart(ctx, {
+  const chart = new Chart(ctx, {
     type: "line",
     data: {
       datasets: [
@@ -254,6 +263,7 @@ async function createfreqChart(userID) {
       }
     }
   });
+  freqchart = chart
 }
 
 // Function to create a Chart.js tremor power graph with the retrieved data
@@ -263,7 +273,7 @@ async function createPowerChart(userID) {
 
   const ctx = document.getElementById("powerChart").getContext("2d");
   console.log(chartData)
-  new Chart(ctx, {
+  const chart = new Chart(ctx, {
     type: "line",
     data: {
       // labels: chartData.keyArray,
@@ -328,4 +338,5 @@ async function createPowerChart(userID) {
       }
     }
   });
+  powerchart = chart
 }
