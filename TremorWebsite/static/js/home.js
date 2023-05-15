@@ -60,7 +60,7 @@ document.getElementById("startData").onclick = function () {
   })
   getUsername()
   createCSVChart("accelChart", "Raw Acceleration", "Resultant Acceleration (m/s^2)");
-  createCSVChart("EMGChart", "Raw Electromyography", "Signal (mV)");
+  createCSVChart("EMGChart", "Raw Electromyography", "Signal (V)");
   collecting = true
   createfreqChart(currentUser.uid);
   createPowerChart(currentUser.uid);
@@ -113,7 +113,7 @@ async function getCSVData() {
   const data = await response.json()
 
   const xTime = data.map(item => { return parseInt(item.KEY) * 20}); // x20 approximates ms between each csv data point
-  const yEMG = data.map(item => { return parseFloat(item.EMG) });
+  const yEMG = data.map(item => { return (parseFloat(item.EMG) * 5) / 1023 });
   const yIMU = data.map(item => { return parseFloat(item.IMU) });
 
   return { xTime, yEMG, yIMU };
