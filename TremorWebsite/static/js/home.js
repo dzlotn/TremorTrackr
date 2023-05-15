@@ -79,12 +79,30 @@ document.getElementById("stopData").onclick = function () {
   collecting = false
 }
 
+// --------------------- Get Previous Days ------------------
+document.getElementById("getHistory").onclick = async function () {
+  getUsername()
+  let date = document.getElementById("historyDate").value
+  const avgFrequency = document.getElementById("historyFreq")
+  const avgPower = document.getElementById("historyPower")
 
-// Update charts every couple seconds
+  date = date.slice(8,10)+'-'+date.slice(5,7)+'-'+date.slice(0,4)
+  const result = await getHistory(currentUser.uid, date)
+
+  if (!result) {
+    alert(`No data for ${date} found`)
+    return
+  }
+  
+  avgFrequency.innerHTML = "Average Frequency: " + result.frequency
+  avgPower.innerHTML = "Average Power: " + result.power
+}
+
+
+// ------------- Update charts every couple seconds ---------
 let delay = 1000;
 setInterval(async function () {
   if (collecting) {
-    console.log("dlkjaskajdfk")
     console.log(freqchart.data.datasets[0].data )
     const data = await getCSVData();
     IMUchart.data.labels = data.xTime;
@@ -176,13 +194,15 @@ async function createCSVChart(id, title, scale) {
 async function getDataSet(userID, datatype) {
   const maxHistory = 120; // Age in seconds of a datapoint until it won't show
   const now = new moment();
+  const date = now.format('DD-MM-YYYY')
 
   const dataArray = [];
 
-  const dataRef = ref(db, `users/${userID}/data/${datatype}`);
+  const dataRef = ref(db, `users/${userID}/data/${date}/${datatype}`);
   const snapshot = await get(dataRef);
 
   snapshot.forEach((childSnapshot) => {
+    
     const key = childSnapshot.key;
     const value = childSnapshot.val();
     if ((now.diff(moment(key, "DD-MM-yyyy HH:mm:ss"), "seconds")) < maxHistory) {
@@ -193,14 +213,37 @@ async function getDataSet(userID, datatype) {
   return dataArray
 }
 
+async function getHistory(userID, date) {
+  let freqArray = [];
+  let powerArray = [];
 
+  const fdataRef = ref(db, `users/${userID}/data/${date}/frequency`);
+  const fsnapshot = await get(fdataRef);
+  fsnapshot.forEach((childSnapshot) => {
+    freqArray.push(childSnapshot.val());
+  });
+
+  const pdataRef = ref(db, `users/${userID}/data/${date}/power`);
+  const psnapshot = await get(pdataRef);
+  psnapshot.forEach((childSnapshot) => {
+    powerArray.push(childSnapshot.val());
+  });
+
+  if (freqArray.length === 0 || powerArray.length === 0) {
+    return null
+  }
+
+  const freqAverage = freqArray.reduce((a, b) => a + b) / freqArray.length
+  const powerAverage = powerArray.reduce((a, b) => a + b) / powerArray.length
+
+  return {frequency: freqAverage, power: powerAverage}
+}
 
 // Function to create a Chart.js tremor dominant frequency graph with the retrieved data
 async function createfreqChart(userID) {
   const chartData = await getDataSet(userID, 'frequency');
 
   const ctx = document.getElementById("calcChart").getContext("2d");
-  console.log(chartData)
   const chart = new Chart(ctx, {
     type: "line",
     data: {
@@ -275,7 +318,6 @@ async function createPowerChart(userID) {
   const chartData = await getDataSet(userID, 'power');
 
   const ctx = document.getElementById("powerChart").getContext("2d");
-  console.log(chartData)
   const chart = new Chart(ctx, {
     type: "line",
     data: {

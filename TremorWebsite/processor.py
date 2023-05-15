@@ -15,8 +15,8 @@ def start_processing(emg, acc, freq, db, userID, key):
     timeStamp = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
     result_freq, result_power = processingFunc(acc, emg, freq)
     # appends the resulting data and timestamp into the firebase
-    db.child('users').child(userID).child('data').child('frequency').update({timeStamp: result_freq})
-    db.child('users').child(userID).child('data').child('power').update({timeStamp: result_power})
+    db.child('users').child(userID).child('data').child(timeStamp.split()[0]).child('frequency').update({timeStamp: result_freq})
+    db.child('users').child(userID).child('data').child(timeStamp.split()[0]).child('power').update({timeStamp: result_power})
     return  # return nothing, terminates the thread
 
 
