@@ -112,7 +112,7 @@ async function getCSVData() {
   const response = await fetch('/data');
   const data = await response.json()
 
-  const xTime = data.map(item => { return parseInt(item.KEY) });
+  const xTime = data.map(item => { return parseInt(item.KEY) * 20}); // x20 approximates ms between each csv data point
   const yEMG = data.map(item => { return parseFloat(item.EMG) });
   const yIMU = data.map(item => { return parseFloat(item.IMU) });
 
