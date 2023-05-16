@@ -9,10 +9,26 @@
     <button type="button" id="stopData" name="stopData"
         class="data-button btn text-light mb-3 w-100">Stop Collecting Data</button>
 </div>
-<div class= "m-3 rounded" style="height:16vh; background-color:#313437">
-<h3 class= "signInText1 redLine text-center">Frequency = Tremor Speed</h3>
-<h3 class= "signInText1 redLine text-center">Power = Tremor Severity</h3>
-<h5 class= "signInText1 redLine text-center">3-5Hz = Slow  |  5-8Hz = Intermediate  |  9-12Hz = Rapid</h5>
+<div class="centeringArea d-flex justify-content-center">
+<div class= "getBox">
+<h2 class="text-center m-2" style="color:var(--text-color2)">Data Key</h2 >
+<p class= "signInText1 redLine text-center">Frequency = Tremor Speed</h3>
+<p class= "signInText1 redLine text-center">Power = Tremor Severity</h3>
+<p class= "signInText1 redLine text-center">3-5Hz = Slow  |  5-8Hz = Intermediate  |  9-12Hz = Rapid</h5>
+</div>
+    <div class="getBox">
+        <h2 class="text-center m-2" style="color:var(--text-color2)">Get Previous Data</h2 >
+        <form class="mr-2 ml-2 p-2 d-flex flex-row justify-content-center align-content-center">
+            <input class="form-control mb-3 mr-5" type="date" id="historyDate" name="historyDate">
+            <button type = "button" id="getHistory" name="get" class="btn text-light btn-light  mb-3 w-100" >Get History</button>
+        </form>
+        <div class="text-center" style="margin-top:-2vh;">
+            <p id="historyFreq">Average Frequency:</p>
+            <p id="historyPower">Average Power:</p> 
+
+        </div>
+    </div>
+    </div>
 </div>
 <div class="d-flex flex-row justify-content-center">
     <div class="data-chart chart-div d-flex align-items-center justify-content-center" >
@@ -32,16 +48,7 @@
     </div>
     
 </div>
-<div>
-    <form class="d-flex flex-row justify-content-center">
-        <input class="form-control mb-4 w-100" type="date" id="historyDate">
-        <button type = "button" id="getHistory" name="get" class="btn text-light btn-light btn-outline-light  mb-3 w-100" 
-            style="background-color:var(--border-secondary);">Get History</button>
-    </form>  
-</div>
-<div class="d-flex flex-row justify-content-center">
-    <p id="historyFreq">Average Frequency:</p>
-    <p id="historyPower">Average Power:</p> 
-</div>
+
+
 
 {% endblock %}
