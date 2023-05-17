@@ -94,8 +94,8 @@ document.getElementById("getHistory").onclick = async function () {
     return
   }
   
-  avgFrequency.innerHTML = "Average Frequency: " + result.frequency
-  avgPower.innerHTML = "Average Power: " + result.power
+  avgFrequency.innerHTML = "Average Frequency: " + Number(Math.round(result.frequency+'e2')+'e-2') + " Hz"
+  avgPower.innerHTML = "Average Power: " + Number(Math.round(result.power+'e2')+'e-2') + " dB/Hz"
 }
 
 
@@ -103,7 +103,6 @@ document.getElementById("getHistory").onclick = async function () {
 let delay = 1000;
 setInterval(async function () {
   if (collecting) {
-    console.log(freqchart.data.datasets[0].data )
     const data = await getCSVData();
     IMUchart.data.labels = data.xTime;
     IMUchart.data.datasets[0].data = data.yIMU;

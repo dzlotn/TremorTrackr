@@ -21,6 +21,8 @@ def start_processing(emg, acc, freq, db, userID, key):
 
 
 def processingFunc(emg, acc, freq):
+    if (max(acc) == 0 or max(emg) == 0):
+        return 0,0
 
     emg_Filtered = butter_filter(emg, 4, 20, 0.4*freq,freq)
     acc_Filtered = butter_filter(acc, 2, 0.5, 20,freq)
