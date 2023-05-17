@@ -37,7 +37,7 @@ def dataProcessing():
 
     # Plot the PSDs using different methods
     plt.semilogy(f1, Pxx_emg, label='EMG')
-    plt.semilogy(f2, Pxx_acc, label='Accelerometer')
+    plt.semilogy(f2, Pxx_acc, label='Gyroscope')
 
    
     # Set the plot title and labels
@@ -78,7 +78,7 @@ def dataProcessing():
     plt.axvline(x=trueMaxFreqEMG, color='r', linestyle='--', label=f'Max EMG frequency: {trueMaxFreqEMG:.2f} Hz')
     
     # Add a vertical line to indicate the frequency with the highest power for Accelerometer
-    plt.axvline(x=trueMaxFreqACC, color='b', linestyle='--', label=f'Max Accelerometer frequency: {trueMaxFreqACC:.2f} Hz')
+    plt.axvline(x=trueMaxFreqACC, color='b', linestyle='--', label=f'Max Gyroscopic frequency: {trueMaxFreqACC:.2f} Hz')
 
     # Add a legend to differentiate between the signals and the max frequency lines
     plt.legend()
