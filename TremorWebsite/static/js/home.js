@@ -59,7 +59,7 @@ document.getElementById("startData").onclick = function () {
     "body": JSON.stringify({ collecting: "start" })
   })
   getUsername()
-  createCSVChart("accelChart", "Raw Acceleration", "Resultant Acceleration (m/s^2)");
+  createCSVChart("accelChart", "Raw Angular Velocity", "Angular Velocity (dps)");
   createCSVChart("EMGChart", "Raw Electromyography", "Signal (V)");
   collecting = true
   createfreqChart(currentUser.uid);

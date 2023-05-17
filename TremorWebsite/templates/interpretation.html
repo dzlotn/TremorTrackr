@@ -67,12 +67,12 @@
         <div class="p-3 rounded bgcolor signInText1 d-flex flex-column px-5" data-aos="fade-right">
           <div class="d-flex flex-grow-1 justify-content-left">
             <div class="flex-grow-1">
-              <h2 class="text-center signInText1 redLine">Accelerometry</h2>
+              <h2 class="text-center signInText1 redLine">Gyroscopy</h2>
               <p class="signInText1">
-                Acceleration is the rate of change of velocity with respect to time. Acceleration data can be used to
+                Angular velocity is the rate of change of degrees with respect to time. Angular velocity data can be used to
                 analyze and measure tremor movements in patients.
-                A higher rate of resultant acceleration can be indicative of a higher tremor frequency or power.
-                Accelerometers can be attached to different parts to record acceleration data for tremor analysis.
+                A higher rate of angular velocity can be indicative of a higher tremor frequency or power.
+                Gyroscope can be attached to different parts to record angular velocity data for tremor analysis.
               </p>
             </div>
             <div class="flex-grow-1 d-flex justify-content-end align-items-center m-2">
@@ -126,9 +126,9 @@
         <div class="p-3 rounded bgcolor signInText1 d-flex flex-column px-5" data-aos="fade-right">
           <div class="d-flex flex-grow-1 justify-content-left">
             <div class="flex-grow-1">
-              <h2 class="text-center">Raw Acceleration</h2>
-              <p>The acceleration in the X, Y, and Z directions are plugged into a formula to get the resultant
-                acceleration, which is the total acceleration vector for each time.</p>
+              <h2 class="text-center">Raw Angular Velocity</h2>
+              <p>The angular velocity in 3 axes are plugged into a formula to get the resultant
+                angular velocity, which is the magnitude vector for each time.</p>
             </div>
             <div class="flex-grow-1 d-flex justify-content-end align-items-center m-2">
               <img src="{{url_for('static', filename='img/resultAccel.png')}}" alt="Tremor" class="aboutSensorPic w-75">
@@ -173,9 +173,9 @@
         <div class="p-3 rounded bgcolor signInText1 d-flex flex-column px-5" data-aos="fade-right">
           <div class="d-flex flex-grow-1 justify-content-left">
             <div class="flex-grow-1">
-              <h2 class="text-center">Acceleration Filtering</h2>
-              <p>The acceleration data is filtered using a butterworth filter of the fourth order.
-                The acceleration data higher than 20 and lower than 0.5 were cut out.</p>
+              <h2 class="text-center">Angular Velocity Filtering</h2>
+              <p>The angular data is filtered using a butterworth filter of the fourth order.
+                The angular data higher than 20 and lower than 0.5 were cut out.</p>
             </div>
             <div class="flex-grow-1 d-flex justify-content-end align-items-center m-2">
               <img src="{{url_for('static', filename='img/accelFiltering.png')}}" alt="Tremor" class="aboutSensorPic">
@@ -223,10 +223,10 @@
       <h2 class="signInText1 redLine text-center">Power Spectral Density</h2>
       <p class="signInText1">
         A function is used to calculate important features of the current data. Using this data,
-                  the power spectral density (PSD) is calculated for both EMG and accelerometry data. This creates a
+                  the power spectral density (PSD) is calculated for both EMG and angular velocity data. This creates a
                   function of the power of the data per frequency. The frequency of the highest power in each graph is
                   then interpolated using a Gaussian function of the segments around it. The updated frequency is called the tremor dominant frequency (TDF), and both TDF's over the time frames for EMG and accelerometry are averaged. This is a
-                  measure of the power of the tremor being recorded.
+                  measure of the power of the tremor being recorded. The power that the frequency occurs at is also recorded.
       </p>
     </div>
   
