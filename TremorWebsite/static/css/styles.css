@@ -704,37 +704,37 @@ a.nbMenuItem:hover {
 
 #imu-sensor {
     top: 4%;
-    left: 15.5%;
-    width: 10%;
+    left: 18%;
+    width: 11.5%;
     height: 14%;
     border-radius: 10%;
 }
 
 #arduino-nano {
     top: 30%;
-    left: 17.7%;
-    width: 16%;
+    left: 20.8%;
+    width: 19%;
     height: 15%;
 }
 
 #power-switches {
-    top: 42%;
-    left: 42%;
-    width: 3.1%;
-    height: 20%;
+    top: 53%;
+    left: 49.5%;
+    width: 3.5%;
+    height: 9.5%;
 }
 
 #emg-sensor {
-    top: 65%;
-    left: 28%;
-    width: 10%;
-    height: 21%;
+    top: 66%;
+    left: 33%;
+    width: 11.5%;
+    height: 20%;
 }
 
 #battery-1 {
     top: 55%;
-    left: 14%;
-    width: 8%;
+    left: 16%;
+    width: 10%;
     height: 40%;
     border-radius: 20%;
 }
@@ -742,14 +742,14 @@ a.nbMenuItem:hover {
 #battery-2 {
     top: 22%;
     left: 35%;
-    width: 8%;
-    height: 17%;
+    width: 0%;
+    height: 0%;
     border-radius: 50%;
 }
 
 #electrodes {
     top: 61%;
-    left: 47%;
+    left: 56%;
     width: 13%;
     height: 33%;
     border-radius: 20%;
