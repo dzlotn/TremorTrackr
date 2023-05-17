@@ -259,5 +259,8 @@ void imu(){
   sox.getEvent(&accel, &gyro, &temp);
 
   // Calculate resultant acceleration
-  resultants[batchIndex] = sqrt(sq(accel.acceleration.x)+sq(accel.acceleration.y)+sq(accel.acceleration.z));
+  resultants[batchIndex] = sqrt(sq(gyro.gyro.x)+sq(gyro.gyro.y)+sq(gyro.gyro.z));
+  if (resultants[batchIndex] < 0.05) {
+    resultants[batchIndex] = 0;
+  }
 }
