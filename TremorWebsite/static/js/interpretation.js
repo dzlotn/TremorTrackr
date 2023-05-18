@@ -14,8 +14,8 @@ const sensorInfo = {
     info: 'The Arduino Nano is a microcontroller board that is used to control and interact with the various sensors and components in the circuit.'
   },
   'Power Switches': {
-    name: 'Power Switches',
-    info: 'The power switches are used to turn the device on and off. They are connected to the battery.'
+    name: 'EMG Switch',
+    info: 'The EMG switch is used to turn the EMG sensor on and off. It is connected to the battery.'
   },
   'EMG Sensor': {
     name: 'EMG Sensor',
