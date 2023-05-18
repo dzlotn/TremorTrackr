@@ -149,14 +149,21 @@ def test():
 
             row = [key, int(EMG[0]), float(IMU[0])]
             filepath = 'data\data.csv'
+            filepathdata = 'data\rawData.csv'
             directory = os.path.dirname(__file__)
             datafile = os.path.join(directory, filepath)
+            datafileRaw = os.path.join(directory,filepathdata)
             with open(datafile, 'a', newline='') as csvfile:
                 # Check if first data point, in which case csv should be deleted
                 writer = csv.writer(csvfile)
                 if key == 0:
                     csvfile.truncate(0)
                     writer.writerow(['KEY','EMG','IMU'])
+                writer.writerow(row)
+                csvfile.close()
+            with open(datafileRaw, 'a', newline='') as csvfile2:
+                # Check if first data point, in which case csv should be deleted
+                writer = csv.writer(csvfile2)
                 writer.writerow(row)
                 csvfile.close()
 
@@ -171,7 +178,7 @@ def test():
 
 def run_flask():
     #Run app through port 5000 on 
-    app.run(debug=True, host='172.20.10.4', port=5000)
+    app.run(debug=True, host='127.0.0.1', port=5000)
 
 
 if __name__ == '__main__':
