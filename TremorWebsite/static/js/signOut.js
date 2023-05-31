@@ -1,4 +1,9 @@
-// ----------------- Sign-Out Button --------------------------------------//
+/*
+  TremorTrackr
+  Owen Powell, Daniel Zlotnick, Lauren Fleming, Angelina Otero
+  5/30/23
+  Signs out the user
+*/
 
 // ----------------- Firebase Setup & Initialization ------------------------//
 // Import the functions you need from the SDKs you need

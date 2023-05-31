@@ -1,4 +1,9 @@
-// ----------------- User Sign-In Page --------------------------------------//
+/*
+  TremorTrackr
+  Owen Powell, Daniel Zlotnick, Lauren Fleming, Angelina Otero
+  5/30/23
+  Handles the sign-in page and signing in the user
+*/
 
 // ----------------- Firebase Setup & Initialization ------------------------//
 // Import the functions you need from the SDKs you need

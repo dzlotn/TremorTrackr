@@ -1,3 +1,10 @@
+/*
+  TremorTrackr
+  Owen Powell, Daniel Zlotnick, Lauren Fleming, Angelina Otero
+  5/30/23
+  Includes all the styling information for all website pages
+*/
+
 :root {
     --main-bg-color: #3d3e3f;
     --navbar-color: #212428;
@@ -777,7 +784,7 @@ a.nbMenuItem:hover {
 
 }
 
-/*--Procedure Page - Portions if this code were adapted from https://codepen.io/RobVermeer/pen/japZpY*/
+/*--Procedure Page - Portions of this code were adapted from https://codepen.io/RobVermeer/pen/japZpY*/
 .cardContainer {
     width: 100vw;
     height: 100vh;

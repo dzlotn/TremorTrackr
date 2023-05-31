@@ -1,5 +1,11 @@
-//Creates the procedure page, which is essentially several cards overlayed on top of each other, with arrows below that cycles through the steps of the procedure//
-//Some code is adapted from https://codepen.io/RobVermeer/pen/japZpY//
+/*
+  TremorTrackr
+  Owen Powell, Daniel Zlotnick, Lauren Fleming, Angelina Otero
+  5/30/23
+  Creates the procedure page, which is essentially several cards overlayed on top of each other, 
+  with arrows below that cycles through the steps of the procedure
+  Some code is adapted from https://codepen.io/RobVermeer/pen/japZpY
+*/
 
 var cardContainer = document.querySelector('.cardContainer');
 var allCards = document.querySelectorAll('.procedureCard');

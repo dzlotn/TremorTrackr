@@ -1,9 +1,16 @@
+'''
+  TremorTrackr
+  Owen Powell, Daniel Zlotnick, Lauren Fleming, Angelina Otero
+  5/30/23
+  Processes the raw sensor data and calculates the tremor frequency and power
+'''
+
 from datetime import datetime
 import numpy as np
 from scipy import signal
 import math
 
-
+# Accepts the raw data, data frequency, and firebase information, returns tremor frequency and power
 def start_processing(emg, acc, freq, db, userID, key):
 
     # Records the time stamp when processing starts, and calls the processing chunk function
@@ -14,7 +21,7 @@ def start_processing(emg, acc, freq, db, userID, key):
     db.child('users').child(userID).child('data').child(timeStamp.split()[0]).child('power').update({timeStamp: result_power})
     return  # return nothing, terminates the thread
 
-
+# Processes and analyzes the raw data
 def processingFunc(emg, acc, freq):
     if (max(acc) == 0 or max(emg) == 0):
         return 0,0
@@ -70,15 +77,13 @@ def processingFunc(emg, acc, freq):
     return tremorDominantFrequency,tremorDominantPower
 
 
-''' Do a bandpass filter on data with low and high being the min and max frequencies'''
-
-
+# Do a bandpass filter on data with low and high being the min and max frequencies
 def butter_filter(data, order, low, high,freq):
     b, a = signal.butter(
         order, [low, high], btype='band', output='ba', fs=freq, analog=False)
     return signal.filtfilt(b, a, data, method="gust")
 
-
+# Finds the closes power of two to the frequency
 def closest_power_of_two(freq):
     freq = freq / 3  # redefine freq as freq/3
     # Find the closest power of two greater than or equal to freq
