@@ -1,14 +1,14 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<!--Update data (adding a ride)-->
-
+<!-- buttons that start and stop the collection of data -->
 <div class="d-flex flex-row justify-content-center">
     <button type="button" id="startData" name="startData"
         class="data-button btn text-light mb-3 w-100">Start Collecting Data</button>
     <button type="button" id="stopData" name="stopData"
         class="data-button btn text-light mb-3 w-100">Stop Collecting Data</button>
 </div>
+<!-- legend that can be used to roughly diagnose tremor severity -->
 <div class="centeringArea d-flex justify-content-center">
 <div class= "getBox">
 <h2 class="text-center m-2" style="color:var(--text-color2)">Data Key</h2 >
@@ -16,6 +16,7 @@
 <p class= "signInText1 redLine text-center">Power = Tremor Severity</h3>
 <p class= "signInText1 redLine text-center">3-5Hz = Slow  |  5-8Hz = Intermediate  |  9-12Hz = Rapid</h5>
 </div>
+<!-- Box that allows you to select a previous day and get a summary of previous data -->
     <div class="getBox">
         <h2 class="text-center m-2" style="color:var(--text-color2)">Get Previous Data</h2 >
         <form class="mr-2 ml-2 p-2 d-flex flex-row justify-content-center align-content-center">
@@ -30,6 +31,7 @@
     </div>
     </div>
 </div>
+<!-- chart.js charts that display the raw and calculated data -->
 <div class="d-flex flex-row justify-content-center">
     <div class="data-chart chart-div d-flex align-items-center justify-content-center" >
         <canvas id="calcChart" width="250" height="100"></canvas>

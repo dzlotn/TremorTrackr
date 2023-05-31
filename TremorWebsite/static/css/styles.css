@@ -15,14 +15,19 @@
 .footer {
     background-color: var(--navbar-color);
 }
-.bi,.emailfoot{
-    color:var(--text-color2);
+
+.bi,
+.emailfoot {
+    color: var(--text-color2);
 }
-.bi:hover, .emailfoot:hover{
-    opacity:0.8;
-    color:var(--text-color2);
+
+.bi:hover,
+.emailfoot:hover {
+    opacity: 0.8;
+    color: var(--text-color2);
 
 }
+
 body {
     background-color: var(--main-bg-color);
     overflow-x: hidden;
@@ -95,6 +100,7 @@ th h1 {
     background-color: var(--border-color);
 }
 
+/* Bar under the input forms change color when selected */
 input[type="email"],
 input[type="password"],
 input[type="text"] {
@@ -200,7 +206,7 @@ input[type="checkbox"]:checked {
 
 a.nbMenuItem {
     font-size: 25px;
-    margin-left:1vw;
+    margin-left: 1vw;
     color: #eae6e6;
     font-weight: bold;
     padding-right: 30px;
@@ -608,7 +614,7 @@ a.nbMenuItem:hover {
 
 .home-register {
     padding: 2vh 0;
-    margin-top:2vh;
+    margin-top: 2vh;
     background-color: #34373b;
     color: var(--text-color2);
 }
@@ -661,7 +667,6 @@ a.nbMenuItem:hover {
     width: 30%;
     height: 30%;
     background-color: rgba(0, 0, 255, 0);
-    /* Change the color here */
     cursor: pointer;
 }
 
@@ -677,7 +682,6 @@ a.nbMenuItem:hover {
     text-align: center;
     font-size: 2vw;
     display: none;
-    /* add this property */
     border-radius: 5px;
 
 }
@@ -808,7 +812,7 @@ a.nbMenuItem:hover {
     overflow: hidden;
     position: absolute;
     top: 5vh;
-    margin-bottom:-100px;
+    margin-bottom: -100px;
     transition: all 0.3s ease-in-out;
 }
 
@@ -867,11 +871,13 @@ a.nbMenuItem:hover {
 #right {
     background-color: var(--main-bg-color)
 }
+
 /* FAQ Page CSS */
-.faqtext{
-    margin-top:2vh;
+.faqtext {
+    margin-top: 2vh;
 }
-.faqRedLine{
+
+.faqRedLine {
     content: "";
     display: block;
     height: 0;
@@ -880,42 +886,47 @@ a.nbMenuItem:hover {
     margin-right: 40%;
     border-bottom: 2px solid var(--border-color);
 }
+
 .answer {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease;
-  }
+}
 
-.question:hover{
-    opacity:0.7;
+.question:hover {
+    opacity: 0.7;
     cursor: pointer;
 }
-.proc11{
-    height:65%;
+
+.proc11 {
+    height: 65%;
 }
+
 /* Data Page CSS */
 
-.getBox{
-    height:30vh;
-    width:40%;
-    justify-content:center;
-    background-color:var(--navbar-color);
-    border-radius:10px;
+.getBox {
+    height: 30vh;
+    width: 40%;
+    justify-content: center;
+    background-color: var(--navbar-color);
+    border-radius: 10px;
     border: 5px solid var(--border-color);
-    color:var(--text-color2);
+    color: var(--text-color2);
     padding: 14px 25px;
     margin: 2vh;
 }
-  
-#historyDate{
-    margin-right:5%; 
-    width:45%;
-    height:100%;
+
+#historyDate {
+    margin-right: 5%;
+    width: 45%;
+    height: 100%;
 }
-#getHistory{
-    border:none;
-    background-color:#e03e6c;
+
+#getHistory {
+    border: none;
+    background-color: #e03e6c;
 }
-#getHistory:hover{
-    background-color:var(--border-color);
+
+#getHistory:hover {
+    background-color: var(--border-color);
 }

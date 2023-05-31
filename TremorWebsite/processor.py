@@ -1,15 +1,10 @@
 from datetime import datetime
-import os
 import numpy as np
 from scipy import signal
-import pandas as pd
 import math
 
 
 def start_processing(emg, acc, freq, db, userID, key):
-
-    print(emg[:100])
-    print(acc[:100])
 
     # Records the time stamp when processing starts, and calls the processing chunk function
     timeStamp = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
@@ -23,12 +18,10 @@ def start_processing(emg, acc, freq, db, userID, key):
 def processingFunc(emg, acc, freq):
     if (max(acc) == 0 or max(emg) == 0):
         return 0,0
-
+    #filters the EMG and ACC using a butterworth filter
     emg_Filtered = butter_filter(emg, 4, 20, 0.4*freq,freq)
     acc_Filtered = butter_filter(acc, 2, 0.5, 20,freq)
 
-    print(emg_Filtered[:100])
-    print(acc_Filtered[:100])
 
     # Compute the hilbert transform and emg envelope
     emgHilbert = signal.hilbert(emg_Filtered)
