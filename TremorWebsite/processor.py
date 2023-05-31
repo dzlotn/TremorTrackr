@@ -71,8 +71,8 @@ def processingFunc(emg, acc, freq):
     trueMaxFreqEMG = emgDeviation * freqRes
 
     #Takes the average of the EMG and ACC frequencies/powers
-    tremorDominantFrequency = float(trueMaxFreqACC + trueMaxFreqEMG)/2.0
-    tremorDominantPower = float(accMaxPower + emgMaxPower)/2.0
+    tremorDominantFrequency = float(0.75*trueMaxFreqACC + 0.25*trueMaxFreqEMG)
+    tremorDominantPower = float(0.75*accMaxPower + 0.25*emgMaxPower)
 
     return tremorDominantFrequency,tremorDominantPower
 
