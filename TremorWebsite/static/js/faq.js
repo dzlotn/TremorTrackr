@@ -1,4 +1,4 @@
-// Makes the answer to the FAQ appear when the question is clicked on
+// Makes the answer to the FAQ slide down and appear when the question is clicked on. 
 var questions = document.getElementsByClassName("question");
 
 for (var i = 0; i < questions.length; i++) {
