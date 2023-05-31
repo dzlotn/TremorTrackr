@@ -1,3 +1,11 @@
+/*
+  TremorTrackr
+  Owen Powell, Daniel Zlotnick, Lauren Fleming, Angelina Otero
+  5/30/23
+  Code to be uploaded to the arduino
+  Handles the data collection and code that sends the data to the Flask server
+*/
+
 // Library Inclusions
 #include <SPI.h>              // Wireless comms between sensor(s) and Arduino Nano IoT
 #include <WiFiNINA.h>         // Used to connect Nano IoT to network
