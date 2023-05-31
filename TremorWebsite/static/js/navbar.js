@@ -1,4 +1,9 @@
-// ----------------- Navbar button changes --------------------------------------//
+/*
+  TremorTrackr
+  Owen Powell, Daniel Zlotnick, Lauren Fleming, Angelina Otero
+  5/30/23
+  Changes buttons on the navbar depending on whether or not user is signed in
+*/
 
 // ----------------- Firebase Setup & Initialization ------------------------//
 // Import the functions you need from the SDKs you need

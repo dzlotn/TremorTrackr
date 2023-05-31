@@ -1,4 +1,10 @@
-// Makes the answer to the FAQ slide down and appear when the question is clicked on. 
+/*
+  TremorTrackr
+  Owen Powell, Daniel Zlotnick, Lauren Fleming, Angelina Otero
+  5/30/23
+  Makes the answer to the FAQ slide down and appear when the question is clicked on. 
+*/
+
 var questions = document.getElementsByClassName("question");
 
 for (var i = 0; i < questions.length; i++) {

@@ -1,4 +1,12 @@
-//Sets the info box to different dataset infos/names depending on which diagram section the mouse is hovering over. Also puts component information in the info box 
+/*
+  TremorTrackr
+  Owen Powell, Daniel Zlotnick, Lauren Fleming, Angelina Otero
+  5/30/23
+  Sets the info box to different dataset infos/names depending on which diagram section the mouse is hovering over.
+  Also puts component information in the info box.
+*/
+
+
 //Deletes the info box div when not hovering over important component
 const interactiveSections = document.querySelectorAll('.interactive-section');
 const infoBox = document.querySelector('.info-box');
