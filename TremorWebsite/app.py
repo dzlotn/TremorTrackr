@@ -8,11 +8,10 @@
 
 from flask import Flask, render_template, request, jsonify
 from datetime import datetime
-import pyrebase
+# import pyrebase
 import csv
 import threading
 from processor import start_processing
-import js2py
 import os
 
 # Initialize Flask
@@ -89,10 +88,10 @@ def test():
         print(config, flush=True)
 
         # Initialize firebase connection
-        firebase = pyrebase.initialize_app(config)
+        # firebase = pyrebase.initialize_app(config)
 
         # Create database object
-        db = firebase.database()  # root node
+        # db = firebase.database()  # root node
 
         # Timestamp
         timeStamp = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
