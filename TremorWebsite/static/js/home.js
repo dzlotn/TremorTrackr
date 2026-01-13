@@ -95,10 +95,11 @@ document.getElementById("getHistory").onclick = async function () {
   const result = await getHistory(currentUser.uid, date)
 
   if (!result) {
-    alert(`No data for ${date} found`)
+    // alert(`No data for ${date} found`) // Disabled - Firebase not connected
+    console.log(`No data for ${date} found`);
     return
   }
-  
+
   avgFrequency.innerHTML = "Average Frequency: " + Number(Math.round(result.frequency+'e2')+'e-2') + " Hz"
   avgPower.innerHTML = "Average Power: " + Number(Math.round(result.power+'e2')+'e-2') + " dB/Hz"
 }
@@ -121,7 +122,7 @@ setInterval(async function () {
     freqchart.data.datasets[0].data = fdata;
     powerchart.data.datasets[0].data = pdata;
 
-   
+
     freqchart.update('none');
     powerchart.update('none');
   }
@@ -206,7 +207,7 @@ async function getDataSet(userID, datatype) {
   const snapshot = await get(dataRef);
 
   snapshot.forEach((childSnapshot) => {
-    
+
     const key = childSnapshot.key;
     const value = childSnapshot.val();
     if ((now.diff(moment(key, "DD-MM-yyyy HH:mm:ss"), "seconds")) < maxHistory) {
@@ -259,12 +260,12 @@ async function createfreqChart(userID) {
       ],
     },
     options: {
-      responsive: true,                  
+      responsive: true,
       animation: {
         duration: 1000,
         easing: 'linear',
       },
-      scales: {                     
+      scales: {
 
         x: {
           type: 'time',
@@ -279,25 +280,25 @@ async function createfreqChart(userID) {
             source: 'data',
             beginAtZero: true,
 
-    
+
           },
-        
+
           title: {
             display: true,
             text: 'Time (min)'
           }
-          
+
         },
         y: {
           title: {
             display: true,
             text: 'Tremor Dominant Frequency (Hz)',
           },
-          
+
 
         }
       },
-      plugins: {                        
+      plugins: {
         title: {
           display: true,
           text: 'Tremor Dominant Frequency over Time',
@@ -334,12 +335,12 @@ async function createPowerChart(userID) {
       ],
     },
     options: {
-      responsive: true,                  
+      responsive: true,
       animation: {
         duration: 1000,
         easing: 'linear',
       },
-      scales: {                           
+      scales: {
 
         x: {
           type: 'time',
@@ -354,14 +355,14 @@ async function createPowerChart(userID) {
             source: 'data',
             beginAtZero: true,
 
-    
+
           },
-        
+
           title: {
             display: true,
             text: 'Time (min)'
           }
-          
+
         },
         y: {
           title: {
@@ -371,7 +372,7 @@ async function createPowerChart(userID) {
 
         }
       },
-      plugins: {                        
+      plugins: {
         title: {
           display: true,
           text: 'Tremor Power over Time',

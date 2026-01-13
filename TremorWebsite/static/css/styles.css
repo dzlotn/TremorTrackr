@@ -1,290 +1,481 @@
 /*
-  TremorTrackr
-  Owen Powell, Daniel Zlotnick, Lauren Fleming, Angelina Otero
-  5/30/23
-  Includes all the styling information for all website pages
+  TremorTrackr - Professional Redesign
+  Modern, clean, and professional styling
 */
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap');
+
 :root {
-    --main-bg-color: #3d3e3f;
-    --navbar-color: #212428;
-    --border-color: #ff0e52;
-    --border-secondary: #e03e6c;
+    /* Modern Professional Color Palette */
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --primary-light: #818cf8;
+    --secondary: #ec4899;
+    --secondary-dark: #db2777;
+    --accent: #06b6d4;
+    --accent-dark: #0891b2;
+
+    /* Neutral Colors */
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-tertiary: #334155;
+    --bg-card: #1e293b;
+    --bg-card-hover: #273549;
+
+    /* Text Colors */
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-tertiary: #94a3b8;
     --text-color: #c9c7c7;
     --text-color2: #efe8e8;
+    --main-bg-color: #0f172a;
+
+    /* Border & Divider */
+    --border-color: #334155;
+    --border-accent: #6366f1;
+    --divider: #334155;
+
+    /* Status Colors */
+    --success: #10b981;
+    --warning: #f59e0b;
+    --error: #ef4444;
+    --info: #3b82f6;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    --spacing-2xl: 4rem;
+
+    /* Border Radius */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --radius-2xl: 1.5rem;
+
+    /* Transitions */
+    --transition-fast: 150ms ease-in-out;
+    --transition-base: 250ms ease-in-out;
+    --transition-slow: 350ms ease-in-out;
 }
 
-/*-------Class CSS ------*/
-.overview {
-    background-color: #EFEAE7;
-}
-
-.footer {
-    background-color: var(--navbar-color);
-}
-
-.bi,
-.emailfoot {
-    color: var(--text-color2);
-}
-
-.bi:hover,
-.emailfoot:hover {
-    opacity: 0.8;
-    color: var(--text-color2);
-
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    background-color: var(--main-bg-color);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    color: var(--text-primary);
+    line-height: 1.6;
     overflow-x: hidden;
-
-
+    min-height: 100vh;
 }
 
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--text-primary);
+}
+
+h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+h2 { font-size: clamp(2rem, 4vw, 3rem); }
+h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
+h4 { font-size: clamp(1.25rem, 2.5vw, 1.5rem); }
+
+p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+/* Scrollbar Styling */
 ::-webkit-scrollbar {
-    width: 13px;
+    width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey;
-    border-radius: 10px;
+    background: var(--bg-secondary);
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
-    background: var(--border-secondary);
-    border-radius: 10px;
+    background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: 6px;
+    border: 2px solid var(--bg-secondary);
 }
 
-.bgcolor {
-    background-color: var(--navbar-color);
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--primary-light) 0%, var(--secondary-dark) 100%);
 }
 
-.noborder td,
-.noborder th {
-    border: 0px;
+/* Navbar Styles */
+.navbar {
+    background: rgba(30, 41, 59, 0.95) !important;
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-lg);
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px solid var(--border-color);
+    transition: all var(--transition-base);
 }
 
-th h1 {
-    font-family: serif;
-    font: 90px;
+.navbar-brand {
+    filter: brightness(0) invert(1);
+    transition: transform var(--transition-base);
+    max-height: 100px;
+    width: auto;
+    display: flex;
+    align-items: center;
 }
 
-
-.icon-white {
-    color: #FFFFFF;
+.navbar-brand img {
+    max-height: 100px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
 }
 
-
-.table td {
-    font-size: 20px;
+.navbar-brand:hover {
+    transform: scale(1.05);
 }
 
 .nb-bg-color {
-    background-color: var(--navbar-color);
+    background-color: transparent;
 }
 
-.navbar-toggler-icon,
 .navbar-toggler {
-    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 0.5rem;
 }
 
-/*Sign in and Register Css*/
-.signInPage {
-    background: var(--main-bg-color);
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-.signInText {
-    color: var(--text-color);
+a.nbMenuItem {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-secondary) !important;
+    margin: 0 var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-sm) !important;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-base);
+    position: relative;
 }
 
-.signInText1 {
-    color: #efe8e8;
-}
-
-.signincard {
-    background-color: var(--border-color);
-}
-
-/* Bar under the input forms change color when selected */
-input[type="email"],
-input[type="password"],
-input[type="text"] {
-    border: none;
-    background: transparent;
-    border-bottom: 2px solid var(--border-color);
-    line-height: 2em;
-
-}
-
-input[type="email"]:focus,
-input[type="password"]:focus,
-input[type="text"]:focus {
-    animation: barColorChange 0.5s ease-out 0s 1 forwards;
-}
-
-@keyframes barColorChange {
-    0% {
-        border-bottom-color: var(--border-color);
-
-    }
-
-    50% {
-        border-bottom-color: #f5658d;
-    }
-
-    100% {
-        border-bottom-color: #f890ad
-    }
-
-}
-
-.email:focus,
-.password:focus,
-.lname:focus,
-.fname:focus {
-    outline: none;
-
-}
-
-#signIn,
-#submitData {
-    background: linear-gradient(190deg, var(--border-color), var(--border-secondary))
-}
-
-#keepLoggedInSwitch {
-    background-color: var(--border-color);
-    cursor: pointer;
-}
-
-#signIn:hover,
-#submitData:hover {
-    opacity: 0.8;
-}
-
-#signIn:active,
-#submitData:active {
-    opacity: 1;
-}
-
-.noAccount:hover,
-.yesAccount:hover {
-    color: #e03e6c;
-}
-
-input[type="checkbox"]:focus {
-    outline: none;
-    border: none;
-}
-
-input[type="checkbox"]:checked {
-    outline: none;
-    border: none;
-}
-
-.register-card-body {
-    height: 450px;
-}
-
-
-
-/* Navbar CSS */
-.hover-underline-animation {
-    display: inline-block;
-    position: relative
+a.nbMenuItem:hover {
+    color: var(--text-primary) !important;
+    background: rgba(99, 102, 241, 0.1);
+    transform: translateY(-2px);
 }
 
 .hover-underline-animation:after {
     content: '';
     position: absolute;
-    width: 100%;
-    transform: scaleX(0);
+    width: 0;
     height: 2px;
     bottom: 0;
-    left: -0%;
-    background-color: var(--border-color);
-    transition: transform 0.35s ease-out;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+    transition: width var(--transition-base);
+    border-radius: 2px;
 }
 
 .hover-underline-animation:hover:after {
-    transform: scaleX(1);
+    width: 80%;
 }
 
-a.nbMenuItem {
-    font-size: 25px;
-    margin-left: 1vw;
-    color: #eae6e6;
-    font-weight: bold;
-    padding-right: 30px;
-}
-
-a.nbMenuItem:hover {
-    color: #eae6e6
-}
-
-
-.navbar {
-    height: 5%;
-}
-
-.navbar-brand {
-    width: 130px;
-    height: 100%;
-    margin-left: -20px;
-    filter: brightness(0) invert(1);
-
-}
-
-
-/* Chart JS CSS */
-.data-button {
-    background-color: var(--border-secondary);
-    color: var(--text-color2);
-    padding: 14px 25px;
-    margin: 2vh;
+/* Showcase/Hero Section */
+.showcase {
+    position: relative;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    text-decoration: none;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+
+.showcase::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("../img/index-showcase.svg") center/cover;
+    opacity: 0.2;
+    z-index: 1;
+}
+
+.showcase-text {
+    position: relative;
+    z-index: 2;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    letter-spacing: -0.02em;
+    margin-bottom: var(--spacing-md);
+}
+
+.showcase-subheader {
+    position: relative;
+    z-index: 2;
+    font-size: clamp(1.25rem, 3vw, 2rem);
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 300;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Home Content Sections */
+.home-diagram {
+    background: var(--bg-primary);
+    padding: var(--spacing-2xl) var(--spacing-lg);
+    position: relative;
+}
+
+.home-blurbs {
+    gap: var(--spacing-lg);
+}
+
+.home-blurb {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-lg);
+    margin: var(--spacing-md) 0;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+}
+
+.home-blurb::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+    transition: width var(--transition-base);
+    z-index: 0;
+    opacity: 0;
+}
+
+.home-blurb {
+    position: relative;
+    z-index: 1;
+}
+
+.home-blurb:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--border-accent);
+    background: var(--bg-card-hover);
+}
+
+.home-blurb:hover::before {
+    width: 100%;
+    opacity: 0.1;
+    transition: width var(--transition-base), opacity var(--transition-base);
+}
+
+.home-blurb:not(:hover)::before {
+    width: 4px;
+    opacity: 0;
+    transition: width 0s, opacity 0s;
+}
+
+.home-blurb h3 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+    font-size: 1.75rem;
+}
+
+.home-blurb p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.home-register {
+    background: var(--bg-secondary);
+    padding: var(--spacing-2xl) var(--spacing-lg);
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+}
+
+.home-register h2 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    margin-bottom: var(--spacing-md);
+    color: var(--text-primary);
+}
+
+.home-register > a {
     display: inline-block;
-    font-size: 2vw;
-    font-weight: bold;
-    border-radius: 8px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: var(--text-primary);
+    padding: var(--spacing-sm) var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
+    border: none;
+}
+
+.home-register > a:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl), var(--shadow-glow);
+    color: var(--text-primary);
+}
+
+/* Sign In & Register Styles */
+.signInPage {
+    background: var(--bg-primary);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xl);
+}
+
+.signInText, .signInText1 {
+    color: var(--text-primary);
+}
+
+.signincard, .register-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-2xl);
+    padding: var(--spacing-2xl);
+    box-shadow: var(--shadow-xl);
+    backdrop-filter: blur(10px);
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: all var(--transition-base);
+    width: 100%;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="text"]:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    background: rgba(30, 41, 59, 0.7);
+}
+
+#signIn,
+#submitData {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: var(--text-primary);
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+}
+
+#signIn:hover,
+#submitData:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl), var(--shadow-glow);
+}
+
+#signIn:active,
+#submitData:active {
+    transform: translateY(0);
+}
+
+/* Buttons */
+.data-button {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: var(--text-primary);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: inline-block;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
+    border: none;
 }
 
 .data-button:hover {
-    background-color: var(--border-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl), var(--shadow-glow);
+    color: var(--text-primary);
 }
 
+/* Cards */
 .data-chart {
-    background-color: white;
-    border: 5px solid var(--border-color);
-    border-radius: 5px;
-    flex-basis: 0;
-    flex-grow: 1;
-    margin: 20px;
-    padding: 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-lg);
+    margin: var(--spacing-md);
+    box-shadow: var(--shadow-lg);
+    transition: all var(--transition-base);
 }
 
+.data-chart:hover {
+    box-shadow: var(--shadow-xl);
+    border-color: var(--border-accent);
+}
 
-
-
-
-
-
-/* About Us Components */
+/* About Us Section */
 .aboutUs {
-    background-color: var(--border-color);
-    border-radius: 5px;
-    width: 50vh;
-    display: flex;
-    justify-content: center;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-lg);
 }
 
 .gridSystem {
     display: grid;
-    grid-template-columns: repeat(2, 45%);
-    grid-auto-rows: 45%;
-
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg);
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .peopleCard {
@@ -293,40 +484,86 @@ a.nbMenuItem:hover {
     max-width: 350px;
     height: 450px;
     border-radius: 10px;
-
+    overflow: hidden;
 }
 
-.peopleCard>* {
+.peopleCard > * {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
 }
 
-
-
-
-.cardTextDaniel {
-    height: 55%;
-    padding: 5% 20px 30px;
-    background: rgba(0, 0, 0, 0.25);
-
+.cardImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .cardText {
-    height: 55%;
-    padding: 10% 20px 30px;
-    background: rgba(0, 0, 0, 0.25);
+    height: auto;
+    min-height: 55%;
+    padding: 8% 15px 20px;
+    background: rgba(0, 0, 0, 0.75);
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+}
+
+.cardText h2 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.cardText p,
+.cardDescr {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    overflow: visible;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.cardTextDaniel {
+    height: auto;
+    min-height: 55%;
+    padding: 5% 15px 20px;
+    background: rgba(0, 0, 0, 0.75);
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+}
+
+.cardTextDaniel h2 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.cardTextDaniel p {
+    font-size: 0.85rem;
+    line-height: 1.4;
 }
 
 .cardTextAngelina {
-    height: 55%;
-    padding: 2% 20px 30px;
+    height: auto;
+    min-height: 55%;
+    padding: 3% 15px 20px;
+    background: rgba(0, 0, 0, 0.75);
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+}
 
-    background: rgba(0, 0, 0, 0.25);
+.cardTextAngelina h2 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.cardTextAngelina p {
+    font-size: 0.85rem;
+    line-height: 1.4;
 }
 
 @media (any-hover: hover) {
-
-    /*Changes card properties and moves text before and after hovering*/
     .cardTextDaniel,
     .cardText,
     .cardTextAngelina {
@@ -344,13 +581,10 @@ a.nbMenuItem:hover {
         transition: transform 400ms linear;
     }
 
-
-
     .peopleCard:hover .cardTextDaniel,
     .peopleCard:focus-within .cardTextDaniel {
         transform: translateY(0);
         transition: transform 400ms ease-in;
-
     }
 
     .peopleCard:hover .cardText,
@@ -366,290 +600,132 @@ a.nbMenuItem:hover {
     }
 }
 
-
-/*Sensor Info CSS */
-
-.circuitDiagram h1,
-.sensortitle h1 {
-    font-weight: bold;
-}
-
+/* Sensor Info */
 .aboutSensor {
+    background: var(--bg-card);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    margin: var(--spacing-lg);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-lg);
 }
 
-.PSD {
-    margin-left: auto;
-    margin-right: auto;
-    width: 75%;
+/* EMG/Accel Sections */
+.emgaccel, .dataRetrieval {
+    padding: var(--spacing-xl) 0;
+    background: var(--bg-primary);
 }
 
-.aboutSensorText,
-.PSDSensorText {
-    width: 50%;
-    text-align: center;
+.emgaccel .bgcolor, .dataRetrieval .bgcolor {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-base);
 }
 
-.aboutSensorPicContainer {
-    float: right;
-    justify-content: center;
-    display: flex;
+.emgaccel .bgcolor:hover, .dataRetrieval .bgcolor:hover {
+    box-shadow: var(--shadow-lg);
+    border-color: var(--border-accent);
 }
 
-.aboutSensorPic,
-.psdPic {
-
-    height: 1.3*width;
-    width: 200px;
-    margin-left: -225%;
-    border-radius: 3px;
-    margin-bottom: 5%;
-    border: 5px solid var(--border-color);
+.emgaccel img, .dataRetrieval img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
 }
 
-.sensorPic {
-    width: height;
-    height: 315px;
-    margin-left: -30%;
-    border-radius: 3px;
-    margin-bottom: 5%;
-    border: 5px solid var(--border-color);
+/* Sensor images - make them appropriately sized */
+.emgaccel .aboutSensorPic {
+    max-width: 250px !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
 }
 
-#emgInfo {
-    width: 90%;
+/* Make filtering images larger but not too big */
+.dataRetrieval .aboutSensorPic {
+    max-width: 350px !important;
+    width: auto !important;
+    min-width: 200px !important;
+    height: auto !important;
+    object-fit: contain !important;
 }
 
-.arrowAnimContainer {
-    width: 100%;
-
-    height: 10vh;
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: auto;
-
+/* Ensure EMG fake data image shows */
+.dataRetrieval img[alt="Tremor"],
+.emgaccel img[alt="Tremor"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    max-width: 300px !important;
 }
 
-.arrow {
-    opacity: 0;
-    position: relative;
+.aboutSensorText {
+    color: var(--text-primary);
+    flex: 1;
+    min-width: 300px;
 }
 
-.arrow1 {
-    top: 80%;
-}
-
-@keyframes arrow-movement1 {
-    0% {
-        opacity: 0;
-        top: 0%;
-
-    }
-
-    70% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0;
-    }
-}
-
-.arrow-first1 {
-    animation: arrow-movement1 2s ease-in-out infinite;
-}
-
-.arrow-second1 {
-    animation: arrow-movement1 2s 1s ease-in-out infinite;
-}
-
-.arrow:before,
-.arrow:after {
-    background: var(--border-color);
-    content: "";
+/* Image Styling */
+.aboutSensorPic, .sensorPic {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    border: 3px solid var(--primary);
+    max-width: 100%;
+    height: auto;
     display: block;
-    height: 3px;
-    position: absolute;
-    width: 30px;
+    background: var(--bg-card);
+    padding: var(--spacing-xs);
+    object-fit: contain;
 }
 
-.arrow:before {
-    transform: rotate(45deg) translateX(-23%);
-    transform-origin: top left;
-}
-
-.arrow:after {
-    transform: rotate(-45deg) translateX(23%);
-    transform-origin: top right;
-}
-
-.flex-grow-1 h2::after,
-.aboutSensorText h2::after,
-.aboutUsTitle {
-    content: "";
-    display: block;
-    height: 0;
-    margin-top: 1vh;
-    margin-left: 25%;
-    margin-right: 25%;
-    border-bottom: 2px solid var(--border-color);
-    /* set the color of the middle 20% of the bottom border */
-}
-
-
-.details {
-    background: linear-gradient(112.1deg, rgb(32, 38, 57) 11.4%, rgb(35, 75, 83) 70.2%);
-    height: 15em;
-
-}
-
-.column {
-    float: left;
-    width: 50%;
-    padding: 10px;
-}
-
-.circuitTitle {
-    text-align: center;
-    width: 100%;
-}
-
-@media (max-width: 1250px) {
-
-    .aboutSensorPic,
     .aboutSensorPicContainer {
-        display: none;
-
-
-    }
-
-    .signInText1,
-    .aboutSensorText {
-        text-align: center;
-        width: 100%;
-    }
-
-    .signinimage,
-    .registerimage {
-        display: none;
-        vertical-align: center;
-    }
-
-    .signincard,
-    .register-card {
-        width: 80%;
-        max-width: 700px;
-        margin: 0 auto;
-        background-color: var(--navbar-color);
         display: flex;
-        border: none;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 40px;
-        border-radius: 10px;
-        text-align: center;
-    }
-
-
-
-
-
-
-}
-
-
-/* ----------------------Index Page CSS------------------ */
-.showcase {
-    position: relative;
-    background-color: #D6A99A;
-    top: -20vh;
-    margin-bottom: -20vh;
-    text-align: center;
     width: 100%;
-    height: 120vh;
-    background-image: url("../img/index-showcase.svg");
-    background-size: cover;
-    background-position: center;
-    z-index: -10;
+    padding: var(--spacing-md);
+    flex: 1;
+    min-width: 300px;
 }
 
-.showcase-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 10vw;
-    color: var(--text-color2);
+/* Ensure all images are visible */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
-.showcase-subheader {
-    position: absolute;
-    top: 65%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 3rem;
-    color: white;
+section img, .container-fluid img, .row img {
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
-.subheader {
-    color: black;
-    font-size: 2rem;
+/* Circuit Diagram */
+.circuitTitle {
+    background: var(--bg-card);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-lg);
+    margin: var(--spacing-lg);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
 }
 
-.home-diagram {
-    position: relative;
-    padding: 10vh 10vh 0 10vh;
-    background-color: var(--main-bg-color);
+.circuitDiagram {
+    background: var(--bg-primary);
+    padding: var(--spacing-xl);
 }
 
-.home-blurbs {
-    padding: auto;
-}
-
-.home-blurb {
-    background-color: var(--navbar-color);
-    color: var(--text-color2);
-    padding: 7vh;
-    margin: 2vh 2vw;
-    border-radius: 10px;
-    border-right: 10px solid;
-    border-bottom: 10px solid;
-    border-color: var(--border-color);
-}
-
-.home-register {
-    padding: 2vh 0;
-    margin-top: 2vh;
-    background-color: #34373b;
-    color: var(--text-color2);
-}
-
-.home-register>h2 {
-    font-size: 3vw;
-}
-
-.home-register>a {
-    background-color: var(--border-secondary);
-    color: var(--text-color2);
-    padding: 10px 20px;
-    margin: 2vh;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 1.5vw;
-    font-weight: bold;
-    border-radius: 8px;
-}
-
-.home-register>a:hover {
-    background-color: var(--border-color);
-}
-
-
-/*--Interactive Diagram CSS: hovering over specific sections of the diagram displays a div to the side with information about that section*/
-
+/* Revert to original circuit diagram styles for hover functionality */
 .containerdiagram {
     display: flex;
     flex-direction: column;
@@ -663,8 +739,13 @@ a.nbMenuItem:hover {
     width: 80%;
     height: 80%;
     max-width: 800px;
-
     left: 10vw;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 .interactive-section {
@@ -673,14 +754,13 @@ a.nbMenuItem:hover {
     left: 20%;
     width: 30%;
     height: 30%;
-    background-color: rgba(0, 0, 255, 0);
+    background-color: rgba(0, 255, 0, 0);
     cursor: pointer;
 }
 
 .info-box {
     position: absolute;
-
-    left: 75%;
+    left: 90% !important;
     transform: translate(-50%, -100%);
     width: 30%;
     height: 50%;
@@ -689,8 +769,12 @@ a.nbMenuItem:hover {
     text-align: center;
     font-size: 2vw;
     display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.1s ease-out, visibility 0.1s ease-out;
     border-radius: 5px;
-
+    pointer-events: none;
+    z-index: 1;
 }
 
 .component-name {
@@ -698,7 +782,6 @@ a.nbMenuItem:hover {
     margin-bottom: 10px;
     font-weight: 5px;
     font-size: 35px;
-
 }
 
 .component-info {
@@ -707,15 +790,10 @@ a.nbMenuItem:hover {
     text-align: center;
 }
 
-#cdTitle {
-    font-size: 40px;
-}
-
-/*---Locations of circuit diagram hover points----*/
-
+/* Circuit diagram hover sections - moved significantly to the right */
 #imu-sensor {
     top: 4%;
-    left: 18%;
+    left: 22%;
     width: 11.5%;
     height: 14%;
     border-radius: 10%;
@@ -723,28 +801,28 @@ a.nbMenuItem:hover {
 
 #arduino-nano {
     top: 30%;
-    left: 20.8%;
+    left: 24.8%;
     width: 19%;
     height: 15%;
 }
 
 #power-switches {
     top: 53%;
-    left: 49.5%;
+    left: 53.5%;
     width: 3.5%;
     height: 9.5%;
 }
 
 #emg-sensor {
     top: 66%;
-    left: 33%;
+    left: 37%;
     width: 11.5%;
     height: 20%;
 }
 
 #battery-1 {
     top: 55%;
-    left: 16%;
+    left: 20%;
     width: 10%;
     height: 40%;
     border-radius: 20%;
@@ -752,7 +830,7 @@ a.nbMenuItem:hover {
 
 #battery-2 {
     top: 22%;
-    left: 35%;
+    left: 39%;
     width: 0%;
     height: 0%;
     border-radius: 50%;
@@ -760,31 +838,13 @@ a.nbMenuItem:hover {
 
 #electrodes {
     top: 61%;
-    left: 56%;
+    left: 60%;
     width: 13%;
     height: 33%;
     border-radius: 20%;
 }
 
-@media (max-width: 1000px) {
-    .image-container {
-        display: flex;
-        align-content: center;
-        justify-content: center;
-
-    }
-
-    .interactive-section {
-        display: none;
-    }
-
-    #cdSubtitle {
-        display: none;
-    }
-
-}
-
-/*--Procedure Page - Portions of this code were adapted from https://codepen.io/RobVermeer/pen/japZpY*/
+/* Procedure Cards - Restore original flip functionality */
 .cardContainer {
     width: 100vw;
     height: 100vh;
@@ -813,7 +873,7 @@ a.nbMenuItem:hover {
     width: 95vw;
     max-width: 600px;
     height: 70vh;
-    background: var(--navbar-color);
+    background: var(--bg-card);
     border-radius: 8px;
     color: var(--text-color);
     overflow: hidden;
@@ -821,6 +881,8 @@ a.nbMenuItem:hover {
     top: 5vh;
     margin-bottom: -100px;
     transition: all 0.3s ease-in-out;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
 }
 
 .procedureCard p {
@@ -850,48 +912,104 @@ a.nbMenuItem:hover {
     padding-top: 5vh;
     position: absolute;
     width: 100%;
-    bottom: 0;
+    bottom: 10vh;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
 }
 
 .arrowProcedure {
-    border: solid var(--border-color);
-    border-width: 0 12px 12px 0;
-    display: inline-block;
-    padding: 20px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    display: inline-block !important;
     position: relative;
-    top: -14.5vh;
+    background: transparent;
+    cursor: pointer;
+    border-color: #6366f1 !important;
+    border-width: 0 20px 20px 0;
+    padding: 0;
+    transition: all var(--transition-base);
+    z-index: 101;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 .arrowProcedure:hover {
-    opacity: 0.6;
+    opacity: 0.8;
+    border-color: var(--secondary);
+    transform: scale(1.2);
 }
 
 .leftProcedureArrow {
     transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+
+.leftProcedureArrow:hover {
+    transform: rotate(135deg) scale(1.2);
+    -webkit-transform: rotate(135deg) scale(1.2);
 }
 
 .rightProcedureArrow {
     transform: rotate(315deg);
+    -webkit-transform: rotate(315deg);
+}
+
+.rightProcedureArrow:hover {
+    transform: rotate(315deg) scale(1.2);
+    -webkit-transform: rotate(315deg) scale(1.2);
 }
 
 #left,
 #right {
-    background-color: var(--main-bg-color)
+    background-color: transparent !important;
+    border: none !important;
+    padding: 20px;
+    cursor: pointer;
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 0 !important;
+    height: 0 !important;
+    border-style: solid !important;
+    border-color: #6366f1 !important;
+    border-width: 0 20px 20px 0 !important;
 }
 
-/* FAQ Page CSS */
+#left.arrowProcedure,
+#right.arrowProcedure {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* FAQ */
 .faqtext {
-    margin-top: 2vh;
+    background: var(--bg-card);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-lg);
+    margin: var(--spacing-md) 0;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-base);
 }
 
-.faqRedLine {
-    content: "";
-    display: block;
-    height: 0;
-    margin-top: 1vh;
-    margin-left: 40%;
-    margin-right: 40%;
-    border-bottom: 2px solid var(--border-color);
+.faqtext:hover {
+    box-shadow: var(--shadow-lg);
+    border-color: var(--border-accent);
+}
+
+.question {
+    color: var(--text-primary);
+    font-weight: 600;
+    cursor: pointer;
+    transition: color var(--transition-base);
+}
+
+.question:hover {
+    color: var(--primary-light);
 }
 
 .answer {
@@ -900,40 +1018,126 @@ a.nbMenuItem:hover {
     transition: max-height 0.3s ease;
 }
 
-.question:hover {
-    opacity: 0.7;
-    cursor: pointer;
+.faqRedLine {
+    border-bottom: 2px solid var(--primary);
+    margin: var(--spacing-sm) 0;
 }
 
-.proc11 {
-    height: 65%;
+/* Footer */
+.footer {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    padding: var(--spacing-xl) 0;
+    margin-top: var(--spacing-2xl);
 }
 
-/* Data Page CSS */
+.emailfoot {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color var(--transition-base);
+}
+
+.emailfoot:hover {
+    color: var(--primary-light);
+}
+
+.bi {
+    color: var(--text-secondary);
+    transition: all var(--transition-base);
+    margin: 0 var(--spacing-xs);
+}
+
+.bi:hover {
+    color: var(--primary);
+    transform: translateY(-2px) scale(1.1);
+}
+
+.icon-white {
+    color: var(--text-primary);
+}
+
+/* Utility Classes */
+.bgcolor {
+    background-color: var(--bg-card);
+}
+
+.redLine {
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .home-diagram {
+        flex-direction: column;
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+
+    .home-blurb {
+        margin: var(--spacing-sm) 0;
+    }
+
+    .showcase {
+        min-height: 80vh;
+    }
+
+    .signincard, .register-card {
+        padding: var(--spacing-lg);
+    }
+
+    .gridSystem {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.loaded {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* Additional Professional Touches */
+.overview {
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+}
 
 .getBox {
-    height: 30vh;
-    width: 40%;
-    justify-content: center;
-    background-color: var(--navbar-color);
-    border-radius: 10px;
-    border: 5px solid var(--border-color);
-    color: var(--text-color2);
-    padding: 14px 25px;
-    margin: 2vh;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    transition: all var(--transition-base);
 }
 
-#historyDate {
-    margin-right: 5%;
-    width: 45%;
-    height: 100%;
+.getBox:hover {
+    box-shadow: var(--shadow-xl);
+    border-color: var(--border-accent);
 }
 
 #getHistory {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     border: none;
-    background-color: #e03e6c;
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    color: var(--text-primary);
+    font-weight: 600;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
 }
 
 #getHistory:hover {
-    background-color: var(--border-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl), var(--shadow-glow);
 }

@@ -13,9 +13,11 @@ import csv
 import threading
 from processor import start_processing
 import os
+import hashlib
+import secrets
 
 # Initialize Flask
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', static_url_path='/static')
 
 # Initialize global variables
 config = {}
@@ -69,6 +71,116 @@ def faq():
 @app.route("/signIn")
 def signIn():
     return render_template("signIn.html", js="js/signIn.js")
+
+# Route to serve static files (for Vercel deployment)
+@app.route("/static/<path:filename>")
+def serve_static(filename):
+    return app.send_static_file(filename)
+
+# Local authentication routes (fallback when Firebase is not available)
+@app.route("/register_user", methods=["POST"])
+def register_user():
+    """Register a new user locally using encrypted CSV storage"""
+    try:
+        data = request.get_json()
+        email = data.get('email', '').lower().strip()
+        password = data.get('password', '')
+        firstname = data.get('firstname', '')
+        lastname = data.get('lastname', '')
+
+        if not all([email, password, firstname, lastname]):
+            return jsonify({'success': False, 'error': 'All fields required'}), 400
+
+        # Create users directory if it doesn't exist
+        directory = os.path.dirname(__file__)
+        users_dir = os.path.join(directory, 'data')
+        os.makedirs(users_dir, exist_ok=True)
+        users_file = os.path.join(users_dir, 'users.csv')
+
+        # Check if user already exists
+        if os.path.exists(users_file):
+            with open(users_file, 'r', newline='') as f:
+                reader = csv.DictReader(f)
+                for row in reader:
+                    if row.get('email', '').lower() == email:
+                        return jsonify({'success': False, 'error': 'User already exists'}), 400
+
+        # Hash password with salt
+        salt = secrets.token_hex(16)
+        password_hash = hashlib.pbkdf2_hmac('sha256', password.encode(), salt.encode(), 100000).hex()
+
+        # Generate user ID
+        user_id = hashlib.sha256((email + salt).encode()).hexdigest()[:16]
+
+        # Write to CSV
+        file_exists = os.path.exists(users_file)
+        with open(users_file, 'a', newline='') as f:
+            fieldnames = ['user_id', 'email', 'password_hash', 'salt', 'firstname', 'lastname', 'created_at']
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            if not file_exists:
+                writer.writeheader()
+            writer.writerow({
+                'user_id': user_id,
+                'email': email,
+                'password_hash': password_hash,
+                'salt': salt,
+                'firstname': firstname,
+                'lastname': lastname,
+                'created_at': datetime.now().isoformat()
+            })
+
+        return jsonify({
+            'success': True,
+            'user_id': user_id,
+            'email': email,
+            'firstname': firstname,
+            'lastname': lastname
+        }), 200
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@app.route("/login_user", methods=["POST"])
+def login_user():
+    """Login user using local CSV storage"""
+    try:
+        data = request.get_json()
+        email = data.get('email', '').lower().strip()
+        password = data.get('password', '')
+
+        if not email or not password:
+            return jsonify({'success': False, 'error': 'Email and password required'}), 400
+
+        directory = os.path.dirname(__file__)
+        users_file = os.path.join(directory, 'data', 'users.csv')
+
+        if not os.path.exists(users_file):
+            return jsonify({'success': False, 'error': 'Invalid credentials'}), 401
+
+        # Check user credentials
+        with open(users_file, 'r', newline='') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                if row.get('email', '').lower() == email:
+                    salt = row.get('salt', '')
+                    stored_hash = row.get('password_hash', '')
+
+                    # Verify password
+                    password_hash = hashlib.pbkdf2_hmac('sha256', password.encode(), salt.encode(), 100000).hex()
+
+                    if password_hash == stored_hash:
+                        return jsonify({
+                            'success': True,
+                            'user': {
+                                'uid': row.get('user_id', ''),
+                                'email': row.get('email', ''),
+                                'firstname': row.get('firstname', ''),
+                                'lastname': row.get('lastname', '')
+                            }
+                        }), 200
+
+        return jsonify({'success': False, 'error': 'Invalid credentials'}), 401
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 # Flask method for handling GET, SET, and POST requests
 # GET: handles incoming data from arduino

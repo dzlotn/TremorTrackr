@@ -47,6 +47,8 @@ document.getElementById('submitData').onclick = function () {
   if (!validation(firstName, lastName, email, password)) {
     return;
   }
+
+  // Try Firebase first, then fallback to local auth
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
@@ -81,10 +83,12 @@ document.getElementById('submitData').onclick = function () {
           //data saved successfully
 
           window.location = "home"; // Browser redirect to the home page
-          
+
         })
         .catch((error) => {
-          alert(error)
+          console.error("Registration error:", error);
+          // Fallback to local auth
+          registerLocalUser(firstName, lastName, email, password);
         })
 
 
@@ -93,8 +97,9 @@ document.getElementById('submitData').onclick = function () {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      alert(errorMessage)
-      // ..
+      console.error("Firebase error:", errorMessage);
+      // Fallback to local auth
+      registerLocalUser(firstName, lastName, email, password);
     });
 
 }
@@ -114,19 +119,19 @@ function validation(firstName, lastName, email, password) {
 
   if (isEmptyorSpaces(firstName) || isEmptyorSpaces(lastName) ||
     isEmptyorSpaces(email) || isEmptyorSpaces(password)) {
-    alert("Please complete all fields ")
+    console.error("Please complete all fields");
     return false;
   }
   if (!fNameRegex.test(firstName)) {
-    alert("The first name should only contain letters.")
+    console.error("The first name should only contain letters.");
     return false;
   }
   if (!lNameRegex.test(lastName)) {
-    alert("The last name should only contain letters.")
+    console.error("The last name should only contain letters.");
     return false;
   }
   if (!emailRegex.test(email)) {
-    alert("Please enter a valid email")
+    console.error("Please enter a valid email");
     return false;
   }
   return true;
@@ -139,4 +144,50 @@ function validation(firstName, lastName, email, password) {
 function encryptPass(password) {
   let encrypted = CryptoJS.AES.encrypt(password, password)
   return encrypted.toString();
+}
+
+// --------------- Local User Registration (Fallback) ---------------------//
+
+function registerLocalUser(firstName, lastName, email, password) {
+  fetch('/register_user', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      email: email,
+      password: password,
+      firstname: firstName,
+      lastname: lastName
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      // Store user in session
+      sessionStorage.setItem('user', JSON.stringify({
+        "uid": data.user_id,
+        "email": data.email,
+        "password": encryptPass(password),
+        "firstname": data.firstname,
+        "lastname": data.lastname
+      }));
+
+      // Send to app.py (simulate Firebase config)
+      const localConfig = {
+        ...firebaseConfig,
+        userID: data.user_id
+      };
+      fetch('/test', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(localConfig)
+      });
+
+      window.location = "home"; // Browser redirect to the home page
+    } else {
+      console.error("Local registration failed:", data.error);
+    }
+  })
+  .catch(error => {
+    console.error("Local registration error:", error);
+  });
 }

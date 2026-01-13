@@ -43,7 +43,7 @@ document.getElementById('signIn').onclick = function () {
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
 
-    // Attempt to sign user in
+    // Attempt to sign user in with Firebase first, then fallback to local
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             // Create a user and store the user ID
@@ -73,13 +73,17 @@ document.getElementById('signIn').onclick = function () {
                 })
                 .catch((error) => {
                     // Sign-in failed
-                    alert(error);
+                    console.error("Sign-in error:", error);
+                    // Fallback to local auth
+                    loginLocalUser(email, password);
                 });
         })
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            alert(errorMessage);
+            console.error("Firebase error:", errorMessage);
+            // Fallback to local auth
+            loginLocalUser(email, password);
         });
 }
 
@@ -118,4 +122,62 @@ function logIn(user, fbcfg) {
             "body": JSON.stringify(fbcfg)
         })
     }
+}
+
+// --------------- Local User Login (Fallback) -----------------------------//
+
+function loginLocalUser(email, password) {
+    fetch('/login_user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            email: email,
+            password: password
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const user = data.user;
+            let keepLoggedIn = document.getElementById('keepLoggedInSwitch').ariaChecked;
+
+            // Create fake Firebase config for compatibility
+            const localConfig = {
+                ...firebaseConfig,
+                userID: user.uid
+            };
+
+            // Store user data
+            if (!keepLoggedIn) {
+                sessionStorage.setItem('user', JSON.stringify({
+                    "uid": user.uid,
+                    "email": user.email,
+                    "firstname": user.firstname,
+                    "lastname": user.lastname
+                }));
+            } else {
+                localStorage.setItem('keepLoggedIn', 'yes');
+                localStorage.setItem('user', JSON.stringify({
+                    "uid": user.uid,
+                    "email": user.email,
+                    "firstname": user.firstname,
+                    "lastname": user.lastname
+                }));
+            }
+
+            // Send to app.py
+            fetch('/test', {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(localConfig)
+            });
+
+            window.location = "home"; // Browser redirect to the home page
+        } else {
+            console.error("Login failed:", data.error);
+        }
+    })
+    .catch(error => {
+        console.error("Local login error:", error);
+    });
 }

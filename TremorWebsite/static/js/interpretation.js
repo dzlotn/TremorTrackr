@@ -45,11 +45,17 @@ interactiveSections.forEach((section) => {
     componentName.textContent = info.name;
     componentInfo.textContent = info.info;
     infoBox.style.display = 'block';
+    infoBox.style.opacity = '1';
+    infoBox.style.visibility = 'visible';
+    infoBox.style.left = '90%';
+    infoBox.style.right = 'auto';
     section.style.backgroundColor = 'rgba(255, 255, 255, 0.15)';
   });
 
   section.addEventListener('mouseleave', () => {
     infoBox.style.display = 'none';
+    infoBox.style.opacity = '0';
+    infoBox.style.visibility = 'hidden';
     section.style.backgroundColor = 'rgba(255, 255, 255, 0)';
   });
 });
