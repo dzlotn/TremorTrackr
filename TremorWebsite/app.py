@@ -48,7 +48,9 @@ def procedure():
 @app.route('/data')
 def data():
     # Return a json of the user stored data file
-    with open('TremorWebsite\data\data.csv') as csvfile:
+    directory = os.path.dirname(__file__)
+    datafile = os.path.join(directory, 'data', 'data.csv')
+    with open(datafile) as csvfile:
         reader = csv.reader(csvfile, delimiter=",")
         headers = next(reader)
         data = []
@@ -97,7 +99,7 @@ def test():
         timeStamp = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
 
         return 'Success', 200
-    
+
     # POST2 request (Signing out)
     elif request.method == "POST2":
         print("logging out")
@@ -157,11 +159,9 @@ def test():
 
             # Add first datapoint of packet to csv for use in chart.js graphs
             row = [key, int(EMG[0]), float(IMU[0])]
-            filepath = 'data\data.csv'
-            filepathdata = 'data\rawData.csv'
             directory = os.path.dirname(__file__)
-            datafile = os.path.join(directory, filepath)
-            datafileRaw = os.path.join(directory,filepathdata)
+            datafile = os.path.join(directory, 'data', 'data.csv')
+            datafileRaw = os.path.join(directory, 'data', 'rawData.csv')
             with open(datafile, 'a', newline='') as csvfile:
                 # Check if first data point, in which case csv should be deleted
                 writer = csv.writer(csvfile)
@@ -187,3 +187,6 @@ def run_flask():
 
 if __name__ == '__main__':
     run_flask()
+
+# For Vercel deployment - ensure app is available
+__all__ = ['app']

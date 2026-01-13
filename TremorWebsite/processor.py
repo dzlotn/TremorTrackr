@@ -1,4 +1,4 @@
-'''
+ '''
   TremorTrackr
   Owen Powell, Daniel Zlotnick, Lauren Fleming, Angelina Otero
   5/30/23
@@ -37,7 +37,7 @@ def processingFunc(emg, acc, freq):
 
     # Calculates the number of segments, which is the closest power of 2 to 1/3 of the sample frequency
     numseg = closest_power_of_two(freq)
-    
+
 
     # Compute the power spectral density (PSD) using welch's blackman method and the number of segments defined above
     f1, Pxx_emg = signal.welch(
