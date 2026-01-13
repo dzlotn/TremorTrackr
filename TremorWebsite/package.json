@@ -1,0 +1,9 @@
+{
+  "name": "tremor-trackr",
+  "version": "1.0.0",
+  "description": "TremorTrackr Flask Application",
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {}
+}
